@@ -78,3 +78,4 @@ pip freeze > requirements.txt
 cd backend
 python manage.py runserver
 ```
+LocalHostに接続して、djangoの画面が表示されたら成功
