@@ -82,4 +82,3 @@ cd sandbox/map_test
 npm install
 npm run dev
 ```
-test
