@@ -79,5 +79,6 @@ LocalHostに接続して、djangoの画面が表示されたら成功
 # テストアプリの実行
 ```
 cd sandbox/map_test
+npm install
 npm run dev
 ```
