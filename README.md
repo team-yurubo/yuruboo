@@ -65,9 +65,7 @@ LocalHostに接続して、react + viteの画面が表示されたら成功
 
 djangoの環境構築 & 仮想環境の構築
 ```
-cd ./frontend
-cd backend
-python3 -m venv venv
+cd ../backend
 source venv/bin/activate
 ```
 仮想環境に入ったら(venv)が表示される
@@ -79,3 +77,9 @@ cd backend
 python manage.py runserver
 ```
 LocalHostに接続して、djangoの画面が表示されたら成功
+
+# テストアプリの実行
+```
+cd sandbox/map_test
+npm run dev
+```
