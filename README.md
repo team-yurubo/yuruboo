@@ -48,3 +48,33 @@ erDiagram
     user participant FK "参加者"
   }
 ```
+
+# 環境構築
+プロジェクトをcloneする
+```
+git clone https://github.com/team-yurubo/yuruboo.git
+```
+reactの環境構築
+```
+cd yuruboo
+cd frontend
+npm install
+npm run dev
+```
+LocalHostに接続して、react + viteの画面が表示されたら成功
+
+djangoの環境構築 & 仮想環境の構築
+```
+cd ./frontend
+cd backend
+python3 -m venv venv
+source venv/bin/activate
+```
+仮想環境に入ったら(venv)が表示される
+```
+pip install django
+pip install djangorestframework
+pip freeze > requirements.txt
+cd backend
+python manage.py runserver
+```
