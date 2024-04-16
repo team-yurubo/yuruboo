@@ -1,0 +1,1 @@
+declare type PinFilter = 'all' | 'ramen' | 'nomi' | 'sightseeing' | 'movie';
