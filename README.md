@@ -70,9 +70,7 @@ source venv/bin/activate
 ```
 仮想環境に入ったら(venv)が表示される
 ```
-pip install django
-pip install djangorestframework
-pip freeze > requirements.txt
+pip install requirements.txt
 cd backend
 python manage.py runserver
 ```
