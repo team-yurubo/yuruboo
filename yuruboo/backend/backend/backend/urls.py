@@ -16,10 +16,17 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import include, path
+from rest_framework import routers
+
+from users.views.genre import GenreViewSet
+
+router = routers.DefaultRouter()
+router.register('genres', GenreViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/auth/', include('auth.urls')),
     path('api/auth/', include('djoser.urls')),
-    path('api/auth/',include('djoser.urls.jwt')), 
+    path('api/auth/',include('djoser.urls.jwt')),
+    path('', include(router.urls)),
 ]
