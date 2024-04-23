@@ -7,6 +7,7 @@ erDiagram
   user ||--o{ gathering : "ユーザと募集は一対多"
   user ||--o{ message : "ユーザとメッセージは一対多"
   user ||--o{ participation : "ユーザと参加は一対多"
+  user ||--o{ ownership : "ユーザと所有者は一対多、ユーザと贈呈者は一対多"
   genre ||--o{ gathering : "ジャンルと募集は一対多"
   gathering ||--o{ message : "募集とメッセージは一対多"
   gathering ||--o{ participation : "募集と参加は一対多"
@@ -47,6 +48,13 @@ erDiagram
     gathering gathering FK "募集"
     user participant FK "参加者"
   }
+
+  ownership {
+    bigint id PK "Ownership ID"
+    user owner FK "所有者"
+    user presenter FK "贈呈者"
+    int count "本数"
+  }
 ```
 
 # 環境構築
@@ -70,7 +78,7 @@ source venv/bin/activate
 ```
 仮想環境に入ったら(venv)が表示される
 ```
-pip install requirements.txt
+pip install -r requirements.txt
 cd backend
 python manage.py runserver
 ```
