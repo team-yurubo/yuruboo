@@ -1,0 +1,18 @@
+[
+    {
+      "model": "users.Genre",
+      "pk": 1,
+      "fields": {
+        "name": "Movie",
+        "icon": null
+      }
+    }, 
+    {
+      "model": "users.Genre",
+      "pk": 2,
+      "fields": {
+        "name": "Food",
+        "icon": null
+      }
+    }
+]
