@@ -2,6 +2,8 @@ import axios from "axios";
 import { SignupUser } from "./types";
 
 // Django側で実装したエンドポイントにリクエストを送るための、APIリクエストを実装します。
+
+// ログインユーザーを非同期で取得するAPIリクエスト
 export const fetchAsyncLoginUser = async (email: string, password: string) => {
   try {
     const response = await axios.post(
@@ -14,7 +16,7 @@ export const fetchAsyncLoginUser = async (email: string, password: string) => {
         headers: {
           "Content-Type": "application/json",
         },
-        withCredentials: true,
+        withCredentials: true,    // クッキーを含めるためのオプション
       }
     );
     return response.data;
@@ -23,6 +25,7 @@ export const fetchAsyncLoginUser = async (email: string, password: string) => {
   }
 };
 
+// ログアウトユーザーを非同期で処理するAPIリクエスト
 export const fetchAsyncLogoutUser = async () => {
   try {
     await axios.post(
@@ -40,6 +43,7 @@ export const fetchAsyncLogoutUser = async () => {
   }
 };
 
+// トークンの検証を非同期で行うAPIリクエスト
 export const fetchAsyncTokenVerify = async () => {
   const response = await axios.post(
     "http://localhost:8000/api/auth/verify/",
@@ -54,6 +58,7 @@ export const fetchAsyncTokenVerify = async () => {
   return response.data;
 };
 
+// トークンのリフレッシュを非同期で行うAPIリクエスト
 export const fetchAsyncTokenRefresh = async () => {
   await axios.post(
     "http://localhost:8000/api/auth/refresh/",
@@ -67,6 +72,7 @@ export const fetchAsyncTokenRefresh = async () => {
   );
 };
 
+// サインアップユーザーを非同期で登録するAPIリクエスト
 export const fetchAsyncSignup = async (props: SignupUser) => {
   const formedData = {
     first_name: props.firstName,

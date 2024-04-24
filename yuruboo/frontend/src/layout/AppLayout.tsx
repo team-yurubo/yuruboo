@@ -7,7 +7,9 @@ import Main from "./components/Main";
 
 // デザインを統一するためのコンポーネントを実装します。メイン、サイドバー、トップバーで構成されます。
 const AppLayout: React.FC = () => {
+  // サイドバーの開閉状態を管理するステート変数
   const [open, setOpen] = useState(true);
+  // サイドバーの開閉状態を切り替える関数
   const handleDrawerOpenClose = () => {
     setOpen(!open);
   };
@@ -17,6 +19,7 @@ const AppLayout: React.FC = () => {
       <Sidebar open={open} />
       <Topbar open={open} handleOpenClose={handleDrawerOpenClose} />
       <Main open={open}>
+        {/* Outletコンポーネントを使用して、ルーティングされたコンポーネントを表示 */}
         <Outlet />
       </Main>
     </Box>

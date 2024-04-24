@@ -23,6 +23,9 @@ import { fetchAsyncSignup } from "./api";
 const Signup: React.FC = () => {
   const { isAuth, isLoading } = useAuthContext();
   const navigate = useNavigate();
+
+  // フォームのバリデーションスキーマを定義します。
+  // 各フィールドに対して必須チェックや文字数制限などのバリデーションルールを設定します。
   const validationSchema = Yup.object().shape({
     firstName: Yup.string().required("First Name is required"),
     lastName: Yup.string().required("Last Name is required"),
@@ -35,6 +38,7 @@ const Signup: React.FC = () => {
       .required("Confirm password is required"),
   });
 
+  // useFormikを使用してフォームの状態とバリデーションを管理します。
   const formik = useFormik({
     initialValues: {
       firstName: "",
@@ -44,18 +48,22 @@ const Signup: React.FC = () => {
       confirmPassword: "", // 確認用パスワードフィールドを追加
     },
     validationSchema,
+    // フォーム送信時の処理を定義します。
     onSubmit: async (state) => {
+      // サインアップAPIを呼び出して、ユーザーを作成します。
       await fetchAsyncSignup(state);
       navigate("/");
     },
   });
 
+  // useLayoutEffectを使用して、ユーザーがすでに認証済みの場合はホーム画面にリダイレクトします。
   useLayoutEffect(() => {
     if (isAuth) {
       navigate("/");
     }
   }, [isAuth, navigate]);
 
+  // ローディング中の場合は、Loadingコンポーネントを表示します。
   if (isLoading) {
     return <Loading />;
   }
