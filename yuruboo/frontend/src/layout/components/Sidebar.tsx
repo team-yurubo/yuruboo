@@ -19,6 +19,7 @@ interface SidebarProps {
   open: boolean;
 }
 
+// サイドバーに表示するリストアイテムの配列を定義
 const SidebarListItems = [
   {
     text: "hoge",
@@ -31,6 +32,7 @@ const SidebarListItems = [
 const Sidebar: React.FC<SidebarProps> = (props) => {
   const navigate = useNavigate();
 
+  // リストアイテムがクリックされたときの処理
   const handleItemClick = (to: string) => {
     navigate(to);
   };

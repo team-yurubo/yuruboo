@@ -3,10 +3,10 @@ import { fetchAsyncTokenRefresh, fetchAsyncTokenVerify } from "./api";
 
 // AuthContextの型を定義
 interface AuthContextProps {
-  isAuth: boolean;
-  isLoading: boolean;
-  signin: () => void;
-  signout: () => void;
+  isAuth: boolean;    // isAuth: ユーザーが認証されているかどうかを示すブール値
+  isLoading: boolean;   // isLoading: 認証状態の読み込み中かどうかを示すブール値
+  signin: () => void;   // signin: ユーザーがログインした時に呼び出される関数
+  signout: () => void;    // signout: ユーザーがログアウトした時に呼び出される関数
 }
 const AuthContext = createContext<AuthContextProps>({
   isAuth: false,
@@ -15,11 +15,15 @@ const AuthContext = createContext<AuthContextProps>({
   signout: () => {},
 });
 
+// useAuthContextフックを定義しています。
+// このフックを使用することで、コンポーネント内でAuthContextの値を簡単に取得できます。
+// useContext関数を使用して、AuthContextの現在の値を返します。
 export const useAuthContext = () => {
   return useContext(AuthContext);
 };
 
-// 認証状態を管理するためのコンテキスト（AuthContext）とプロバイダ（AuthProvider）を定義します。アプリケーション全体でユーザーの認証状態を管理し、認証が必要なコンポーネントで簡単に認証状態に基づいたレンダリングやリダイレクトを行うことができます。
+// 認証状態を管理するためのコンテキスト（AuthContext）とプロバイダ（AuthProvider）を定義します。
+// アプリケーション全体でユーザーの認証状態を管理し、認証が必要なコンポーネントで簡単に認証状態に基づいたレンダリングやリダイレクトを行うことができます。
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
@@ -36,6 +40,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
     setIsAuth(false);
   };
 
+  // useEffect内で、ユーザーの認証状態を確認するための非同期関数を定義しています。
   useEffect(() => {
     const verifyUser = async () => {
       // アクセストークンを使用してユーザー情報を取得するAPIリクエスト
@@ -62,9 +67,13 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
       }
     };
 
+    // verifyUser関数を呼び出して、ユーザーの認証状態を確認します。
     verifyUser();
   }, []);
 
+  // AuthContextのプロバイダを返します。
+  // value属性に、現在の認証状態（isAuth）、ローディング状態（isLoading）、signinとsignout関数を渡しています。
+  // これにより、子コンポーネントからAuthContextの値を参照できるようになります。
   return (
     <AuthContext.Provider value={{ isAuth, isLoading, signin, signout }}>
       {children}

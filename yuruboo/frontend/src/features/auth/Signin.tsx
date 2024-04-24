@@ -39,8 +39,11 @@ const Signin: React.FC = () => {
     validationSchema,
     onSubmit: async (state) => {
       try {
+        // ログインAPIリクエストを送信
         await fetchAsyncLoginUser(state.email, state.password);
+        // ログイン成功時にsigninを呼び出してisAuthをtrueに設定
         signin();
+        // ホーム画面にリダイレクト
         navigate("/");
       } catch (error: any) {
         setLoginError(error.detail || "Signin failed. Please try again.");
@@ -49,11 +52,13 @@ const Signin: React.FC = () => {
   });
 
   useLayoutEffect(() => {
+    // isAuthの変更を監視し、ログイン済みの場合はホーム画面にリダイレクト
     if (isAuth) {
       navigate("/");
     }
   }, [isAuth, navigate]);
 
+  // ローディング中の場合はLoadingコンポーネントを表示
   if (isLoading) {
     return <Loading />;
   }
