@@ -12,6 +12,7 @@ import { fetchAsyncLogoutUser } from "./api";
 import { useNavigate } from "react-router-dom";
 import { useAuthContext } from "./AuthContext";
 
+// サインアウトを実装します。
 const Signout: React.FC = () => {
   const navigate = useNavigate();
   const { signout } = useAuthContext();

@@ -27,6 +27,7 @@ const SidebarListItems = [
   },
 ];
 
+// サイドバーを実装します。
 const Sidebar: React.FC<SidebarProps> = (props) => {
   const navigate = useNavigate();
 

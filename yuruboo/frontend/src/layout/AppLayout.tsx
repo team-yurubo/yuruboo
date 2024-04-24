@@ -5,6 +5,7 @@ import Sidebar from "./components/Sidebar";
 import Topbar from "./components/Topbar";
 import Main from "./components/Main";
 
+// デザインを統一するためのコンポーネントを実装します。メイン、サイドバー、トップバーで構成されます。
 const AppLayout: React.FC = () => {
   const [open, setOpen] = useState(true);
   const handleDrawerOpenClose = () => {

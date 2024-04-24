@@ -17,6 +17,7 @@ import App from "./App";
 import { BrowserRouter } from "react-router-dom";
 import { AuthProvider } from "./features/auth/AuthContext";
 
+// 最後にindex.tsxを修正し、アプリを起動します。
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );

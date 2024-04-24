@@ -19,6 +19,7 @@ export const useAuthContext = () => {
   return useContext(AuthContext);
 };
 
+// 認証状態を管理するためのコンテキスト（AuthContext）とプロバイダ（AuthProvider）を定義します。アプリケーション全体でユーザーの認証状態を管理し、認証が必要なコンポーネントで簡単に認証状態に基づいたレンダリングやリダイレクトを行うことができます。
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {

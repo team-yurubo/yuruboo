@@ -7,6 +7,7 @@ interface MainProps {
   children: React.ReactNode;
 }
 
+// メインを実装します。
 const Main: React.FC<MainProps> = (props) => {
   return (
     <Box

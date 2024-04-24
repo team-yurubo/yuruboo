@@ -1,6 +1,7 @@
 import axios from "axios";
 import { SignupUser } from "./types";
 
+// Django側で実装したエンドポイントにリクエストを送るための、APIリクエストを実装します。
 export const fetchAsyncLoginUser = async (email: string, password: string) => {
   try {
     const response = await axios.post(
