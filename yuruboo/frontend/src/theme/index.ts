@@ -1,5 +1,6 @@
 import { createTheme as createMuiTheme } from "@mui/material";
 
+// MUIのデフォルト色を別の色に変更します。
 const themeOptions = {
   palette: {
     primary: {

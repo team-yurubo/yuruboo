@@ -9,6 +9,7 @@ interface TopbarProps {
   handleOpenClose: () => void;
 }
 
+// トップバーを実装します。
 const Topbar: React.FC<TopbarProps> = (props) => {
   return (
     <MuiAppBar
