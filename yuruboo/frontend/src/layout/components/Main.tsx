@@ -18,21 +18,21 @@ const Main: React.FC<MainProps> = (props) => {
         overflowX: "auto",
         height: "100vh",
         // ドロワーが閉じている場合は、marginLeftに負の値を設定して、メインコンテンツを左側に移動させます。
-        transition: (theme) =>
-          theme.transitions.create("margin", {
-            easing: theme.transitions.easing.sharp,
-            duration: theme.transitions.duration.leavingScreen,
-          }),
-        marginLeft: `-${DRAWWIDTH}`,    // DRAWWIDTHは、ドロワーの幅を表す定数で、別のファイルから読み込んでいます。
+        // transition: (theme) =>
+        //   theme.transitions.create("margin", {
+        //     easing: theme.transitions.easing.sharp,
+        //     duration: theme.transitions.duration.leavingScreen,
+        //   }),
+        // marginLeft: `-${DRAWWIDTH}`,    // DRAWWIDTHは、ドロワーの幅を表す定数で、別のファイルから読み込んでいます。
         // ドロワーが開いている場合は、marginLeftを0に設定して、メインコンテンツを元の位置に戻します。
-        ...(props.open && {
-          transition: (theme) =>
-            theme.transitions.create("margin", {
-              easing: theme.transitions.easing.easeOut,
-              duration: theme.transitions.duration.enteringScreen,
-            }),
-          marginLeft: 0,
-        }),
+        // ...(props.open && {
+        //   transition: (theme) =>
+        //     theme.transitions.create("margin", {
+        //       easing: theme.transitions.easing.easeOut,
+        //       duration: theme.transitions.duration.enteringScreen,
+        //     }),
+          // marginLeft: 0,
+        // }),
       }}
     >
       {props.children}

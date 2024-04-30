@@ -1,4 +1,7 @@
 import datetime
+import jwt
+import uuid
+from users.models import CustomUser
 
 from django.conf import settings
 from rest_framework import status
@@ -10,7 +13,6 @@ from rest_framework_simplejwt.exceptions import InvalidToken, TokenError
 from rest_framework_simplejwt.serializers import TokenVerifySerializer
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework_simplejwt.views import TokenObtainPairView
-
 
 class LoginView(TokenObtainPairView):
     def post(self, request: Request, *args, **kwargs) -> Response:
@@ -41,6 +43,21 @@ class LoginView(TokenObtainPairView):
             httponly=settings.SIMPLE_JWT["AUTH_COOKIE_HTTP_ONLY"],
             samesite=settings.SIMPLE_JWT["AUTH_COOKIE_SAMESITE"],
         )
+
+        payload = jwt.decode(
+            access_token, settings.SECRET_KEY, algorithms=["HS256"]
+        )
+        loginuser = CustomUser.objects.get(id=payload["user_id"])
+        # print(loginuser.first_name)
+
+        # レスポンスにloginuserの情報を追加
+        response.data["user"] = {
+            "id": loginuser.id,
+            "email": loginuser.email,
+            "user_name": loginuser.user_name,
+            # 他の必要なユーザー情報を追加
+        }
+
         return response
 
 
