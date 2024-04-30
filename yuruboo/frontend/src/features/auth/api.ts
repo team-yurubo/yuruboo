@@ -19,6 +19,7 @@ export const fetchAsyncLoginUser = async (email: string, password: string) => {
         withCredentials: true,    // クッキーを含めるためのオプション
       }
     );
+    console.log(response.data);
     return response.data;
   } catch (error: any) {
     throw error.response.data;

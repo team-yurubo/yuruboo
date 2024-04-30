@@ -9,6 +9,7 @@ interface AuthContextProps {
   signout: () => void;    // signout: ユーザーがログアウトした時に呼び出される関数
   user: any | null;
 }
+
 const AuthContext = createContext<AuthContextProps>({
   isAuth: false,
   isLoading: true,
@@ -46,14 +47,18 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
     setUser(null);
   };
 
+  // useEffect フックは、コンポーネントがマウントされた後、または指定された依存関係の値が変更された後に実行される副作用関数を定義するために使用されます。
   // useEffect内で、ユーザーの認証状態を確認するための非同期関数を定義しています。
   useEffect(() => {
     const verifyUser = async () => {
       // アクセストークンを使用してユーザー情報を取得するAPIリクエスト
       try {
         const response = await fetchAsyncTokenVerify();
+
+        // ローディング状態を false に設定し、ユーザーが認証されたことを示すために isAuth を true に設定
         setIsLoading(false);
         setIsAuth(true);
+
         return response;
       } catch (error: any) {
         if (error.response && error.response.status === 401) {
@@ -62,10 +67,14 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
             await fetchAsyncTokenRefresh();
             // 新しいアクセストークンでユーザー情報取得のリクエストを再試行
             const retryResponse = await fetchAsyncTokenVerify();
+
+            // リトライが成功した場合、ローディング状態を false に設定し、ユーザーが認証されたことを示すために isAuth を true に設定
             setIsLoading(false);
             setIsAuth(true);
+
             return retryResponse;
           } catch (error: any) {
+            // リトライが失敗した場合、ローディング状態を false に設定し、ユーザーが認証されていないことを示すために isAuth を false に設定
             setIsLoading(false);
             setIsAuth(false);
           }
