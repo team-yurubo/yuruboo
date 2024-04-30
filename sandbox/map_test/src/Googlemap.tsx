@@ -88,6 +88,10 @@ export const Googlemap=(props: Props)=>{
             visible={true}
             position={posi}
             onLoad={onLoad}
+            icon={{
+              url: "https://raw.githubusercontent.com/flatp/yuruimage/main/"+pin.genre+".png", // 画像のURLに置き換える
+              scaledSize: new window.google.maps.Size(60, 60), // アイコンのサイズを調整する
+            }}
             />
                 );
             })}

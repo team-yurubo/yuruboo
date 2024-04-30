@@ -33,6 +33,7 @@ export const GooglemapPosList = (props: Props) => (
         <TableHead>
           <TableRow>
             <TableCell>ID</TableCell>
+            <TableCell align="right">ジャンル</TableCell>
             <TableCell align="right">緯度</TableCell>
             <TableCell align="right">経度</TableCell>
           </TableRow>
@@ -46,6 +47,7 @@ export const GooglemapPosList = (props: Props) => (
                 <TableCell component="th" scope="row">
                   {pin.id}
                 </TableCell>
+                <TableCell align="right">{pin.genre}</TableCell>
                 <TableCell align="right">{pin.latitude}</TableCell>
                 <TableCell align="right">{pin.longitude}</TableCell>
               </TableRow>

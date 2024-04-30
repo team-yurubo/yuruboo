@@ -16,8 +16,10 @@ import { TodoApp } from "./TodoApp";
 import { GooglemapToolBar } from './GooglemapToolBar';
 import { GooglemapSideBar } from './GooglemapSideBar';
 import { GooglemapActionButton } from './GooglemapActionButton';
+import { GooglemapActionButton2 } from './GooglemapActionButton2';
 import { GooglemapPosList } from './GooglemapPosList';
 import { GooglemapSubmitForm } from './GooglemapSubmitForm';
+import { GooglemapSubmitForm2 } from './GooglemapSubmitForm2';
 import { GooglemapFilter } from './GooglemapFilter';
 
 import GlobalStyles from '@mui/material/GlobalStyles';
@@ -40,6 +42,7 @@ const theme = createTheme({
 });
 
 export const App = () => {
+  const [genre, setGenre] = useState('');
 	const [text, setText] = useState('');
 	const [latitude, setLatitude] = useState('');
 	const [longitude, setLongitude] = useState('');
@@ -47,6 +50,7 @@ export const App = () => {
 	const [drawerOpen, setDrawerOpen] = useState(false);
 	const [PosListOpen, setPosListOpen] = useState(false);
 	const [SubmitFormOpen, setSubmitFormOpen] = useState(false);
+  const [SubmitFormOpen2, setSubmitFormOpen2] = useState(false);
 	const [pinFilter, setPinFilter] = useState<PinFilter>('all');
 	const handleTogglePosList = () => {
     setPosListOpen((PosListOpen) => !PosListOpen);
@@ -57,13 +61,22 @@ export const App = () => {
 	const handleToggleSubmitForm = () => {
     setSubmitFormOpen((SubmitFormOpen) => !SubmitFormOpen);
   };
+  const handleToggleSubmitForm2 = () => {
+    setSubmitFormOpen2((SubmitFormOpen2) => !SubmitFormOpen2);
+  };
 	const handleSubmit = () => {
-    if (!latitude || !longitude) {
-      setSubmitFormOpen((SubmitFormOpen) => !SubmitFormOpen);
+    if (!latitude || !longitude || !genre) {
+      if (SubmitFormOpen) {
+        setSubmitFormOpen((SubmitFormOpen) => !SubmitFormOpen);
+      }
+      if (SubmitFormOpen2) {
+        setSubmitFormOpen2((SubmitFormOpen2) => !SubmitFormOpen2);
+      }
       return;
     }
 
     const newPin: Pin = {
+      genre: genre,
       latitude: latitude,
 			longitude: longitude,
       id: new Date().getTime(),
@@ -73,7 +86,14 @@ export const App = () => {
     setPins((pins) => [newPin, ...pins]);
     setLatitude('');
 		setLongitude('');
-    setSubmitFormOpen((SubmitFormOpen) => !SubmitFormOpen);
+    setGenre('');
+    //setSubmitFormOpen((SubmitFormOpen) => !SubmitFormOpen);
+    setSubmitFormOpen2((SubmitFormOpen2) => !SubmitFormOpen2);
+  };
+  const handleGenreChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    setGenre(e.target.value);
   };
 	const handleLatitudeChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -117,9 +137,30 @@ export const App = () => {
         onSubmit={handleSubmit}
         onToggleSubmitForm={handleToggleSubmitForm}
       />
+      <GooglemapSubmitForm2
+        latitude={latitude}
+				longitude={longitude}
+        genre={genre}
+        SubmitFormOpen2={SubmitFormOpen2}
+        onGenreChange={handleGenreChange}
+        onLatitudeChange={handleLatitudeChange}
+				onLongitudeChange={handleLongitudeChange}
+        onSubmit={handleSubmit}
+        onToggleSubmitForm2={handleToggleSubmitForm2}
+      />
 			<GooglemapActionButton
 				SubmitFormOpen={SubmitFormOpen}
 				onToggleSubmitForm={handleToggleSubmitForm}
+        // todos={todos} 
+        // filter={filter}
+        // alertOpen={alertOpen}
+        // dialogOpen={dialogOpen}
+        // onToggleAlert={handleToggleAlert}
+        // onToggleDialog={handleToggleDialog}
+      />
+      <GooglemapActionButton2
+				SubmitFormOpen2={SubmitFormOpen2}
+				onToggleSubmitForm2={handleToggleSubmitForm2}
         // todos={todos} 
         // filter={filter}
         // alertOpen={alertOpen}
