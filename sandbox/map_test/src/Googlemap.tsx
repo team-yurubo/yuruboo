@@ -88,6 +88,7 @@ export const Googlemap=(props: Props)=>{
             visible={true}
             position={posi}
             onLoad={onLoad}
+            icon={"https://maps.google.com/mapfiles/kml/pal4/icon28.png"}
             />
                 );
             })}

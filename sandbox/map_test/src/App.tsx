@@ -20,6 +20,8 @@ import { GooglemapPosList } from './GooglemapPosList';
 import { GooglemapSubmitForm } from './GooglemapSubmitForm';
 import { GooglemapFilter } from './GooglemapFilter';
 
+import { MyButton } from './MyButton';
+
 import GlobalStyles from '@mui/material/GlobalStyles';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { indigo, pink } from '@mui/material/colors';
@@ -126,6 +128,10 @@ export const App = () => {
         // dialogOpen={dialogOpen}
         // onToggleAlert={handleToggleAlert}
         // onToggleDialog={handleToggleDialog}
+      />
+      <MyButton
+        SubmitFormOpen={SubmitFormOpen}
+        onToggleSubmitForm={handleToggleSubmitForm}
       />
 			<GooglemapFilter
 				pinFilter={pinFilter}
