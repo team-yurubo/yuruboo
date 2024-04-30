@@ -57,6 +57,47 @@ erDiagram
   }
 ```
 
+# エンドポイントの定義
+```
+- user
+POST /users
+GET, PUT, PATCH, DELETE /users/{user_id}
+
+- genre
+GET /genres
+GET /genres/{genre_id}
+
+(ジャンルは、変更・追加・削除不可)
+
+
+- gathering
+POST /gatherings
+GET /gatherings
+GET, PUT, PATCH, DELETE /gatherings/{gathering_id}
+
+- participation
+POST /participations
+GET /participations (& gathering={gathering_id}) (& participant={user_id})
+GET, DELETE /participations/{participation_id}
+
+(参加は、変更不可)
+
+- message
+POST /messages
+GET /messages (& gathering={gathering_id})
+GET /messages/{message_id} 
+
+(個別メッセージは変更・削除不可)
+
+- ownerships
+POST /ownerships
+GET /ownerships (& owner={user_id})
+GET, PUT, PATCH /ownerships/{ownership_id}
+
+(ownershipの削除不可)
+```
+
+
 # 環境構築
 プロジェクトをcloneする
 ```
