@@ -1,8 +1,8 @@
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django.db import models
-
 from .managers import CustomUserManager
 
+import uuid
 
 # Create your models here.
 class CustomUser(AbstractBaseUser, PermissionsMixin):
@@ -12,11 +12,10 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
         verbose_name_plural = 'Users'
 
     email = models.EmailField(max_length=255, unique=True)
-    first_name = models.CharField(max_length=100)
-    last_name = models.CharField(max_length=100)
+    user_name = models.CharField(max_length=100)
 
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ('first_name', 'last_name',)
+    REQUIRED_FIELDS = ('user_name', )
 
     is_staff = models.BooleanField(
         default=False,
@@ -28,9 +27,9 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
 
     objects = CustomUserManager()
 
-    @property
-    def get_full_name(self):
-        return f'{self.first_name} {self.last_name}'
+    # @property
+    # def get_full_name(self):
+    #     return f'{self.first_name} {self.last_name}'
 
     def __str__(self) -> str:
         return self.email

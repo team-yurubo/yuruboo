@@ -40,9 +40,10 @@ const Signin: React.FC = () => {
     onSubmit: async (state) => {
       try {
         // ログインAPIリクエストを送信
-        await fetchAsyncLoginUser(state.email, state.password);
+        const response = await fetchAsyncLoginUser(state.email, state.password);
+        // console.log(response.user);
         // ログイン成功時にsigninを呼び出してisAuthをtrueに設定
-        signin();
+        signin(response.user);
         // ホーム画面にリダイレクト
         navigate("/");
       } catch (error: any) {

@@ -43,6 +43,10 @@ const options = {
       ]
     }
   ],
+  mapTypeControl: false,
+  streetViewControl: false,
+  fullscreenControl: false,
+  zoomControl: false,
 }
 
 export const Googlemap = () => {
