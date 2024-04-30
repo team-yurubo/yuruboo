@@ -5,8 +5,9 @@ import { fetchAsyncTokenRefresh, fetchAsyncTokenVerify } from "./api";
 interface AuthContextProps {
   isAuth: boolean;    // isAuth: ユーザーが認証されているかどうかを示すブール値
   isLoading: boolean;   // isLoading: 認証状態の読み込み中かどうかを示すブール値
-  signin: () => void;   // signin: ユーザーがログインした時に呼び出される関数
+  signin: (user: any) => void;   // signin: ユーザーがログインした時に呼び出される関数
   signout: () => void;    // signout: ユーザーがログアウトした時に呼び出される関数
+  user: any | null;
 }
 
 const AuthContext = createContext<AuthContextProps>({
@@ -14,6 +15,7 @@ const AuthContext = createContext<AuthContextProps>({
   isLoading: true,
   signin: () => {},
   signout: () => {},
+  user: null,
 });
 
 // useAuthContextフックを定義しています。
@@ -30,15 +32,19 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 }) => {
   const [isAuth, setIsAuth] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [user, setUser] = useState<any | null>(null);
 
   // ユーザーがログインした時に呼び出される関数
-  const signin = () => {
+  const signin = (loggedInUser: any) => {
     setIsAuth(true);
+    setUser(loggedInUser);
+    console.log(user);
   };
 
   // ユーザーがログアウトした時に呼び出される関数
   const signout = () => {
     setIsAuth(false);
+    setUser(null);
   };
 
   // useEffect フックは、コンポーネントがマウントされた後、または指定された依存関係の値が変更された後に実行される副作用関数を定義するために使用されます。
@@ -84,7 +90,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   // value属性に、現在の認証状態（isAuth）、ローディング状態（isLoading）、signinとsignout関数を渡しています。
   // これにより、子コンポーネントからAuthContextの値を参照できるようになります。
   return (
-    <AuthContext.Provider value={{ isAuth, isLoading, signin, signout }}>
+    <AuthContext.Provider value={{ isAuth, isLoading, signin, signout, user }}>
       {children}
     </AuthContext.Provider>
   );

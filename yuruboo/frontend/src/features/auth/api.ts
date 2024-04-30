@@ -76,8 +76,7 @@ export const fetchAsyncTokenRefresh = async () => {
 // サインアップユーザーを非同期で登録するAPIリクエスト
 export const fetchAsyncSignup = async (props: SignupUser) => {
   const formedData = {
-    first_name: props.firstName,
-    last_name: props.lastName,
+    user_name: props.userName,
     email: props.email,
     password: props.password,
   };

@@ -27,8 +27,7 @@ const Signup: React.FC = () => {
   // フォームのバリデーションスキーマを定義します。
   // 各フィールドに対して必須チェックや文字数制限などのバリデーションルールを設定します。
   const validationSchema = Yup.object().shape({
-    firstName: Yup.string().required("First Name is required"),
-    lastName: Yup.string().required("Last Name is required"),
+    userName: Yup.string().required("First Name is required"),
     email: Yup.string().required("Email is required"),
     password: Yup.string()
       .required("Password is required")
@@ -41,8 +40,7 @@ const Signup: React.FC = () => {
   // useFormikを使用してフォームの状態とバリデーションを管理します。
   const formik = useFormik({
     initialValues: {
-      firstName: "",
-      lastName: "",
+      userName: "",
       email: "",
       password: "",
       confirmPassword: "", // 確認用パスワードフィールドを追加
@@ -88,14 +86,8 @@ const Signup: React.FC = () => {
         <form noValidate onSubmit={formik.handleSubmit}>
           <Stack spacing={2}>
             <FormikTextField
-              name="firstName"
-              label="First Name *"
-              variant="standard"
-              formik={formik}
-            />
-            <FormikTextField
-              name="lastName"
-              label="Last Name *"
+              name="userName"
+              label="Username *"
               variant="standard"
               formik={formik}
             />

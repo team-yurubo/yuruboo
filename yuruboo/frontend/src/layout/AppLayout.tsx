@@ -5,6 +5,8 @@ import Sidebar from "./components/Sidebar";
 import Topbar from "./components/Topbar";
 import Main from "./components/Main";
 
+import { useAuthContext } from "../features/auth/AuthContext";
+
 // デザインを統一するためのコンポーネントを実装します。メイン、サイドバー、トップバーで構成されます。
 const AppLayout: React.FC = () => {
   // サイドバーの開閉状態を管理するステート変数
@@ -13,11 +15,24 @@ const AppLayout: React.FC = () => {
   const handleDrawerOpenClose = () => {
     setOpen(!open);
   };
+  const { user } = useAuthContext();
 
   return (
     <Box sx={{ display: "flex" }}>
-      <Sidebar open={open} />
-      <Topbar open={open} handleOpenClose={handleDrawerOpenClose} />
+      {/* aaa<br/>
+      aaa<br/>
+      aaa<br/>
+      aaa<br/>
+      aaa<br/>
+      {user && (
+          <div>
+            <h2>User Information</h2>
+            <p>Name: {user.first_name} {user.last_name}</p>
+            <p>Email: {user.email}</p>
+          </div>
+        )} */}
+      {/* <Sidebar open={open} />
+      <Topbar open={open} handleOpenClose={handleDrawerOpenClose} /> */}
       <Main open={open}>
         {/* Outletコンポーネントを使用して、ルーティングされたコンポーネントを表示 */}
         <Outlet />

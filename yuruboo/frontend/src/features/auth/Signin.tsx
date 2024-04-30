@@ -14,7 +14,7 @@ import * as Yup from "yup";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { Link, useNavigate } from "react-router-dom";
 import { FormikTextField } from "../../components/FormikTextField";
-import { fetchAsyncLoginUser, fetchAsyncTokenVerify } from "./api";
+import { fetchAsyncLoginUser } from "./api";
 import { useAuthContext } from "./AuthContext";
 import Loading from "../../components/Loading";
 
@@ -40,10 +40,10 @@ const Signin: React.FC = () => {
     onSubmit: async (state) => {
       try {
         // ログインAPIリクエストを送信
-        await fetchAsyncLoginUser(state.email, state.password);
+        const response = await fetchAsyncLoginUser(state.email, state.password);
+        // console.log(response.user);
         // ログイン成功時にsigninを呼び出してisAuthをtrueに設定
-        signin();
-
+        signin(response.user);
         // ホーム画面にリダイレクト
         navigate("/");
       } catch (error: any) {
