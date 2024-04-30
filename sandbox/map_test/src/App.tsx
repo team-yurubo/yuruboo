@@ -27,7 +27,7 @@ import { indigo, pink } from '@mui/material/colors';
 const theme = createTheme({
   palette: {
     primary: {
-      main: indigo[500],
+      main: '#BAA1A7',
       light: '#757de8',
       dark: '#002984',
     },
@@ -47,6 +47,7 @@ export const App = () => {
 	const [drawerOpen, setDrawerOpen] = useState(false);
 	const [PosListOpen, setPosListOpen] = useState(false);
 	const [SubmitFormOpen, setSubmitFormOpen] = useState(false);
+  const [SubmitFormOpen2, setSubmitFormOpen2] = useState(false);
 	const [pinFilter, setPinFilter] = useState<PinFilter>('all');
 	const handleTogglePosList = () => {
     setPosListOpen((PosListOpen) => !PosListOpen);
@@ -56,6 +57,9 @@ export const App = () => {
   };
 	const handleToggleSubmitForm = () => {
     setSubmitFormOpen((SubmitFormOpen) => !SubmitFormOpen);
+  };
+  const handleToggleSubmitForm2 = () => {
+    setSubmitFormOpen2((SubmitFormOpen2) => !SubmitFormOpen2);
   };
 	const handleSubmit = () => {
     if (!latitude || !longitude) {
