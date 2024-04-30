@@ -9,6 +9,7 @@ import {
 import { styled } from '@mui/material/styles';
 import LogoutIcon from "@mui/icons-material/Logout";
 import Fab from '@mui/material/Fab';
+import ContentPasteIcon from '@mui/icons-material/ContentPaste';
 import LocalFloristIcon from '@mui/icons-material/LocalFlorist';
 import Signout from "../../features/auth/Signout";
 import { useAuthContext } from "../auth/AuthContext";
@@ -83,6 +84,19 @@ export const UserInfo = (props: Props) => {
               borderColor:"#dbe9f4",
             }}>
               <ListItemText primary={<>ID：{user.id}</>} />
+          </ListItem>
+          <ListItem
+            disablePadding
+            sx={{ 
+              borderBottom:2,
+              borderColor:"#dbe9f4",
+            }}>
+            <ListItemButton>
+                <ListItemIcon>
+                  <ContentPasteIcon />
+                </ListItemIcon>
+                <ListItemText primary="プロフィール" />
+              </ListItemButton>
           </ListItem>
           <ListItem
             disablePadding
