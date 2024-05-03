@@ -19,9 +19,11 @@ from django.urls import include, path
 from rest_framework import routers
 
 from users.views.genre import GenreViewSet
+from users.views.gathering import GatheringViewSet
 
 router = routers.DefaultRouter()
 router.register('genres', GenreViewSet)
+router.register('gathering',GatheringViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
