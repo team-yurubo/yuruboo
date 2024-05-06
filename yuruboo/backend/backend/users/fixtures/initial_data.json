@@ -14,5 +14,42 @@
         "name": "Food",
         "icon": null
       }
+    },
+    {
+      "model": "users.Customuser",
+      "pk": 1,
+      "fields": {
+        "email": "e1@examle.com",
+        "first_name": "Taro",
+        "last_name": "Tanaka",
+        "is_staff": false,
+        "is_active": true
+      }
+
+    },
+    {
+      "model": "users.Customuser",
+      "pk": 2,
+      "fields": {
+        "email": "e2@examle.com",
+        "first_name": "Ko",
+        "last_name": "Suzuki",
+        "is_staff": false,
+        "is_active": true
+      }
+
+    },
+    {
+      "model": "users.Gathering",
+      "pk": 1,
+      "fields": {
+        "pos_lat": 35.010281215589174,
+        "pos_lng": 135.74121218747763,
+        "host": 1,
+        "genre": 1,
+        "body": "This is test explanation 1(Moive_taro).",
+        "num_participant": 2,
+        "created_at": "2020-07-27T02:12:40Z"
+      }
     }
 ]
