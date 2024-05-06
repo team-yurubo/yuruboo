@@ -20,10 +20,17 @@ from rest_framework import routers
 
 from users.views.genre import GenreViewSet
 from users.views.gathering import GatheringViewSet
+from users.views.ownership import OwnershipViewSet
+from users.views.message import MessageViewSet
+from users.views.participation import ParticipationViewSet
 
 router = routers.DefaultRouter()
 router.register('genres', GenreViewSet)
 router.register('gathering',GatheringViewSet)
+router.register('ownership',OwnershipViewSet)
+router.register('message',MessageViewSet)
+router.register('participation',ParticipationViewSet)
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
