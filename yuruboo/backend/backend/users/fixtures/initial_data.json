@@ -51,5 +51,78 @@
         "num_participant": 2,
         "created_at": "2020-07-27T02:12:40Z"
       }
+    },
+    {
+      "model": "users.Gathering",
+      "pk": 2,
+      "fields": {
+        "pos_lat": 35.039717840860426, 
+        "pos_lng": 135.7920336073815,
+        "host": 1,
+        "genre": 1,
+        "body": "This is test explanation 2(Food_ko).",
+        "num_participant": 2,
+        "created_at": "2020-07-27T05:20:45Z"
+      }
+    },
+    {
+      "model": "users.Ownership",
+      "pk": 1,
+      "fields": {
+        "owner": 1, 
+        "presenter": 2,
+        "count": 3
+        
+      }
+    },
+    {
+      "model": "users.Ownership",
+      "pk": 2,
+      "fields": {
+        "owner": 2, 
+        "presenter": 1,
+        "count": 4
+      }
+    },
+    {
+      "model": "users.Message",
+      "pk": 1,
+      "fields": {
+        "gathering": 1, 
+        "body": "Hello, this is message test explanation 1(Movie_taro).",
+        "sender": 1,
+        "created_at": "2020-07-27T02:12:40Z"
+      }
+    },
+    {
+      "model": "users.Message",
+      "pk": 2,
+      "fields": {
+        "gathering": 2, 
+        "body": "Hello, this is message test explanation 2(Food_ko).",
+        "sender": 2,
+        "created_at": "2020-07-27T05:20:45Z"
+      }
+    },
+    {
+      "model": "users.Participation",
+      "pk": 1,
+      "fields": {
+        "gathering": 1, 
+        "participant": 2
+
+      }
+    },
+    {
+      "model": "users.Participation",
+      "pk": 2,
+      "fields": {
+        "gathering": 2, 
+        "participant": 1
+
+      }
     }
+   
+
+
 ]
