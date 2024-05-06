@@ -4,4 +4,7 @@ from .gathering import GatheringSerializer
 __all__ = [
     "GenreSerializer",
     "GatheringSerializer",
+    "MessageSerializer",
+    "OwnershipSerializer",
+    "ParticipationSerializer",
 ]
