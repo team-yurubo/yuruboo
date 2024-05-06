@@ -25,6 +25,7 @@ import { MyButton } from './MyButton';
 import GlobalStyles from '@mui/material/GlobalStyles';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { indigo, pink } from '@mui/material/colors';
+import Chat1 from "./components/chat/Chat1";
 
 const theme = createTheme({
   palette: {
@@ -93,7 +94,7 @@ export const App = () => {
 	return (
 		<ThemeProvider theme={theme}>
 			<GlobalStyles styles={{ body: { margin: 0, padding: 0 } }} />
-			<GooglemapToolBar onToggleDrawer={handleToggleDrawer} />
+			{/* <GooglemapToolBar onToggleDrawer={handleToggleDrawer} /> */}
       <GooglemapSideBar
         drawerOpen={drawerOpen}
         // onSort={handleSort}
@@ -102,6 +103,7 @@ export const App = () => {
 				onTogglePosList={handleTogglePosList}
         // onToggleGooglemap={handleToggleGooglemap}
       />
+      <Chat1 />
 			<Googlemap
 				pins={pins}
 			/>
