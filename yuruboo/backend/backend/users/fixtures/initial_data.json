@@ -58,10 +58,10 @@
       "fields": {
         "pos_lat": 35.039717840860426, 
         "pos_lng": 135.7920336073815,
-        "host": 1,
-        "genre": 1,
+        "host": 2,
+        "genre": 2,
         "body": "This is test explanation 2(Food_ko).",
-        "num_participant": 2,
+        "num_participant": 4,
         "created_at": "2020-07-27T05:20:45Z"
       }
     },
