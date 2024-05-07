@@ -26,6 +26,8 @@ type Props = {
   longitude: string;
   genre: string;
   SubmitFormOpen2: boolean;
+  MapClick: boolean;
+  nextformat: () => void;
   onSubmit: () => void;
   onLatitudeChange: (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -260,7 +262,7 @@ export const GooglemapSubmitForm2 = (props: Props) => (
             }}
             label="詳細"
           />
-          <TextField
+          {/* <TextField
           aria-label="todo-input"
           variant="standard"
           style={{
@@ -283,12 +285,12 @@ export const GooglemapSubmitForm2 = (props: Props) => (
           label="経度"
           onChange={(e) => props.onLongitudeChange(e)}
           value={props.longitude}
-        />
+        /> */}
           <DialogActions>
             <Button
               aria-label="form-add"
               color="secondary"
-              onClick={props.onSubmit}
+              onClick={props.nextformat}
             >
               次へ
             </Button>

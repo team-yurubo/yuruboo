@@ -8,6 +8,7 @@ import IconButton from '@mui/material/IconButton';
 type Props = {
     // filter: Filter;
     onToggleDrawer: () => void;
+    MapClick: boolean;
   };
 
   export const GooglemapToolBar = (props: Props) => (
@@ -27,7 +28,12 @@ type Props = {
           >
             <Icon>menu</Icon>
           </IconButton>
-          <Typography>Yuruboo</Typography>
+          {/* <Typography>Yuruboo</Typography> */}
+          <div>
+          <img src={"https://raw.githubusercontent.com/flatp/yuruimage/main/logo.png"} alt="Yuruboo" style={{ width: '15%', height: 'auto',marginTop: '5px', marginBottom: '5px', }} />
+            {props.MapClick && <p style={{fontSize: '20px',textAlign: 'center',}}>集合場所を選択してください</p>}
+            {/* 他のコンポーネントやロジックをここに追加 */}
+        </div>
         </Toolbar>
       </AppBar>
     </Box>

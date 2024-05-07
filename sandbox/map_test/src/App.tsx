@@ -51,6 +51,7 @@ export const App = () => {
 	const [PosListOpen, setPosListOpen] = useState(false);
 	const [SubmitFormOpen, setSubmitFormOpen] = useState(false);
   const [SubmitFormOpen2, setSubmitFormOpen2] = useState(false);
+  const [MapClick, setMapClick] = useState(false);
 	const [pinFilter, setPinFilter] = useState<PinFilter>('all');
 	const handleTogglePosList = () => {
     setPosListOpen((PosListOpen) => !PosListOpen);
@@ -64,6 +65,14 @@ export const App = () => {
   const handleToggleSubmitForm2 = () => {
     setSubmitFormOpen2((SubmitFormOpen2) => !SubmitFormOpen2);
   };
+  const nextformat = () => {
+    if(!genre){
+      setSubmitFormOpen2((SubmitFormOpen2) => !SubmitFormOpen2);
+      return
+    }
+    setMapClick((MapClick) => (!MapClick))
+    setSubmitFormOpen2((SubmitFormOpen2) => !SubmitFormOpen2);
+  }
 	const handleSubmit = () => {
     if (!latitude || !longitude || !genre) {
       if (SubmitFormOpen) {
@@ -74,7 +83,7 @@ export const App = () => {
       }
       return;
     }
-
+    setMapClick((MapClick) => (!MapClick))
     const newPin: Pin = {
       genre: genre,
       latitude: latitude,
@@ -88,7 +97,30 @@ export const App = () => {
 		setLongitude('');
     setGenre('');
     //setSubmitFormOpen((SubmitFormOpen) => !SubmitFormOpen);
-    setSubmitFormOpen2((SubmitFormOpen2) => !SubmitFormOpen2);
+    //setSubmitFormOpen2((SubmitFormOpen2) => !SubmitFormOpen2);
+  };
+  const createMarker = (e: google.maps.MapMouseEvent) => {
+    if (!MapClick){
+      return;
+    }
+    const lat = e.latLng?.lat();
+    const lng = e.latLng?.lng();
+    if (!lat || !lng) {
+      return;
+    }
+    setMapClick((MapClick) => (!MapClick))
+    const newPin: Pin = {
+      genre: genre,
+      latitude: String(lat),
+			longitude: String(lng),
+      id: new Date().getTime(),
+			tag: [],
+    };
+
+    setPins((pins) => [newPin, ...pins]);
+    setLatitude('');
+		setLongitude('');
+    setGenre('');
   };
   const handleGenreChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -111,7 +143,9 @@ export const App = () => {
 	return (
 		<ThemeProvider theme={theme}>
 			<GlobalStyles styles={{ body: { margin: 0, padding: 0 } }} />
-			<GooglemapToolBar onToggleDrawer={handleToggleDrawer} />
+			<GooglemapToolBar 
+      onToggleDrawer={handleToggleDrawer}
+      MapClick={MapClick} />
       <GooglemapSideBar
         drawerOpen={drawerOpen}
         // onSort={handleSort}
@@ -122,6 +156,7 @@ export const App = () => {
       />
 			<Googlemap
 				pins={pins}
+        createMarker={createMarker}
 			/>
 			<GooglemapPosList
 				open={PosListOpen}
@@ -146,6 +181,8 @@ export const App = () => {
         onLatitudeChange={handleLatitudeChange}
 				onLongitudeChange={handleLongitudeChange}
         onSubmit={handleSubmit}
+        MapClick={MapClick}
+        nextformat={nextformat}
         onToggleSubmitForm2={handleToggleSubmitForm2}
       />
 			<GooglemapActionButton
