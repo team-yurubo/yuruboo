@@ -7,3 +7,10 @@ class OwnershipViewSet(viewsets.ModelViewSet):
     queryset = Ownership.objects.all()
     serializer_class = OwnershipSerializer
     permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        owner = self.request.query_params.get('owner')
+
+        queryset = Ownership.objects.filter(owner=owner)
+
+        return queryset

@@ -7,3 +7,10 @@ class MessageViewSet(viewsets.ModelViewSet):
     queryset = Message.objects.all()
     serializer_class = MessageSerializer
     permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        gathering = self.request.query_params.get('gathering')
+
+        queryset = Message.objects.filter(gathering=gathering)
+
+        return queryset
