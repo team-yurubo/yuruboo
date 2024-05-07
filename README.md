@@ -131,3 +131,37 @@ cd sandbox/map_test
 npm install
 npm run dev
 ```
+
+# プロジェクトの実行
+### バックエンドの起動
+
+ターミナルを立ち上げ、`yuruboo/backend/backend`に移動(manage.pyのあるディレクトリ)し、以下を実行
+```
+python manage.py runserver
+```
+もしなんかエラーが起きたら以下を実行
+```
+pip install -r requirements.txt
+```
+
+### フロントエンドの起動
+
+バックエンドとは別の**新しいターミナル**を立ち上げ、`yuruboo/frontend`に移動(index.html)し、以下を実行
+```
+npm run dev
+```
+もしなんかエラーが起きたら以下を実行
+```
+npm install
+```
+これでもなんかエラーが起きたら以下を実行
+```
+(macの場合)
+rm -rf node_modules
+npm install
+
+(windoewの場合)
+rm -r node_modules
+npm install
+```
+最後に、`http://127.0.0.1:5173/`or`http://localhost:5173/`にアクセス
