@@ -11,6 +11,7 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import Fab from '@mui/material/Fab';
 import ContentPasteIcon from '@mui/icons-material/ContentPaste';
 import LocalFloristIcon from '@mui/icons-material/LocalFlorist';
+import ChatIcon from '@mui/icons-material/Chat';
 import Signout from "../../features/auth/Signout";
 import { useAuthContext } from "../auth/AuthContext";
 import { fetchAsyncLogoutUser } from "../auth/api";
@@ -109,6 +110,19 @@ export const UserInfo = (props: Props) => {
                   <LocalFloristIcon />
                 </ListItemIcon>
                 <ListItemText primary="Go To お花畑" />
+              </ListItemButton>
+          </ListItem>
+          <ListItem
+            disablePadding
+            sx={{ 
+              borderBottom:2,
+              borderColor:"#dbe9f4",
+            }}>
+            <ListItemButton onClick={() => navigate('/chat')}>
+                <ListItemIcon>
+                  <ChatIcon />
+                </ListItemIcon>
+                <ListItemText primary="Go To Chat" />
               </ListItemButton>
           </ListItem>
           <ListItem key="signout" disablePadding>
