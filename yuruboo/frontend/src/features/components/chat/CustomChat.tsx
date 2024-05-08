@@ -48,7 +48,7 @@ const CustomChat: React.FC = () => {
   const userName = user.user_name
   const dummyPngURL1 = "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhXNTz9LqGn-dTyacBt2n0JiCetzrkETOcF1neofXOypU1Zsb9afUTiMRm_G71xMuiuUH7WQKV8or5nhAARuDmTh7mp31wAh5mckUaUgTU3D_Hzz7hjDRsddYUWpXWrSdYrozHOj9heLMw/s800/monster01.png"
   const dummyPngURL2 = "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhcGlFVplWQL65fn-lrtazTQL6rvrthKW6gtO2EeHeeNDEP2nJtpdUhDLzsT60ucQ25WT3KYA7Iw2p0Ji9Kn1RvnmTWhVqc8XbvTIFUu9P6zabvrX4r78cSjnxhhWELWL7piPX4rUeSdnI/s800/monster02.png"
-  const dummyPngURL3 = "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiKV_oLKiifq2C4ODn3hjGAbeUtiwICKuEphF2A_bMy2vQvgWztE53ZJkv1rh_LXE_6bzvswCuxPIkVENk_2mpN7HPu_jTO-eYOh4Bm2gfWW8eg9YxUqfg_pe9D9iGkflTvxnri1etGrw1r/s800/button_start1.png"
+  const dummyPngURL3 = "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjVMT6Um09tlBYsR7k6je7dtPnqC4dFPIT7N1FM47dErqbe6ePNc495vo_JljzhXAkhZgGKMTRUSqMokIJ7etD7fVhKUFhI-4eXQrV8RBdV2Y_aAEDp-7AcH-1vgrNHPIn7opLb-5f5SJat/s800/kamihikouki_omote.png"
   // useEffect( () => {
   //   // 同期処理イベント（最新10件をとるためdateでソート)
   //   messagesRef.orderBy("date", "desc").limit(10).onSnapshot((snapshot) => {
@@ -104,33 +104,33 @@ const CustomChat: React.FC = () => {
   };
 
   return (
-    // <>
-    //   {/* チャットログ */}
-    //   <div>      
-    //     {chatLogs.map((item, i) => (
-    //       <div className={userName===item.name? 'balloon_r': 'balloon_l'} key={item.key}>
-    //         {userName===item.name? getStrTime(item.date): '' }
-    //         <div className="faceicon">
-    //           <img src={userName===item.name? dummyPngURL1: dummyPngURL2} width="50px" alt="" />
-    //         </div>
-    //         <div style={{marginLeft: '3px'}}>
-    //           {item.name}<p className="says">{item.msg}</p>
-    //         </div>
-    //         {userName===item.name? '': getStrTime(item.date)}
-    //       </div>
-    //     ))}
-    //   </div>
-      
-    //   {/* メッセージ入力 */}
-    //   <form className='chatform' onSubmit={e => { submitMsg();e.preventDefault() }}>
-    //     <div>{userName}</div>       
-    //       <input type="text" value={msg} onChange={(e) => setMsg(e.target.value)} />
-    //       <input type='image' onClick={submitMsg} src={dummyPngURL3} width="50px" alt='' />       
-    //   </form>
-    // </>
     <div>
       <h1>Chat</h1>
       <UserInfoWrapper />
+    <>
+      {/* チャットログ */}
+      <div>      
+        {chatLogs.map((item, i) => (
+          <div className={userName===item.name? 'balloon_r': 'balloon_l'} key={item.key}>
+            {userName===item.name? getStrTime(item.date): '' }
+            <div className="faceicon">
+              <img src={userName===item.name? dummyPngURL1: dummyPngURL2} width="50px" alt="" />
+            </div>
+            <div style={{marginLeft: '3px'}}>
+              {item.name}<p className="says">{item.msg}</p>
+            </div>
+            {userName===item.name? '': getStrTime(item.date)}
+          </div>
+        ))}
+      </div>
+      
+      {/* メッセージ入力 */}
+      <form className='chatform' onSubmit={e => { submitMsg();e.preventDefault() }}>
+        <div>{userName}</div>       
+          <input type="text" value={msg} onChange={(e) => setMsg(e.target.value)} />
+          <input type='image' onClick={submitMsg} src={dummyPngURL3} width="50px" alt='' />       
+      </form>
+    </>
     </div>
   );
 };
