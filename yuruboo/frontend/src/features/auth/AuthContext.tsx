@@ -31,8 +31,8 @@ export const useAuthContext = () => {
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
-  const [isAuth, setIsAuth] = useLocalStorage("isAuth", false);
-  const [isLoading, setIsLoading] = useLocalStorage("isLoading", true);
+  const [isAuth, setIsAuth] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [user, setUser] = useLocalStorage<any | null>('user', null);
 
   // ユーザーがログインした時に呼び出される関数
