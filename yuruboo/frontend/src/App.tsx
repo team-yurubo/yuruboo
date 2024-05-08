@@ -39,6 +39,7 @@ import Home from "./features/home/Home";
 import Signup from "./features/auth/Signup";
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import { createTheme } from "./theme";
+import CustomChat from "./features/components/chat/CustomChat";
 
 function App() {
   const theme = createTheme();
@@ -49,6 +50,7 @@ function App() {
         <Routes>
           <Route path="/" element={<PrivateRoute element={<AppLayout />} />}>
             <Route index element={<Home />} />
+            <Route path="chat" element={<CustomChat />} />
           </Route>
           <Route path="/signin" element={<Signin />} />
           <Route path="/signup" element={<Signup />} />
