@@ -2,6 +2,7 @@ import React, {useState, useMemo, useEffect} from 'react';
 // import db from './firebaseConfig';
 import './chat.css';
 import { useAuthContext } from '../../auth/AuthContext';
+import UserInfoWrapper from './UserInfoWrapper';
 
 type ChatLog = {
   key: string,
@@ -129,6 +130,7 @@ const CustomChat: React.FC = () => {
     // </>
     <div>
       <h1>Chat</h1>
+      <UserInfoWrapper />
     </div>
   );
 };
