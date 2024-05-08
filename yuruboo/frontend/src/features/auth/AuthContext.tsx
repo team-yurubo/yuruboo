@@ -1,5 +1,6 @@
 import React, { createContext, useState, useContext, useEffect } from "react";
 import { fetchAsyncTokenRefresh, fetchAsyncTokenVerify } from "./api";
+import useLocalStorage from "../components/hooks/useLocalStorage";
 
 // AuthContextの型を定義
 interface AuthContextProps {
@@ -30,9 +31,9 @@ export const useAuthContext = () => {
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
-  const [isAuth, setIsAuth] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
-  const [user, setUser] = useState<any | null>(null);
+  const [isAuth, setIsAuth] = useLocalStorage("isAuth", false);
+  const [isLoading, setIsLoading] = useLocalStorage("isLoading", true);
+  const [user, setUser] = useLocalStorage<any | null>('user', null);
 
   // ユーザーがログインした時に呼び出される関数
   const signin = (loggedInUser: any) => {
