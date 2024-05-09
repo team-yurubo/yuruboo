@@ -10,7 +10,7 @@ interface FormikTextFieldProps<T> {
   autoComplete?: "new-password";
 }
 
-// ジェネリック型をコンポーネントに適用
+// フォーム処理においてFormikライブラリとMUIを組み合わせたカスタムフォームフィールドコンポーネントを定義している。ジェネリック型Tを使用することで、任意のフォームデータ型に対応するように実装している。
 export const FormikTextField = <T extends {}>(
   props: FormikTextFieldProps<T>
 ) => {

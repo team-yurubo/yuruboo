@@ -4,21 +4,26 @@ import MuiAppBar from "@mui/material/AppBar";
 import MenuIcon from "@mui/icons-material/Menu";
 import { DRAWWIDTH } from "../constants";
 
+// TopbarPropsインターフェースを定義
 interface TopbarProps {
-  open: boolean;
-  handleOpenClose: () => void;
+  open: boolean;    // open: サイドバーの開閉状態を表すブール値
+  handleOpenClose: () => void;    // handleOpenClose: サイドバーの開閉を制御する関数
 }
 
+// トップバーを実装します。
 const Topbar: React.FC<TopbarProps> = (props) => {
   return (
+    // MuiAppBarコンポーネントを使用して、トップバーを表示しています。
     <MuiAppBar
       component={Box}
       sx={{
+        // サイドバーが閉じているときは、トップバーは画面の上部に表示されます。
         transition: (theme) =>
           theme.transitions.create(["margin", "width"], {
             easing: theme.transitions.easing.sharp,
             duration: theme.transitions.duration.leavingScreen,
           }),
+        // サイドバーが開いているときは、トップバーの幅が調整され、サイドバーの幅分だけ右側にずれます。
         ...(props.open && {
           width: `calc(100% - ${DRAWWIDTH})`,
           marginLeft: `${DRAWWIDTH}`,
@@ -39,6 +44,7 @@ const Topbar: React.FC<TopbarProps> = (props) => {
           }}
         >
           <Box>
+            {/* メニューアイコンボタンがクリックされると、handleOpenCloseプロパティで渡された関数が呼び出され、サイドバーの開閉状態が切り替わります。 */}
             <IconButton
               color="inherit"
               aria-label="open drawer"
