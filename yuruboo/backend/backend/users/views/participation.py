@@ -13,7 +13,15 @@ class ParticipationViewSet(viewsets.ModelViewSet):
         gathering = self.request.query_params.get('gathering')
         participant= self.request.query_params.get('participant')
 
-        queryset = Participation.objects.filter(gathering=gathering, participant=participant)
+        params = {}
+
+        if gathering :
+            params['gathering'] = gathering
+        if participant:
+            params['participant'] = participant
+
+
+        queryset = Participation.objects.filter(**params)
 
         return queryset
 

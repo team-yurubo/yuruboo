@@ -11,6 +11,11 @@ class MessageViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         gathering = self.request.query_params.get('gathering')
 
-        queryset = Message.objects.filter(gathering=gathering)
+        params = {}
+
+        if gathering:
+            params['gathering'] = gathering
+
+        queryset = Message.objects.filter(**params)
 
         return queryset

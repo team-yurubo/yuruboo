@@ -11,6 +11,11 @@ class OwnershipViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         owner = self.request.query_params.get('owner')
 
-        queryset = Ownership.objects.filter(owner=owner)
+        params = {}
+
+        if owner:
+            params['owner'] = owner
+
+        queryset = Ownership.objects.filter(**params)
 
         return queryset
