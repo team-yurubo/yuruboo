@@ -7,7 +7,7 @@ import uuid
 class Gathering(models.Model):
     id : models.UUIDField = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     pos_lat : models.FloatField =  models.FloatField(help_text="募集場所_緯度")
-    pos_lut : models.FloatField =  models.FloatField(help_text="募集場所_経度")
+    pos_lng : models.FloatField =  models.FloatField(help_text="募集場所_経度")
     host : models.ForeignKey = models.ForeignKey(CustomUser, on_delete=models.PROTECT, help_text="募集者")
     genre : models.ForeignKey = models.ForeignKey(Genre, on_delete=models.PROTECT, help_text="ジャンル")
     body : models.CharField = models.CharField(max_length=1024, help_text="本文")
