@@ -26,10 +26,10 @@ from users.views.participation import ParticipationViewSet
 
 router = routers.DefaultRouter()
 router.register('genres', GenreViewSet)
-router.register('gathering',GatheringViewSet)
-router.register('ownership',OwnershipViewSet)
-router.register('message',MessageViewSet)
-router.register('participation',ParticipationViewSet)
+router.register('gatherings',GatheringViewSet)
+router.register('ownerships',OwnershipViewSet)
+router.register('messages',MessageViewSet)
+router.register('participations',ParticipationViewSet)
 
 
 urlpatterns = [
