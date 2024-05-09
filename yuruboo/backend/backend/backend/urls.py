@@ -18,11 +18,11 @@ from django.contrib import admin
 from django.urls import include, path
 from rest_framework import routers
 
-from users.views.genre import GenreViewSet
-from users.views.gathering import GatheringViewSet
-from users.views.ownership import OwnershipViewSet
-from users.views.message import MessageViewSet
-from users.views.participation import ParticipationViewSet
+from app.views.genre import GenreViewSet
+from app.views.gathering import GatheringViewSet
+from app.views.ownership import OwnershipViewSet
+from app.views.message import MessageViewSet
+from app.views.participation import ParticipationViewSet
 
 router = routers.DefaultRouter()
 router.register('genres', GenreViewSet)
