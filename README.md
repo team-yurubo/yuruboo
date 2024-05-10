@@ -14,7 +14,10 @@ erDiagram
   
   user {
     bigint id PK "User ID"
-    string name "名前"
+    string email "メールアドレス"
+    string user_name "名前"
+    bool is_staff "-"
+    bool is_active "-"
     string profile "プロフィール"
   }
 
