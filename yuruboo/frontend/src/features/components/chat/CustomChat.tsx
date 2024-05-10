@@ -39,9 +39,12 @@ async function fetchData(url: string, searchParams: URLSearchParams) {
   if (searchParams.size !== 0) {
     url += "?" + searchParams.toString();
   }
-  const data = await fetch(url, {credentials: "include"});
-  const res = await data.json();
-  return res;
+  const res = await fetch(url, {credentials: "include"});
+  if (!res.ok) {
+    throw new Error("fetchに失敗しました");
+  }
+  const data = await res.json();
+  return data;
 }
 
 async function getCurrentParticipation(user: any) {
@@ -128,32 +131,6 @@ const CustomChat: React.FC = () => {
 
     setMsg("");
   };
-
-
-  
-  
-  console.log("promise chain")
-  fetch(url, {credentials: "include"})
-  .then((res) => {
-   if (!res.ok) {
-     throw new Error("fetchに失敗しました");
-   }
-   return res.json()
-  })
-  .then((data) => console.log(data))
-  .catch((error) => console.error("エラーです:", error));
-  
-
-  useEffect(() => {
-    async function fetchData() {
-      const data = await fetch(url, {credentials: "include"});
-      const res = await data.json();
-      console.log(res);
-    }
-    fetchData();
-  }, []);
-
-
 
 
   return (
