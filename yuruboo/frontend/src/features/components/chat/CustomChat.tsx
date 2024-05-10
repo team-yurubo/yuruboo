@@ -35,35 +35,67 @@ function getStrTime(time: any){
   return `${t.getHours()}`.padStart(2, '0') + ':' + `${t.getMinutes()}`.padStart(2, '0');
 }
 
+async function fetchData(url: string, searchParams: URLSearchParams) {
+  if (searchParams.size !== 0) {
+    url += "?" + searchParams.toString();
+  }
+  const data = await fetch(url, {credentials: "include"});
+  const res = await data.json();
+  return res;
+}
+
+async function getCurrentParticipation(user: any) {
+  const participations_query = new URLSearchParams({participant: user.id});
+  const participations_url = `http://localhost:8000/participations/`;
+
+  const user_participation_data = await fetchData(participations_url, participations_query);
+  if (user_participation_data.length === 0) {
+    return;
+  }
+  const user_participation = user_participation_data[0];
+  return user_participation;
+}
+
+async function getGathering(gathering_id: any) {
+  const gatherings_query = new URLSearchParams();
+  const gatherings_url = `http://localhost:8000/gatherings/${gathering_id}/`;
+
+  const gathering_data = await fetchData(gatherings_url, gatherings_query);
+  if (gathering_data.length === 0) {
+    return;
+  }
+  const gathering = gathering_data[0];
+  return gathering;
+}
+
+async function getMessages(gathering_id: any) {
+  const messages_query = new URLSearchParams({gathering: gathering_id});
+  const messages_url = `http://localhost:8000/messages/`;
+
+  const messages_data = await fetchData(messages_url, messages_query);
+  if (messages_data.length === 0) {
+    return;
+  }
+  const messages = messages_data;
+  return messages;
+}
+
+
 
 /**
  * チャットコンポーネント(Line風)
  */
 const CustomChat: React.FC = () => {
-    const { user } = useAuthContext();
+  const { user } = useAuthContext();
   const [chatLogs, setChatLogs] = useState<ChatLog[]>([]);
   const [msg, setMsg] = useState('');
-  // const userName = useMemo(() => getUName(), []);
-  // const messagesRef = useMemo(() => db.collection("chatroom").doc("room1").collection("messages"), []);
   const userName = user.user_name
+
   const dummyPngURL1 = "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhXNTz9LqGn-dTyacBt2n0JiCetzrkETOcF1neofXOypU1Zsb9afUTiMRm_G71xMuiuUH7WQKV8or5nhAARuDmTh7mp31wAh5mckUaUgTU3D_Hzz7hjDRsddYUWpXWrSdYrozHOj9heLMw/s800/monster01.png"
   const dummyPngURL2 = "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhcGlFVplWQL65fn-lrtazTQL6rvrthKW6gtO2EeHeeNDEP2nJtpdUhDLzsT60ucQ25WT3KYA7Iw2p0Ji9Kn1RvnmTWhVqc8XbvTIFUu9P6zabvrX4r78cSjnxhhWELWL7piPX4rUeSdnI/s800/monster02.png"
   const dummyPngURL3 = "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjVMT6Um09tlBYsR7k6je7dtPnqC4dFPIT7N1FM47dErqbe6ePNc495vo_JljzhXAkhZgGKMTRUSqMokIJ7etD7fVhKUFhI-4eXQrV8RBdV2Y_aAEDp-7AcH-1vgrNHPIn7opLb-5f5SJat/s800/kamihikouki_omote.png"
-  // useEffect( () => {
-  //   // 同期処理イベント（最新10件をとるためdateでソート)
-  //   messagesRef.orderBy("date", "desc").limit(10).onSnapshot((snapshot) => {
-  //     snapshot.docChanges().forEach((change) => {
-  //       if (change.type === "added") {
-  //         // チャットログへ追加
-  //         addLog(change.doc.id, change.doc.data());
-  //         // 画面下部へスクロール
-  //         window.scroll(0, document.documentElement.scrollHeight - document.documentElement.clientHeight)
-  //       }
-  //     });
-  //   });
-  // // eslint-disable-next-line react-hooks/exhaustive-deps
-  // },[]);
-  
+
+
   /**
    * チャットログに追加
    */
@@ -94,14 +126,35 @@ const CustomChat: React.FC = () => {
     addLog(new Date().getTime().toString(), data);
 
 
-    // messagesRef.add({
-    //   name: userName,
-    //   msg: msg,
-    //   date: new Date().getTime(),
-    // });
-
     setMsg("");
   };
+
+
+  
+  
+  console.log("promise chain")
+  fetch(url, {credentials: "include"})
+  .then((res) => {
+   if (!res.ok) {
+     throw new Error("fetchに失敗しました");
+   }
+   return res.json()
+  })
+  .then((data) => console.log(data))
+  .catch((error) => console.error("エラーです:", error));
+  
+
+  useEffect(() => {
+    async function fetchData() {
+      const data = await fetch(url, {credentials: "include"});
+      const res = await data.json();
+      console.log(res);
+    }
+    fetchData();
+  }, []);
+
+
+
 
   return (
     <div>
