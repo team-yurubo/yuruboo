@@ -7,8 +7,8 @@ import UserInfoWrapper from './UserInfoWrapper';
 type ChatLog = {
   key: string,
   name: string,
-  msg: string,
-  date: Date,
+  body: string,
+  created_at: Date,
 };
 
 
@@ -67,8 +67,8 @@ async function getGathering(gathering_id: any) {
   if (gathering_data.length === 0) {
     return;
   }
-  const gathering = gathering_data[0];
-  return gathering;
+  
+  return gathering_data;
 }
 
 async function getMessages(gathering_id: any) {
@@ -83,7 +83,39 @@ async function getMessages(gathering_id: any) {
   return messages;
 }
 
+async function getCurrentUserMessages(user: any, cache_gathering_id: any = null) {
+  let gathering_id;
+  if (cache_gathering_id === null) {
 
+    const user_participation = await getCurrentParticipation(user);
+    if (user_participation === undefined) {
+      return [];
+    }
+    gathering_id = await getGathering(user_participation.gathering);
+  }
+  else {
+    gathering_id = cache_gathering_id;
+  }
+  const messages = await getMessages(gathering_id);
+  return messages;
+}
+
+async function setChatLogs(gathering_id: any, setChatLogs: any) {
+  const messages = await getMessages(gathering_id);
+  if (messages === undefined) {
+    return;
+  }
+  const chatLogs = messages.map((message: any) => {
+    const log = {
+      key: message.id,
+      name: message.participant,
+      body: message.body,
+      created_at: new Date(message.created_at),
+    };
+    return log;
+  });
+  setChatLogs(chatLogs);
+}
 
 /**
  * チャットコンポーネント(Line風)
@@ -98,6 +130,8 @@ const CustomChat: React.FC = () => {
   const dummyPngURL2 = "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhcGlFVplWQL65fn-lrtazTQL6rvrthKW6gtO2EeHeeNDEP2nJtpdUhDLzsT60ucQ25WT3KYA7Iw2p0Ji9Kn1RvnmTWhVqc8XbvTIFUu9P6zabvrX4r78cSjnxhhWELWL7piPX4rUeSdnI/s800/monster02.png"
   const dummyPngURL3 = "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjVMT6Um09tlBYsR7k6je7dtPnqC4dFPIT7N1FM47dErqbe6ePNc495vo_JljzhXAkhZgGKMTRUSqMokIJ7etD7fVhKUFhI-4eXQrV8RBdV2Y_aAEDp-7AcH-1vgrNHPIn7opLb-5f5SJat/s800/kamihikouki_omote.png"
 
+
+  getCurrentUserMessages(user)
 
   /**
    * チャットログに追加
@@ -122,11 +156,14 @@ const CustomChat: React.FC = () => {
     // チャットログへ追加
     const data = {
       name: userName,
-      msg: msg,
-      date: new Date(),
+      body: msg,
+      created_at: new Date(),
     };
     
     addLog(new Date().getTime().toString(), data);
+
+    // メッセージ送信
+
 
 
     setMsg("");
