@@ -14,7 +14,10 @@ erDiagram
   
   user {
     bigint id PK "User ID"
-    string name "名前"
+    string email "メールアドレス"
+    string user_name "名前"
+    bool is_staff "-"
+    bool is_active "-"
     string profile "プロフィール"
   }
 
@@ -142,6 +145,12 @@ python manage.py runserver
 もしなんかエラーが起きたら以下を実行
 ```
 pip install -r requirements.txt
+```
+
+ターミナルを立ち上げ、`yuruboo/backend/backend`に移動(manage.pyのあるディレクトリ)し、以下を実行することで、
+DBの初期化、初期データの挿入、サーバの立ち上げまでやってくれる(MacのZshの場合のみ使用可能)
+```
+zsh -x dbstart.sh
 ```
 
 ### フロントエンドの起動
