@@ -147,6 +147,12 @@ python manage.py runserver
 pip install -r requirements.txt
 ```
 
+ターミナルを立ち上げ、`yuruboo/backend/backend`に移動(manage.pyのあるディレクトリ)し、以下を実行することで、
+DBの初期化、初期データの挿入、サーバの立ち上げまでやってくれる(MacのZshの場合のみ使用可能)
+```
+zsh -x dbstart.sh
+```
+
 ### フロントエンドの起動
 
 バックエンドとは別の**新しいターミナル**を立ち上げ、`yuruboo/frontend`に移動(index.html)し、以下を実行
