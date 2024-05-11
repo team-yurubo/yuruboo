@@ -1,47 +1,29 @@
-import React, {useState, useMemo, useEffect} from 'react';
-// import db from './firebaseConfig';
-import './chat.css';
-import { useAuthContext } from '../../auth/AuthContext';
-import UserInfoWrapper from './UserInfoWrapper';
-import MessageWindow from './MessageWindow';
-import { ChatLog, MessageLog } from './types';
+import {useState, useEffect} from 'react'
 
-
-
-/**
- * UNIX TIME => hh:mm
- **/
-function getStrTime(time: any){
-  const t = new Date(time);
-  return `${t.getHours()}`.padStart(2, '0') + ':' + `${t.getMinutes()}`.padStart(2, '0');
-}
-
-
-/**
- * チャットコンポーネント(Line風)
-*/
-const CustomChat: React.FC = () => {
-  const { user } = useAuthContext();
-  const [chatLogs, setChatLogs] = useState<ChatLog[]>([]);
-  const [msg, setMsg] = useState('');
-  const userName = user.user_name
-  const [gathering_id, setGatheringId] = useState(null);
-
-  const [messageLogs, setMessageLogs] = useState<MessgaLog[]>([]);
-  
-  const dummyPngURL1 = "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhXNTz9LqGn-dTyacBt2n0JiCetzrkETOcF1neofXOypU1Zsb9afUTiMRm_G71xMuiuUH7WQKV8or5nhAARuDmTh7mp31wAh5mckUaUgTU3D_Hzz7hjDRsddYUWpXWrSdYrozHOj9heLMw/s800/monster01.png"
-  const dummyPngURL2 = "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhcGlFVplWQL65fn-lrtazTQL6rvrthKW6gtO2EeHeeNDEP2nJtpdUhDLzsT60ucQ25WT3KYA7Iw2p0Ji9Kn1RvnmTWhVqc8XbvTIFUu9P6zabvrX4r78cSjnxhhWELWL7piPX4rUeSdnI/s800/monster02.png"
-  const dummyPngURL3 = "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjVMT6Um09tlBYsR7k6je7dtPnqC4dFPIT7N1FM47dErqbe6ePNc495vo_JljzhXAkhZgGKMTRUSqMokIJ7etD7fVhKUFhI-4eXQrV8RBdV2Y_aAEDp-7AcH-1vgrNHPIn7opLb-5f5SJat/s800/kamihikouki_omote.png"
-  
-  console.log("user",user)
+const AxiosGet = (url: string) => {
+  const [data, setData] = useState(null);
 
   useEffect(() => {
-    postData("http://localhost:8000/participations/", {participant: user.id, gathering:1 }).then((data) => {
-      console.log("data",data)
-      setGatheringId(1);
-    });
-  });
-  
+    async function fetchData(url: string) {
+      const response = await fetch(url, { credentials: "include" });
+      const data = await response.json();
+      setData(data);
+    }
+
+    const interval = setInterval(() => {
+      fetchData(url);
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  return data ? <div>{data["time"]}</div> : <div>Loading...</div>;
+}
+
+export default AxiosGet;
+
+
+
   /**
    * 
    * @param url 
@@ -223,34 +205,3 @@ const CustomChat: React.FC = () => {
 
     setMsg("");
   };
-
-  if (gathering_id === null || gathering_id === undefined) {
-    return (
-      <div>
-        <h1>Chat</h1>
-        <UserInfoWrapper />
-        <div>参加中のイベントがありません</div>
-      </div>
-    );
-  }
-
-  return (
-    <div>
-      <h1>Chat</h1>
-      <UserInfoWrapper />
-    <>
-      {/* チャットログ */}
-      <MessageWindow  messageLogs={[]}/>
-      
-      {/* メッセージ入力 */}
-      <form className='chatform' onSubmit={e => { submitMsg();e.preventDefault() }}>
-        <div>{userName}</div>       
-          <input type="text" value={msg} onChange={(e) => setMsg(e.target.value)} />
-          <input type='image' onClick={submitMsg} src={dummyPngURL3} width="50px" alt='' />       
-      </form>
-    </>
-    </div>
-  );
-};
-
-export default CustomChat;
