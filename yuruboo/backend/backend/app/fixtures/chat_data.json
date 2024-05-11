@@ -1,0 +1,183 @@
+[
+    {
+      "model": "app.Genre",
+      "pk": 1,
+      "fields": {
+        "name": "Movie",
+        "icon": null
+      }
+    }, 
+    {
+      "model": "app.Genre",
+      "pk": 2,
+      "fields": {
+        "name": "Food",
+        "icon": null
+      }
+    },
+    {
+      "model": "users.Customuser",
+      "pk": 1,
+      "fields": {
+        "email": "e1@examle.com",
+        "user_name": "Taro Tanaka",
+        "is_staff": false,
+        "is_active": true
+      }
+
+    },
+    {
+      "model": "users.Customuser",
+      "pk": 2,
+      "fields": {
+        "email": "e2@examle.com",
+        "user_name": "Ko Suzuki",
+        "is_staff": false,
+        "is_active": true
+      }
+
+    },
+    {
+        "model": "users.Customuser",
+        "pk": 3,
+        "fields": {
+          "email": "e3@examle.com",
+          "user_name": "Abe Hiroshi",
+          "is_staff": false,
+          "is_active": true
+        }
+  
+      },
+      {
+        "model": "users.Customuser",
+        "pk": 4,
+        "fields": {
+          "email": "e4@examle.com",
+          "user_name": "田中太郎",
+          "is_staff": false,
+          "is_active": true
+        }
+  
+      },
+    {
+      "model": "app.Gathering",
+      "pk": 1,
+      "fields": {
+        "pos_lat": 35.010281215589174,
+        "pos_lng": 135.74121218747763,
+        "host": 1,
+        "genre": 1,
+        "body": "This is test explanation 1(Moive_taro).",
+        "num_participant": 2,
+        "created_at": "2020-07-27T02:12:40Z"
+      }
+    },
+    {
+      "model": "app.Gathering",
+      "pk": 2,
+      "fields": {
+        "pos_lat": 35.039717840860426, 
+        "pos_lng": 135.7920336073815,
+        "host": 2,
+        "genre": 2,
+        "body": "This is test explanation 2(Food_ko).",
+        "num_participant": 4,
+        "created_at": "2020-07-27T05:20:45Z"
+      }
+    },
+    {
+      "model": "app.Ownership",
+      "pk": 1,
+      "fields": {
+        "owner": 1, 
+        "presenter": 2,
+        "count": 3
+        
+      }
+    },
+    {
+      "model": "app.Ownership",
+      "pk": 2,
+      "fields": {
+        "owner": 2, 
+        "presenter": 1,
+        "count": 4
+      }
+    },
+    {
+      "model": "app.Message",
+      "pk": 1,
+      "fields": {
+        "gathering": 1, 
+        "body": "Hello, this is message test explanation 1(Movie_taro).",
+        "sender": 1,
+        "created_at": "2020-07-27T02:12:40Z"
+      }
+    },
+    {
+      "model": "app.Message",
+      "pk": 2,
+      "fields": {
+        "gathering": 1, 
+        "body": "Hello, this is message test explanation 2().",
+        "sender": 2,
+        "created_at": "2020-07-27T05:20:45Z"
+      }
+    },
+    {
+        "model": "app.Message",
+        "pk": 3,
+        "fields": {
+          "gathering": 1, 
+          "body": "Hello, this is message test explanation 3().",
+          "sender": 3,
+          "created_at": "2020-07-27T02:12:40Z"
+        }
+      },
+      {
+        "model": "app.Message",
+        "pk": 4,
+        "fields": {
+          "gathering": 2, 
+          "body": "Hello, this is message test explanation 4().",
+          "sender": 4,
+          "created_at": "2020-07-27T05:20:45Z"
+        }
+      },
+    {
+      "model": "app.Participation",
+      "pk": 1,
+      "fields": {
+        "gathering": 1, 
+        "participant": 2
+
+      }
+    },
+    {
+      "model": "app.Participation",
+      "pk": 2,
+      "fields": {
+        "gathering": 1, 
+        "participant": 1
+
+      }
+    },
+    {
+        "model": "app.Participation",
+        "pk": 1,
+        "fields": {
+          "gathering": 1, 
+          "participant": 3
+  
+        }
+    },
+    {
+        "model": "app.Participation",
+        "pk": 2,
+        "fields": {
+          "gathering": 1, 
+          "participant": 4
+  
+        }
+    }
+]
