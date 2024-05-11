@@ -17,6 +17,9 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import include, path
 from rest_framework import routers
+from app import views
+from frontend.src.features import home
+from django.urls import include, path
 
 from app.views.genre import GenreViewSet
 from app.views.gathering import GatheringViewSet
@@ -37,5 +40,8 @@ urlpatterns = [
     path('api/auth/', include('auth.urls')),
     path('api/auth/', include('djoser.urls')),
     path('api/auth/',include('djoser.urls.jwt')),
+    path('api/auth/', views.home(), name='home'),
+    path('api/auth/', Home.as_view(), name='home'),
+    path('blog/', include('blog.urls')),
     path('', include(router.urls)),
 ]
