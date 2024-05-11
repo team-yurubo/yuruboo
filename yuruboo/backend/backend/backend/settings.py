@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'corsheaders',  # add
     'djoser',  # add
     'users',  # add
+    'app.apps.AppConfig',  # add
 ]
 
 MIDDLEWARE = [
