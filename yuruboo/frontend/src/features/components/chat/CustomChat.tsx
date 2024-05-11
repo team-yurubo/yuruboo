@@ -12,21 +12,6 @@ type ChatLog = {
 };
 
 
-// /**
-//  * ユーザー名 (localStrageに保存)
-//  **/
-// const getUName = (): string =>  {
-//   const userName = localStorage.getItem('firebase-Chat-username');
-//   if (!userName) {
-//     const inputName = window.prompt('ユーザー名を入力してください', '');
-//     if (inputName){
-//       localStorage.setItem('firebase-Chat-username', inputName);
-//       return inputName;
-//     }    
-//   }
-//   return userName ?? '';
-// }
-
 /**
  * UNIX TIME => hh:mm
  **/
@@ -50,6 +35,14 @@ const CustomChat: React.FC = () => {
   const dummyPngURL2 = "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhcGlFVplWQL65fn-lrtazTQL6rvrthKW6gtO2EeHeeNDEP2nJtpdUhDLzsT60ucQ25WT3KYA7Iw2p0Ji9Kn1RvnmTWhVqc8XbvTIFUu9P6zabvrX4r78cSjnxhhWELWL7piPX4rUeSdnI/s800/monster02.png"
   const dummyPngURL3 = "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjVMT6Um09tlBYsR7k6je7dtPnqC4dFPIT7N1FM47dErqbe6ePNc495vo_JljzhXAkhZgGKMTRUSqMokIJ7etD7fVhKUFhI-4eXQrV8RBdV2Y_aAEDp-7AcH-1vgrNHPIn7opLb-5f5SJat/s800/kamihikouki_omote.png"
   
+  console.log("user",user)
+
+  useEffect(() => {
+    postData("http://localhost:8000/participations/", {participant: user.id, gathering:1 }).then((data) => {
+      console.log("data",data)
+      setGatheringId(1);
+    });
+  });
   
   /**
    * 
@@ -190,18 +183,12 @@ const CustomChat: React.FC = () => {
     await postData(messages_url, postDataBody);  
   }
 
+  const [data, setData] = useState([]);
   useEffect(() => {
-    const fetchData = async () => {
-      const response = await fetch('/api/data');
-      const jsonData = await response.json();
-      setData(jsonData);
-    };
-
-    fetchData();
-
-    const intervalId = setInterval(fetchData, 10000); // 10秒ごとにデータを取得
-
-    return () => clearInterval(intervalId); // コンポーネントがアンマウントされるときにタイマーを停止
+    getCurrentUserMessages(user).then((messages) => {
+      console.log("messages ",messages)
+      setData(messages);
+    });
   }, []);
 
   /**
@@ -239,6 +226,15 @@ const CustomChat: React.FC = () => {
     setMsg("");
   };
 
+  if (gathering_id === null || gathering_id === undefined) {
+    return (
+      <div>
+        <h1>Chat</h1>
+        <UserInfoWrapper />
+        <div>参加中のイベントがありません</div>
+      </div>
+    );
+  }
 
   return (
     <div>
@@ -246,6 +242,7 @@ const CustomChat: React.FC = () => {
       <UserInfoWrapper />
     <>
       {/* チャットログ */}
+      <h1>{data}</h1>
       <div>      
         {chatLogs.map((item, i) => (
           <div className={userName===item.name? 'balloon_r': 'balloon_l'} key={item.key}>
