@@ -238,8 +238,12 @@ export const GooglemapSubmitForm = (props: Props) => (
           <DialogActions>
             <Button
               aria-label="form-add"
-              color="secondary"
+              color="error"
               onClick={props.nextformat}
+              style={{
+                lineHeight: 'normal', 
+                padding: '6px 12px', 
+                verticalAlign: 'middle'}}
             >
               次へ
             </Button>
