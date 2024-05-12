@@ -1,5 +1,5 @@
-from ..models import Message
-from ..serializers import MessageSerializer
+from ..models import Message, Gathering
+from ..serializers import MessageSerializer, MessageLogsSerializer
 from rest_framework import viewsets
 
 class MessageViewSet(viewsets.ModelViewSet):
@@ -17,3 +17,7 @@ class MessageViewSet(viewsets.ModelViewSet):
         queryset = Message.objects.filter(**params)
 
         return queryset
+    
+class MessageLogsViewSet(viewsets.ModelViewSet):
+    queryset = Gathering.objects.all()
+    serializer_class = MessageLogsSerializer
