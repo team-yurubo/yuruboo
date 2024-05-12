@@ -34,10 +34,13 @@ router.register('participations',ParticipationViewSet)
 router.register('users',CustomUserViewSet)
 
 
+
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/auth/', include('auth.urls')),
     path('api/auth/', include('djoser.urls')),
     path('api/auth/',include('djoser.urls.jwt')),
     path('', include(router.urls)),
+    path('api/users/',include('users.urls')),
 ]
