@@ -4,7 +4,7 @@ from .message import MessageSerializer, MessageLogsSerializer
 from .ownership import OwnershipSerializer
 from .participation import ParticipationSerializer
 from .user import CustomUserSerializer
-from .getflowercolor import GetFlowerColorSerializer
+from .getflowercolor import GetFlowerColorSerializer, GetFlowerColorSerializer_v2
 
 __all__ = [
     "GenreSerializer",
@@ -15,4 +15,5 @@ __all__ = [
     "CustomUserSerializer",
     "MessageLogsSerializer",
     "GetFlowerColorSerializer",
+    "GetFlowerColorSerializer_v2",
 ]
