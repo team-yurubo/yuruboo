@@ -4,7 +4,7 @@
       "pk": 1,
       "fields": {
         "name": "Movie",
-        "icon": null
+        "icon": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjeNtjfEhn223o_361Bec-mVAmTJ3iB0d3vQQv6Kl26ttYh4hRy8yxKdYNvAbwuiefkyWLtvDHiSGrm5efpxrI9M13PDroLFjoWEcoJQamjsz_a8xbfPWrGNMfS2iOUddTHecsI7HUMi47q/s1600/movie_liveviewing_ringlight_man.png"
       }
     }, 
     {
@@ -12,7 +12,7 @@
       "pk": 2,
       "fields": {
         "name": "Food",
-        "icon": null
+        "icon": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjg2n_lx_JUue8gmooJLdEjd-a-s5MFxzuyp42hzGMyU2Pa9ufjZLWqOqhWIbvdfTxWgOsTZMRjzofF2wtWpNRuE0dtI1mi70_Igu8gkXAEgRsqXUA342cJZOTUNpEchhdkPJKaW3zYmjFo/s755/food_ra-men_pa-ko-men.png"
       }
     },
     {
@@ -22,7 +22,8 @@
         "email": "e1@examle.com",
         "user_name": "Taro Tanaka",
         "is_staff": false,
-        "is_active": true
+        "is_active": true, 
+        "color" : "#FF0000"
       }
 
     },
@@ -33,7 +34,8 @@
         "email": "e2@examle.com",
         "user_name": "Ko Suzuki",
         "is_staff": false,
-        "is_active": true
+        "is_active": true,
+        "color" : "#0000FF"
       }
 
     },
@@ -47,7 +49,10 @@
         "genre": 1,
         "body": "This is test explanation 1(Moive_taro).",
         "num_participant": 2,
-        "created_at": "2020-07-27T02:12:40Z"
+        "created_at": "2020-07-27T02:12:40Z", 
+        "start_time" : "2020-07-27T02:45:00Z",
+        "budget" : "UNDER_1000",
+        "title" : "Movie Night"
       }
     },
     {
@@ -60,7 +65,10 @@
         "genre": 2,
         "body": "This is test explanation 2(Food_ko).",
         "num_participant": 4,
-        "created_at": "2020-07-27T05:20:45Z"
+        "created_at": "2020-07-27T05:20:45Z",
+        "start_time" : "2020-07-27T06:00:00Z",
+        "budget" : "UNDER_3000",
+        "title" : "Food Night"
       }
     },
     {
@@ -107,8 +115,8 @@
       "pk": 1,
       "fields": {
         "gathering": 1, 
-        "participant": 2
-
+        "participant": 2,
+        "created_at": "2020-07-27T02:12:40Z"
       }
     },
     {
@@ -116,8 +124,8 @@
       "pk": 2,
       "fields": {
         "gathering": 2, 
-        "participant": 1
-
+        "participant": 1,
+        "created_at": "2020-07-27T05:20:45Z"
       }
     }
    
