@@ -23,6 +23,7 @@ from app.views.gathering import GatheringViewSet
 from app.views.ownership import OwnershipViewSet
 from app.views.message import MessageViewSet
 from app.views.participation import ParticipationViewSet
+from users.views import UserViewSet
 
 router = routers.DefaultRouter()
 router.register('genres', GenreViewSet)
@@ -30,6 +31,7 @@ router.register('gatherings',GatheringViewSet)
 router.register('ownerships',OwnershipViewSet)
 router.register('messages',MessageViewSet)
 router.register('participations',ParticipationViewSet)
+router.register('users',UserViewSet)
 
 
 urlpatterns = [
