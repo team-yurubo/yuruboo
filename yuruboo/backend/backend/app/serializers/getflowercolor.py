@@ -14,7 +14,7 @@ class PresentersSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = Ownership
-        fields = ["id", "presenter"]
+        fields = ["id", "presenter", "count"]
 
 # 花の色を取得するためのシリアライザ
 class GetFlowerColorSerializer(serializers.ModelSerializer):
@@ -36,7 +36,7 @@ class PresentersSerializer_v2(serializers.ModelSerializer):
     
     class Meta:
         model = Ownership
-        fields = [ "color"]
+        fields = [ "color" , "count"]
 
 # 花の色を取得するためのシリアライザ
 class GetFlowerColorSerializer_v2(serializers.ModelSerializer):
