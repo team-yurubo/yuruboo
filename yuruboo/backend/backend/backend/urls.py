@@ -34,8 +34,8 @@ router.register('messages',MessageViewSet)
 router.register('participations',ParticipationViewSet)
 router.register('users',CustomUserViewSet)
 router.register('messagelogs',MessageLogsViewSet, basename='messagelogs')
-router.register('getflowercolor',GetFlowerColorViewSet, basename='getflowercolor')
-router.register('getflowercolorv2',GetFlowerColorViewSet_v2, basename='getflowercolorv2')
+router.register('getflowercolordetail',GetFlowerColorViewSet, basename='getflowercolordetail')
+router.register('getflowercolor',GetFlowerColorViewSet_v2, basename='getflowercolor')
 
 
 
