@@ -32,6 +32,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
 
     objects = CustomUserManager()
 
+    profile = models.CharField(max_length=1024, blank=True, null=True)
     color = models.CharField(max_length=10, default=random_color_generator)
 
     # @property

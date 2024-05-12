@@ -3,6 +3,7 @@ from .gathering import GatheringViewSet
 from .ownership import OwnershipViewSet
 from .message import MessageViewSet
 from .participation import ParticipationViewSet
+from .user import CustomUserViewSet
 
 __all__ = [
     "GenreViewSet",
@@ -10,4 +11,5 @@ __all__ = [
     "OwnershipViewSet",
     "MessageViewSet",
     "ParticipationViewSet",
+    "CustomUserViewSet",
 ]
