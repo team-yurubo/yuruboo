@@ -18,8 +18,12 @@ class Gathering(models.Model):
 
     class Budget(models.TextChoices):
         FREE = 'FREE', _('無料')
-        PAY = 'PAY', _('有料')
-        DUTCH = 'DUTCH', _('割り勘')
+        UNDER_1000 = 'UNDER_1000', _('~ 1,000円')
+        UNDER_3000 = 'UNDER_3000', _('1,000円 ~ 3,000円')
+        UNDER_5000 = 'UNDER_5000', _('3,000円 ~ 5,000円')
+        OVER_5000 = 'OVER_5000', _('5,000円 ~')
+        UNDECIDED = 'UNDECIDED', _('未定')
+    
     budget : models.CharField = models.CharField(max_length=10, choices=Budget.choices, default=Budget.FREE, help_text="予算")
     title : models.CharField = models.CharField(max_length=255, help_text="タイトル", default="(タイトル未設定)")
     
