@@ -30,8 +30,8 @@ erDiagram
 
   gathering {
     bigint id PK "Gathering ID"
-    integer pos_lat "募集場所_緯度"
-    integer pos_lng "募集場所_経度"
+    float pos_lat "募集場所_緯度"
+    float pos_lng "募集場所_経度"
     user host FK "募集者"
     genre genre FK "ジャンル"
     string body "本文"
