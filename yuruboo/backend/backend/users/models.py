@@ -3,6 +3,11 @@ from django.db import models
 from .managers import CustomUserManager
 
 import uuid
+import random
+
+def random_color_generator():
+    color = "#" + "".join([random.choice("0123456789ABCDEF") for j in range(6)])
+    return color
 
 # Create your models here.
 class CustomUser(AbstractBaseUser, PermissionsMixin):
@@ -28,6 +33,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     objects = CustomUserManager()
 
     profile = models.CharField(max_length=1024, blank=True, null=True)
+    color = models.CharField(max_length=10, default=random_color_generator)
 
     # @property
     # def get_full_name(self):

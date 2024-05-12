@@ -4,13 +4,13 @@ GPSをもとにしてすぐに遊びにゆく友達を探すゆるぼアプリ
 # ER図
 ```mermaid
 erDiagram
-  user ||--o{ gathering : "ユーザと募集は一対多"
-  user ||--o{ message : "ユーザとメッセージは一対多"
-  user ||--o{ participation : "ユーザと参加は一対多"
-  user ||--o{ ownership : "ユーザと所有者は一対多、ユーザと贈呈者は一対多"
-  genre ||--o{ gathering : "ジャンルと募集は一対多"
-  gathering ||--o{ message : "募集とメッセージは一対多"
-  gathering ||--o{ participation : "募集と参加は一対多"
+  user ||--o| gathering : "ユーザと募集は一対0または１"
+  user ||--o{ message : "ユーザとメッセージは一対0以上"
+  user ||--o| participation : "ユーザと参加は一対0または1"
+  user ||--o{ ownership : "ユーザと所有者は一対多、ユーザと贈呈者は一対0以上"
+  genre ||--o{ gathering : "ジャンルと募集は一対0以上"
+  gathering ||--o{ message : "募集とメッセージは一対0以上"
+  gathering ||--o{ participation : "募集と参加は一対0以上"
   
   user {
     bigint id PK "User ID"
@@ -19,23 +19,27 @@ erDiagram
     bool is_staff "-"
     bool is_active "-"
     string profile "プロフィール"
+    string color "色"
   }
 
   genre {
     bigint id PK "Genre ID"
     string name "ジャンル名"
-    image icon "アイコン"
+    string icon "アイコンURL"
   }
 
   gathering {
     bigint id PK "Gathering ID"
-    integer pos_lat "募集場所_緯度"
-    integer pos_lng "募集場所_経度"
+    float pos_lat "募集場所_緯度"
+    float pos_lng "募集場所_経度"
     user host FK "募集者"
     genre genre FK "ジャンル"
     string body "本文"
     integer num_participant "人数"
     timestamp created_at "募集開始日時"
+    datatime start_time "集合時刻"
+    enum budget "予算"
+    string title "タイトル"
   }
 
   message {
@@ -50,6 +54,7 @@ erDiagram
     bigint id PK "Participation ID"
     gathering gathering FK "募集"
     user participant FK "参加者"
+    timestamp created_at "参加日時"
   }
 
   ownership {
