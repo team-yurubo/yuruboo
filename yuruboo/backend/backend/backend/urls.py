@@ -24,6 +24,7 @@ from app.views.ownership import OwnershipViewSet
 from app.views.message import MessageViewSet, MessageLogsViewSet
 from app.views.participation import ParticipationViewSet
 from app.views.user import CustomUserViewSet
+from app.views.getflowercolor import GetFlowerColorViewSet
 
 router = routers.DefaultRouter()
 router.register('genres', GenreViewSet)
@@ -33,6 +34,7 @@ router.register('messages',MessageViewSet)
 router.register('participations',ParticipationViewSet)
 router.register('users',CustomUserViewSet)
 router.register('messagelogs',MessageLogsViewSet, basename='messagelogs')
+router.register('getflowercolor',GetFlowerColorViewSet, basename='getflowercolor')
 
 
 
