@@ -1,9 +1,9 @@
 from .models import CustomUser
-from .serializers import UserSerializer
+from .serializers import CustomUserSerializer
 from rest_framework import viewsets
 from rest_framework.permissions import AllowAny
 
-class UserViewSet(viewsets.ReadOnlyModelViewSet):
+class CustomUserViewSet(viewsets.ModelViewSet):
     queryset = CustomUser.objects.all()
-    serializer_class = UserSerializer
+    serializer_class = CustomUserSerializer
     permission_classes =[AllowAny]

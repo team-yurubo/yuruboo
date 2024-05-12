@@ -22,7 +22,8 @@
         "email": "e1@examle.com",
         "user_name": "Taro Tanaka",
         "is_staff": false,
-        "is_active": true
+        "is_active": true, 
+        "profile" : "This is test profile 1(Taro Tanaka)."
       }
 
     },
@@ -33,7 +34,8 @@
         "email": "e2@examle.com",
         "user_name": "Ko Suzuki",
         "is_staff": false,
-        "is_active": true
+        "is_active": true,
+        "profile" : "This is test profile 2(Ko Suzuki)."
       }
 
     },
