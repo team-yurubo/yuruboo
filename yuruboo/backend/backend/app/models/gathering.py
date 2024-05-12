@@ -24,7 +24,7 @@ class Gathering(models.Model):
         OVER_5000 = 'OVER_5000', _('5,000円 ~')
         UNDECIDED = 'UNDECIDED', _('未定')
     
-    budget : models.CharField = models.CharField(max_length=10, choices=Budget.choices, default=Budget.FREE, help_text="予算")
+    budget : models.CharField = models.CharField(max_length=10, choices=Budget.choices, default=Budget.UNDECIDED, help_text="予算")
     title : models.CharField = models.CharField(max_length=255, help_text="タイトル", default="(タイトル未設定)")
     
 
