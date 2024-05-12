@@ -27,6 +27,8 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
 
     objects = CustomUserManager()
 
+    profile = models.CharField(max_length=1024, blank=True, null=True)
+
     # @property
     # def get_full_name(self):
     #     return f'{self.first_name} {self.last_name}'
