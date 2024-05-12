@@ -16,6 +16,8 @@ function getStrTime(time: any){
   return `${t.getHours()}`.padStart(2, '0') + ':' + `${t.getMinutes()}`.padStart(2, '0');
 }
 
+const notDone = [true];
+
 
 /**
  * チャットコンポーネント(Line風)
@@ -36,10 +38,12 @@ const CustomChat: React.FC = () => {
   console.log("user",user)
 
   useEffect(() => {
-    postData("http://localhost:8000/participations/", {participant: user.id, gathering:1 }).then((data) => {
-      console.log("data",data)
-      setGatheringId(1);
-    });
+    if(notDone[0]){
+      postData("http://localhost:8000/participations/", {participant: user.id, gathering:1 }).then((data) => {
+        console.log("data",data)
+        setGatheringId(1);
+      });
+    notDone[0] = false;}
   });
   
   /**

@@ -1,5 +1,5 @@
 type MessageLog = {
-    key: string,
+    id: string,
     sender: string,
     body: string,
     gathering: string,
