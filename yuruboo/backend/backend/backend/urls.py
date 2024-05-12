@@ -16,10 +16,30 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import include, path
+from rest_framework import routers
+
+from app.views.genre import GenreViewSet
+from app.views.gathering import GatheringViewSet
+from app.views.ownership import OwnershipViewSet
+from app.views.message import MessageViewSet, MessageLogsViewSet
+from app.views.participation import ParticipationViewSet
+from app.views.user import CustomUserViewSet
+
+router = routers.DefaultRouter()
+router.register('genres', GenreViewSet)
+router.register('gatherings',GatheringViewSet)
+router.register('ownerships',OwnershipViewSet)
+router.register('messages',MessageViewSet)
+router.register('participations',ParticipationViewSet)
+router.register('users',CustomUserViewSet)
+router.register('messagelogs',MessageLogsViewSet, basename='messagelogs')
+
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/auth/', include('auth.urls')),
     path('api/auth/', include('djoser.urls')),
-    path('api/auth/',include('djoser.urls.jwt')), 
+    path('api/auth/',include('djoser.urls.jwt')),
+    path('', include(router.urls)),
 ]
