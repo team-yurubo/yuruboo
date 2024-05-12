@@ -17,15 +17,13 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import include, path
 from rest_framework import routers
-from app import views
-from frontend.src.features import home
-from django.urls import include, path
 
 from app.views.genre import GenreViewSet
 from app.views.gathering import GatheringViewSet
 from app.views.ownership import OwnershipViewSet
 from app.views.message import MessageViewSet
 from app.views.participation import ParticipationViewSet
+from users.views import UserViewSet
 
 router = routers.DefaultRouter()
 router.register('genres', GenreViewSet)
@@ -33,6 +31,7 @@ router.register('gatherings',GatheringViewSet)
 router.register('ownerships',OwnershipViewSet)
 router.register('messages',MessageViewSet)
 router.register('participations',ParticipationViewSet)
+router.register('users',UserViewSet)
 
 
 urlpatterns = [
@@ -40,8 +39,5 @@ urlpatterns = [
     path('api/auth/', include('auth.urls')),
     path('api/auth/', include('djoser.urls')),
     path('api/auth/',include('djoser.urls.jwt')),
-    path('api/auth/', views.home(), name='home'),
-    path('api/auth/', Home.as_view(), name='home'),
-    path('blog/', include('blog.urls')),
     path('', include(router.urls)),
 ]
