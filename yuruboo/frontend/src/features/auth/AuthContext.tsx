@@ -79,6 +79,9 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
             setIsLoading(false);
             setIsAuth(false);
           }
+        } else {
+          setIsLoading(false);
+          setIsAuth(false);
         }
       }
     };
