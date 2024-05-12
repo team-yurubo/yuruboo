@@ -13,6 +13,8 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
 
     email = models.EmailField(max_length=255, unique=True)
     user_name = models.CharField(max_length=100)
+    profile = models.CharField(max_length=1024, blank=True, null=True)
+    color = models.CharField(max_length=1024, blank=True, null=True)
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ('user_name', )
@@ -26,8 +28,6 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     )
 
     objects = CustomUserManager()
-
-    profile = models.CharField(max_length=1024, blank=True, null=True)
 
     # @property
     # def get_full_name(self):
