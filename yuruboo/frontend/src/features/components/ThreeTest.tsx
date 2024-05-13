@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react'
+import { useRef, useState, useEffect } from 'react'
 import { Canvas, useFrame } from '@react-three/fiber'
 import { Mesh } from 'three'
 import React from "react"
@@ -116,6 +116,7 @@ const Model: React.FC<BoxProps & { gltf: any; rotation: [number, number, number]
 
 export const ThreeTest = () => {
 	const [flowers, setFlowers] = useState<{ position: [number, number, number]; color: string }[]>([]);
+  const [flowerColors, setFlowerColors] = useState<string[]>([]);
 
   const handleAddFlower = () => {
     const x = Math.random() * 15 - 7.5;
@@ -127,6 +128,39 @@ export const ThreeTest = () => {
   const handleRemoveFlower = () => {
     setFlowers((prevFlowers) => prevFlowers.slice(0, -1));
   };
+
+  useEffect(() => {
+    const fetchFlowerColors = async () => {
+      try {
+        const response = await fetch('http://127.0.0.1:8000/getflowercolor/');
+        if (response.ok) {
+          const data = await response.json();
+          const colors: string[] = [];
+
+          data.forEach((item: any) => {
+            item.colors.forEach((colorItem: any) => {
+              const { color, count } = colorItem;
+              for (let i = 0; i < count; i++) {
+                colors.push(color);
+                const x = Math.random() * 15 - 7.5;
+                const z = Math.random() * 15 - 7.5;
+                setFlowers((prevFlowers) => [...prevFlowers, { position: [x, 0, z], color }]);
+              }
+            });
+          });
+
+          setFlowerColors(colors);
+          console.log('Fetched flower colors:', colors);
+        } else {
+          console.error('Error fetching flower colors:', response.status);
+        }
+      } catch (error) {
+        console.error('Error fetching flower colors:', error);
+      }
+    };
+
+    fetchFlowerColors();
+  }, []);
 
 	return(
 		<div>
