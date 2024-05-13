@@ -134,7 +134,7 @@ export const ThreeTest = () => {
         <button onClick={handleAddFlower}>+</button>
         <button onClick={handleRemoveFlower}>-</button>
       </div>
-			<Canvas camera={{ fov: 50, near: 0.1, far: 100, position: [0, 5, 20],  }} style={{ width: '100vw', height: '100vh' }} shadows>
+			<Canvas camera={{ fov: 50, near: 0.1, far: 100, position: [0, 5, 25],  }} style={{ width: '100vw', height: '100vh' }} shadows>
 				<directionalLight position={[20, 20, 5]} intensity={0.75} castShadow />
 				{/* <ambientLight /> */}
 				<Environment files={'../../../public/Solarsystemscope_texture_8k_stars_milky_way.jpg'} background />
