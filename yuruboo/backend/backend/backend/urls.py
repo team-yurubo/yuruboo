@@ -21,8 +21,10 @@ from rest_framework import routers
 from app.views.genre import GenreViewSet
 from app.views.gathering import GatheringViewSet
 from app.views.ownership import OwnershipViewSet
-from app.views.message import MessageViewSet
+from app.views.message import MessageViewSet, MessageLogsViewSet
 from app.views.participation import ParticipationViewSet
+from app.views.user import CustomUserViewSet
+from app.views.getflowercolor import GetFlowerColorViewSet, GetFlowerColorViewSet_v2
 
 router = routers.DefaultRouter()
 router.register('genres', GenreViewSet)
@@ -30,6 +32,11 @@ router.register('gatherings',GatheringViewSet)
 router.register('ownerships',OwnershipViewSet)
 router.register('messages',MessageViewSet)
 router.register('participations',ParticipationViewSet)
+router.register('users',CustomUserViewSet)
+router.register('messagelogs',MessageLogsViewSet, basename='messagelogs')
+router.register('getflowercolordetail',GetFlowerColorViewSet, basename='getflowercolordetail')
+router.register('getflowercolor',GetFlowerColorViewSet_v2, basename='getflowercolor')
+
 
 
 urlpatterns = [
