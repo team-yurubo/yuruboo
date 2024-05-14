@@ -5,6 +5,8 @@ from .message import MessageViewSet
 from .participation import ParticipationViewSet
 from .user import CustomUserViewSet
 from .getflowercolor import GetFlowerColorViewSet, GetFlowerColorViewSet_v2
+from .deletemyparticipation import delete_my_participation
+from .closegathering import close_gathering
 
 __all__ = [
     "GenreViewSet",
@@ -16,4 +18,6 @@ __all__ = [
     "CustomUserViewSet",
     "GetFlowerColorViewSet",
     "GetFlowerColorViewSet_v2",
+    "delete_my_participation",
+    "close_gathering",
 ]

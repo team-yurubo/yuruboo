@@ -74,6 +74,31 @@
 
     },
     {
+      "model": "users.Customuser",
+      "pk": 3,
+      "fields": {
+        "email": "e3@examle.com",
+        "user_name": "Takagi",
+        "is_staff": false,
+        "is_active": true,
+        "profile" : "This is test profile 3(Takagi).",
+        "color" : "#0F00F0"
+      }
+    },
+    {
+      "model": "users.Customuser",
+      "pk": 4,
+      "fields": {
+        "email": "e4@examle.com",
+        "user_name": "Yamanaka",
+        "is_staff": false,
+        "is_active": true,
+        "profile" : "This is test profile 4(Yamanaka).",
+        "color" : "#00F00F"
+      }
+    },
+
+    {
       "model": "app.Gathering",
       "pk": 1,
       "fields": {
@@ -103,6 +128,22 @@
         "start_time" : "2020-07-27T06:00:00Z",
         "budget" : "UNDER_3000",
         "title" : "Food Night"
+      }
+    },
+    {
+      "model": "app.Gathering",
+      "pk": 3,
+      "fields": {
+        "pos_lat": 40.039717840860426, 
+        "pos_lng": 136.7920336073815,
+        "host": 1,
+        "genre": "sightseeing",
+        "body": "This is test explanation 3(sightseeing).",
+        "num_participant": 4,
+        "created_at": "2020-07-27T05:20:45Z",
+        "start_time" : "2020-07-27T06:00:00Z",
+        "budget" : "UNDER_5000",
+        "title" : "Sightseeing"
       }
     },
     {
@@ -159,6 +200,43 @@
       "fields": {
         "gathering": 2, 
         "participant": 1,
+        "created_at": "2020-07-27T05:20:45Z"
+      }
+    },
+
+    {
+      "model": "app.Participation",
+      "pk": 3,
+      "fields": {
+        "gathering": 3, 
+        "participant": 1,
+        "created_at": "2020-07-27T02:12:40Z"
+      }
+    },
+    {
+      "model": "app.Participation",
+      "pk": 4,
+      "fields": {
+        "gathering": 3, 
+        "participant": 2,
+        "created_at": "2020-07-27T05:20:45Z"
+      }
+    },
+    {
+      "model": "app.Participation",
+      "pk": 5,
+      "fields": {
+        "gathering": 3, 
+        "participant": 3,
+        "created_at": "2020-07-27T02:12:40Z"
+      }
+    },
+    {
+      "model": "app.Participation",
+      "pk": 6,
+      "fields": {
+        "gathering": 3, 
+        "participant": 4,
         "created_at": "2020-07-27T05:20:45Z"
       }
     }
