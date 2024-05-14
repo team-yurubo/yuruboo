@@ -23,6 +23,8 @@ const Home: React.FC = () => {
   const [budget, setBudget] = useState('');
   const [body, setBody] = useState("");
   const [title, setTitle] = useState("");
+  const [hour, setHour] = useState("");
+  const [minute, setMinute] = useState("");
   const [SubmitFormOpen, setSubmitFormOpen] = useState(false);
   const { user } = useAuthContext();
 
@@ -75,6 +77,50 @@ const Home: React.FC = () => {
   ) => {
     setBody(e.target.value);
   };
+
+  const handleHourChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    setHour(e.target.value);
+  };
+
+  const handleMinuteChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    setMinute(e.target.value);
+  };
+
+  function toDateTimeString(hourString: string, minuteString: string): string {
+    const now = new Date();
+    
+    // 時と分を数値に変換
+    const hours = parseInt(hourString, 10);
+    const minutes = parseInt(minuteString, 10);
+    
+    // 現在時刻の時間と分を取得
+    const nowHours = now.getHours();
+    const nowMinutes = now.getMinutes();
+    
+    // 新しい日付を作成
+    let targetDate = new Date(now.getFullYear(), now.getMonth(), now.getDate(), hours, minutes, 0);
+    
+    // 今から24時間以内かどうかを確認
+    if (hours < nowHours || (hours === nowHours && minutes < nowMinutes)) {
+        targetDate.setDate(targetDate.getDate() + 1);
+    }
+    
+    // ISO 8601形式の文字列に変換
+    const year = targetDate.getFullYear();
+    const month = String(targetDate.getMonth() + 1).padStart(2, '0'); // 月は0から始まるので+1する
+    const day = String(targetDate.getDate()).padStart(2, '0');
+    const targetHours = String(targetDate.getHours()).padStart(2, '0');
+    const targetMinutes = String(targetDate.getMinutes()).padStart(2, '0');
+    const seconds = '00';
+    
+    const dateTimeString = `${year}-${month}-${day}T${targetHours}:${targetMinutes}:${seconds}`;
+
+    return dateTimeString;
+  }
 
   const nextformat = () => {
     if(!genre || !title || !nump || !budget){
@@ -145,7 +191,7 @@ const Home: React.FC = () => {
         genre: genre,
         body: body,
         num_participant: numValue,
-        start_time: "2020-07-27T02:12:40Z",
+        start_time: toDateTimeString(hour, minute),
         budget: budget,
         title: title
       })
@@ -199,12 +245,16 @@ const Home: React.FC = () => {
         nump={nump}
         budget={budget}
         body={body}
+        hour={hour}
+        minute={minute}
         SubmitFormOpen={SubmitFormOpen}
         onGenreChange={handleGenreChange}
         onTitleChange={handleTitleChange}
         onBudgetChange={handleBudgetChange}
         onBodyChange={handleBodyChange}
         onNumpChange={handleNumpChange}
+        onHourChange={handleHourChange}
+        onMinuteChange={handleMinuteChange}
         nextformat={nextformat}
         onToggleSubmitForm={handleToggleSubmitForm}
       />
