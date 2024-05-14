@@ -7,7 +7,7 @@ import { UserButton } from '../components/UserButton';
 import { FlowerGarden } from "../components/FlowerGarden";
 import { UserProfile } from "../components/UserProfile";
 import { UserInfo } from '../components/UserInfo';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useAuthContext } from "../auth/AuthContext"
 
 // ログイン後にリダイレクトするための、ホームを実装します。ここでは特に何もしません。
@@ -85,6 +85,43 @@ const Home: React.FC = () => {
     setSubmitFormOpen((SubmitFormOpen) => !SubmitFormOpen);
   };
 
+  const getpin = () => {
+    fetch("http://localhost:8000/gatherings/", {
+      credentials: "include",
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json"
+      }
+    })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok ' + response.statusText);
+      }
+      return response.json();
+    })
+    .then(data => {
+      for (let i = 0; i < data.length; i++) {
+        const newPin: Pin = {
+          title: data[i].title,
+          genre: data[i].genre,
+          budget: data[i].budget,
+          nump: data[i].num_participant,
+          time: data[i].start_time,
+          body: data[i].body,
+          latitude: String(data[i].pos_lat),
+          longitude: String(data[i].pos_lng),
+          id: data[i].id,
+        };
+        setPins((pins) => [newPin, ...pins]);
+      }
+      console.log(data);
+    })
+    .catch(error => {
+      console.error('There has been a problem with your fetch operation:', error);
+    });
+    
+  }
+
   const createMarker = (e: google.maps.MapMouseEvent) => {
     if (!MapClick){
       return;
@@ -117,21 +154,25 @@ const Home: React.FC = () => {
     .then(data => console.log(data))
     .catch(error => console.error('Error:', error));
     setMapClick((MapClick) => (!MapClick))
-    const newPin: Pin = {
-      genre: genre,
-      latitude: String(lat),
-			longitude: String(lng),
-      id: new Date().getTime(),
-			tag: [],
-    };
+    // const newPin: Pin = {
+    //   genre: genre,
+    //   latitude: String(lat),
+		// 	longitude: String(lng),
+    //   id: new Date().getTime(),
+		// 	tag: [],
+    // };
 
-    setPins((pins) => [newPin, ...pins]);
+    // setPins((pins) => [newPin, ...pins]);
     setGenre('');
     setTitle("");
     setNump("");
     setBudget("");
     setBody("");
   };
+
+  useEffect(() => {
+    getpin();
+  }, []);
 
   return(
     <>

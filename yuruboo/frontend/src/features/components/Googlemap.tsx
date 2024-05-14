@@ -11,6 +11,38 @@ type Props = {
   ) => void;
 };
 
+const budge_dic = [
+  {
+    value: 'FREE',
+    label: '無料',
+  },
+  {
+    value: 'UNDER_1000',
+    label: '~ 1,000円',
+  },
+  {
+    value: 'UNDER_3000',
+    label: '1,000円 ~ 3,000円',
+  },
+  {
+    value: 'UNDER_5000',
+    label: '3,000円 ~ 5,000円',
+  },
+  {
+    value: 'OVER_5000',
+    label: '5,000円 ~',
+  },
+  {
+    value: 'UNDECIDED',
+    label: '未定',
+  },
+];
+
+const getLabelByValue = (value: string): string | undefined => {
+  const budget = budge_dic.find(b => b.value === value);
+  return budget ? budget.label : undefined;
+};
+
 /*
 地図の全画面表示
 */
@@ -100,9 +132,12 @@ export const Googlemap = (props: Props) => {
                     }}
                 >
                     <div style={{ textAlign: 'center' }}>
-                        <h2>{selectedPin.genre}</h2>
-                        <p>{selectedPin.latitude}</p>
-                        <p>{selectedPin.longitude}</p>
+                        <h2>{selectedPin.title}</h2>
+                        <p>{selectedPin.genre}</p>
+                        <p>定員：{selectedPin.nump}</p>
+                        <p>予算：{getLabelByValue(selectedPin.budget)}</p>
+                        <p>集合時間：{selectedPin.time}</p>
+                        <p>{selectedPin.body}</p>
                         <button>
                           参加
                         </button>
