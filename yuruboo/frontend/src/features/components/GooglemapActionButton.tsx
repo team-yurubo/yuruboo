@@ -19,9 +19,9 @@ export const GooglemapActionButton = (props: Props) => {
   return (
     <FabButton
     	color="primary"
-		onClick={props.onToggleSubmitForm}
-		disabled={props.SubmitFormOpen || props.MapClick}
-        style={{verticalAlign: 'middle'}}
+		  onClick={props.onToggleSubmitForm}
+		  disabled={props.SubmitFormOpen || props.MapClick}
+      style={{verticalAlign: 'middle'}}
     >
 	+
     </FabButton>

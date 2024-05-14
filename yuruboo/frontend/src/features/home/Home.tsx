@@ -6,7 +6,8 @@ import { GooglemapActionButton } from '../components/GooglemapActionButton';
 import { UserButton } from '../components/UserButton';
 import { FlowerGarden } from "../components/FlowerGarden";
 import { UserInfo } from '../components/UserInfo';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
+import { useAuthContext } from "../auth/AuthContext"
 
 // ログイン後にリダイレクトするための、ホームを実装します。ここでは特に何もしません。
 const Home: React.FC = () => {
@@ -15,7 +16,12 @@ const Home: React.FC = () => {
   const [pins, setPins] = useState<Pin[]>([]);
   const [MapClick, setMapClick] = useState(false);
   const [genre, setGenre] = useState('');
+  const [nump, setNump] = useState("");
+  const [budget, setBudget] = useState('');
+  const [body, setBody] = useState("");
+  const [title, setTitle] = useState("");
   const [SubmitFormOpen, setSubmitFormOpen] = useState(false);
+  const { user } = useAuthContext();
 
   const handleFlowerGardenInfo = () => {
     setIsFlowerGardenOpen(!isFlowerGardenOpen);
@@ -33,15 +39,38 @@ const Home: React.FC = () => {
     setSubmitFormOpen((SubmitFormOpen) => !SubmitFormOpen);
   };
 
+  const handleTitleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    setTitle(e.target.value);
+  };
+
   const handleGenreChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     setGenre(e.target.value);
   };
 
+  const handleNumpChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    setNump(e.target.value);
+  };
+
+  const handleBudgetChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    setBudget(e.target.value);
+  };
+
+  const handleBodyChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    setBody(e.target.value);
+  };
 
   const nextformat = () => {
-    if(!genre){
+    if(!genre || !title || !nump || !budget){
       setSubmitFormOpen((SubmitFormOpen) => !SubmitFormOpen);
       return
     }
@@ -58,6 +87,28 @@ const Home: React.FC = () => {
     if (!lat || !lng) {
       return;
     }
+    const numValue = Number(nump);
+    fetch("http://localhost:8000/gatherings/", {
+      credentials: "include",
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        pos_lat: lat,
+        pos_lng: lng,
+        host: user.id,
+        genre: genre,
+        body: body,
+        num_participant: numValue,
+        start_time: "2020-07-27T02:12:40Z",
+        budget: budget,
+        title: title
+      })
+    })
+    .then(response => response.json())
+    .then(data => console.log(data))
+    .catch(error => console.error('Error:', error));
     setMapClick((MapClick) => (!MapClick))
     const newPin: Pin = {
       genre: genre,
@@ -69,6 +120,10 @@ const Home: React.FC = () => {
 
     setPins((pins) => [newPin, ...pins]);
     setGenre('');
+    setTitle("");
+    setNump("");
+    setBudget("");
+    setBody("");
   };
 
   return(
@@ -91,8 +146,16 @@ const Home: React.FC = () => {
       />
       <GooglemapSubmitForm
         genre={genre}
+        title={title}
+        nump={nump}
+        budget={budget}
+        body={body}
         SubmitFormOpen={SubmitFormOpen}
         onGenreChange={handleGenreChange}
+        onTitleChange={handleTitleChange}
+        onBudgetChange={handleBudgetChange}
+        onBodyChange={handleBodyChange}
+        onNumpChange={handleNumpChange}
         nextformat={nextformat}
         onToggleSubmitForm={handleToggleSubmitForm}
       />
