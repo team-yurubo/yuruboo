@@ -16,15 +16,15 @@ erDiagram
     bigint id PK "User ID"
     string email "メールアドレス"
     string user_name "名前"
-    bool is_staff "-"
-    bool is_active "-"
+    bool is_staff ""
+    bool is_active ""
     string profile "プロフィール"
     string color "色"
   }
 
   genre {
-    bigint id PK "Genre ID"
-    string name "ジャンル名"
+    string name PK "ジャンル名"
+    string label "ラベル"
     string icon "アイコンURL"
   }
 
