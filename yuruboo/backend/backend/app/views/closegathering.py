@@ -1,6 +1,15 @@
 from django.http import JsonResponse
-from app.models import Gathering, Participation, Message
+from app.models import Gathering, Participation, Message, Ownership
+from users.models import CustomUser
 import uuid
+import itertools
+
+def ownership_from_participants(participants):
+    user_dict = {user.id: user for user in CustomUser.objects.filter(id__in=participants)}
+    ownerships = itertools.product(participants, repeat=2)
+    ownership_objects = [Ownership(owner=user_dict[ownership[0]], presenter=user_dict[ownership[1]]) for ownership in ownerships if ownership[0] != ownership[1]]
+
+    return ownership_objects
 
 def close_gathering(request, gathering_id):
     try:
@@ -19,6 +28,10 @@ def close_gathering(request, gathering_id):
         
         participations = Participation.objects.filter(gathering=gathering)
         messages = Message.objects.filter(gathering=gathering)
+
+        participants = [participation.participant.id for participation in participations]
+        ownerships_to_add = ownership_from_participants(participants)
+        Ownership.objects.bulk_create(ownerships_to_add)
 
         deleted_participations = []
         deleted_messages = []
