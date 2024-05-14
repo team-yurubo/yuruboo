@@ -11,6 +11,8 @@ type Props = {
   nump: string;
   budget: string;
   body: string;
+  hour: string;
+  minute: string;
   SubmitFormOpen: boolean;
   nextformat: () => void;
   onGenreChange: (
@@ -26,6 +28,12 @@ type Props = {
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => void;
   onBodyChange: (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => void;
+  onHourChange: (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => void;
+  onMinuteChange: (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => void;
   onToggleSubmitForm: () => void;
@@ -77,6 +85,9 @@ const currencies2 = [
     label: '5人以上',
   },
 ];
+
+const hours = Array.from({ length: 24 }, (_, i) => ({ value: `${i}`, label: `${i}` }));
+const minutes = Array.from({ length: 60 }, (_, i) => ({ value: `${i}`, label: `${i}` }));
 
 const currencies3 = [
   {
@@ -208,18 +219,21 @@ export const GooglemapSubmitForm = (props: Props) => (
               </MenuItem>
             ))}
           </TextField>
+          <div style={{ display: 'flex', alignItems: 'center' }}>
           <TextField
             aria-label="todo-input"
             select
             variant="standard"
             style={{
-              width: '100%',
+              width: '50%',
               fontSize: '16px',
               fontFamily: '-apple-system, BlinkMacSystemFont, Roboto, sans-serif',
             }}
-            label="集合時間"
+            label="時間"
+            onChange={(e) => props.onHourChange(e)}
+            value={props.hour}
           >
-            {currencies3.map((option) => (
+            {hours.map((option) => (
               <MenuItem
                 key={option.value}
                 value={option.value}
@@ -228,11 +242,40 @@ export const GooglemapSubmitForm = (props: Props) => (
                   fontSize: '16px',
                   fontFamily: '-apple-system, BlinkMacSystemFont, Roboto, sans-serif',
                 }}
-                >
+              >
                 {option.label}
               </MenuItem>
             ))}
           </TextField>
+          <span style={{ fontSize: '20px'}}>：</span>
+          <TextField
+            aria-label="todo-input"
+            select
+            variant="standard"
+            style={{
+              width: '50%',
+              fontSize: '16px',
+              fontFamily: '-apple-system, BlinkMacSystemFont, Roboto, sans-serif',
+            }}
+            label="分"
+            onChange={(e) => props.onMinuteChange(e)}
+            value={props.minute}
+          >
+            {minutes.map((option) => (
+              <MenuItem
+                key={option.value}
+                value={option.value}
+                style={{
+                  width: '100%',
+                  fontSize: '16px',
+                  fontFamily: '-apple-system, BlinkMacSystemFont, Roboto, sans-serif',
+                }}
+              >
+                {option.label}
+              </MenuItem>
+            ))}
+          </TextField>
+          </div>
           <TextField
             aria-label="todo-input"
             select
