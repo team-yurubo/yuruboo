@@ -1,6 +1,7 @@
-import { Box } from "@mui/material";
+import { Box, ListItem } from "@mui/material";
 import Fab from '@mui/material/Fab';
 import { styled } from '@mui/material/styles';
+import { ThreeTest } from './ThreeTest';
 
 type Props = {
   isOpen: boolean;
@@ -25,11 +26,12 @@ export const FlowerGarden = (props: Props) => {
       sx={{
         width:"100vw",
         height:"100vh",
-        backgroundColor: "#F4F1DE",
+        // backgroundColor: "#8ecae6",
         position: "fixed",
-        zIndex: 20000,
+        zIndex: 20000
       }}
-    >
+    > 
+
       <FabButton
         sx={{
           backgroundColor: "#3D405B",
@@ -42,6 +44,7 @@ export const FlowerGarden = (props: Props) => {
         }}
         onClick={props.onToggleFlowerGarden}>
       </FabButton>
+      <ThreeTest />
     </Box>
   );
 };

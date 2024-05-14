@@ -55,6 +55,11 @@ class LoginView(TokenObtainPairView):
             "id": loginuser.id,
             "email": loginuser.email,
             "user_name": loginuser.user_name,
+            "is_staff": loginuser.is_staff,
+            "is_active": loginuser.is_active,
+            "profile": loginuser.profile,
+            "color": loginuser.color,
+
             # 他の必要なユーザー情報を追加
         }
 

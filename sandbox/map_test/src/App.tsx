@@ -19,6 +19,7 @@ import { GooglemapActionButton } from './GooglemapActionButton';
 import { GooglemapPosList } from './GooglemapPosList';
 import { GooglemapSubmitForm } from './GooglemapSubmitForm';
 import { GooglemapFilter } from './GooglemapFilter';
+import { ProfileActionButton } from './ProfileActionButton';
 
 import GlobalStyles from '@mui/material/GlobalStyles';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
@@ -27,7 +28,7 @@ import { indigo, pink } from '@mui/material/colors';
 const theme = createTheme({
   palette: {
     primary: {
-      main: indigo[500],
+      main: '#BAA1A7',
       light: '#757de8',
       dark: '#002984',
     },
@@ -56,6 +57,9 @@ export const App = () => {
   };
 	const handleToggleSubmitForm = () => {
     setSubmitFormOpen((SubmitFormOpen) => !SubmitFormOpen);
+  };
+  const handleToggleSubmitForm2 = () => {
+    setSubmitFormOpen2((SubmitFormOpen2) => !SubmitFormOpen2);
   };
 	const handleSubmit = () => {
     if (!latitude || !longitude) {
@@ -126,6 +130,8 @@ export const App = () => {
         // dialogOpen={dialogOpen}
         // onToggleAlert={handleToggleAlert}
         // onToggleDialog={handleToggleDialog}
+      />
+      <ProfileActionButton
       />
 			<GooglemapFilter
 				pinFilter={pinFilter}

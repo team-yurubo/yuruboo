@@ -11,7 +11,7 @@ class Gathering(models.Model):
     pos_lng : models.FloatField =  models.FloatField(help_text="募集場所_経度")
     host : models.ForeignKey = models.ForeignKey(CustomUser, on_delete=models.PROTECT, help_text="募集者")
     genre : models.ForeignKey = models.ForeignKey(Genre, on_delete=models.PROTECT, help_text="ジャンル")
-    body : models.CharField = models.CharField(max_length=1024, help_text="本文")
+    body : models.CharField = models.CharField(max_length=1024, help_text="本文", null=True, blank=True, default="")
     num_participant : models.IntegerField = models.IntegerField(help_text="人数")
     created_at : models.DateTimeField = models.DateTimeField(auto_now_add=True, help_text="募集開始日時")
     start_time : models.DateTimeField = models.DateTimeField(help_text="集合時刻")

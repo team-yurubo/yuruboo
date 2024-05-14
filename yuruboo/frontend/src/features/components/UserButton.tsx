@@ -1,5 +1,6 @@
 import Fab from '@mui/material/Fab';
 import Icon from '@mui/material/Icon';
+import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded'; 
 
 import { styled } from '@mui/material/styles';
 
@@ -19,15 +20,19 @@ export const UserButton: React.FC<Props> = ({ onToggleUserInfo }) => {
 	return (
 	<FabButton
 		sx={{
-			backgroundColor: "#3D405B",
+			backgroundColor: "#ffffff",
 			'&:hover': {
-				backgroundColor: "#3D405B",
+				backgroundColor: "ffffff",
 			},
 			'&:active': {
-				backgroundColor: "#3D405B",
+				backgroundColor: "#ffffff",
 			},
 		}}
 		onClick={onToggleUserInfo}>
+		<Icon sx= {{width: '100%', height: '100%'}}>
+                <AccountCircleRoundedIcon sx= {{fontSize: 56}} /> {/* AccountCircleRoundedアイコンの表示 */}
+        </Icon>
+
 	</FabButton>
 	);
 };
