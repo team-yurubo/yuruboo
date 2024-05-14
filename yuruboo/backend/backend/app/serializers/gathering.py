@@ -19,7 +19,7 @@ class ParticipantListSerializer(serializers.ModelSerializer):
         model = Participation
         fields = ["id", "participant", "gathering", "created_at"]
 
-class GatheringSerializer(serializers.ModelSerializer):
+class GatheringSerializerV2(serializers.ModelSerializer):
     participants = ParticipantListSerializer(many=True, source="participations")
 
     class Meta:

@@ -19,7 +19,7 @@ from django.urls import include, path
 from rest_framework import routers
 
 from app.views.genre import GenreViewSet
-from app.views.gathering import GatheringViewSet
+from app.views.gathering import GatheringViewSet, GatheringViewSetV2
 from app.views.ownership import OwnershipViewSet
 from app.views.message import MessageViewSet, MessageLogsViewSet
 from app.views.participation import ParticipationViewSet
@@ -36,6 +36,7 @@ router.register('users',CustomUserViewSet)
 router.register('messagelogs',MessageLogsViewSet, basename='messagelogs')
 router.register('getflowercolordetail',GetFlowerColorViewSet, basename='getflowercolordetail')
 router.register('getflowercolor',GetFlowerColorViewSet_v2, basename='getflowercolor')
+router.register('gatheringsv2',GatheringViewSetV2, basename='gatheringsv2')
 
 
 
