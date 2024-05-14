@@ -187,12 +187,6 @@ const Home: React.FC = () => {
         isOpen={isFlowerGardenOpen}
         onToggleFlowerGarden={handleFlowerGardenInfo}
       />
-      <UserProfile
-        isOpen={isUserProfileOpen}
-        onToggleUserProfile={handleUserProfileInfo}
-        profileImageUrl="https://upload.wikimedia.org/wikipedia/commons/2/29/Jason_Statham_2012.jpg"
-
-      />
       <GooglemapToolBar 
         MapClick={MapClick} />
       <Googlemap 
