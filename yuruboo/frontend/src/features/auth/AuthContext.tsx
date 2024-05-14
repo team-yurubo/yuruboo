@@ -39,6 +39,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   const signin = (loggedInUser: any) => {
     setIsAuth(true);
     setUser(loggedInUser);
+    console.log("aaaa");
     console.log(user);
   };
 

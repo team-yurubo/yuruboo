@@ -1,15 +1,31 @@
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
-import TextField, { TextFieldProps }  from '@mui/material/TextField';
+import TextField from '@mui/material/TextField';
 import MenuItem from '@mui/material/MenuItem';
 import DialogActions from '@mui/material/DialogActions';
 
 type Props = {
   genre: string;
+  title: string;
+  nump: string;
+  budget: string;
+  body: string;
   SubmitFormOpen: boolean;
   nextformat: () => void;
   onGenreChange: (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => void;
+  onTitleChange: (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => void;
+  onNumpChange: (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => void;
+  onBudgetChange: (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => void;
+  onBodyChange: (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => void;
   onToggleSubmitForm: () => void;
@@ -45,42 +61,46 @@ const currencies = [
 
 const currencies2 = [
   {
-    value: 'all',
+    value: "2",
     label: '2人',
   },
   {
-    value: 'ramen',
+    value: "3",
     label: '3人',
   },
   {
-    value: 'nomi',
+    value: "4",
     label: '4人',
   },
   {
-    value: 'sightseeing',
+    value: "5",
     label: '5人以上',
   },
 ];
 
 const currencies3 = [
   {
-    value: 'all',
+    value: 'FREE',
+    label: '無料',
+  },
+  {
+    value: 'UNDER_1000',
     label: '~ 1,000円',
   },
   {
-    value: 'ramen',
+    value: 'UNDER_3000',
     label: '1,000円 ~ 3,000円',
   },
   {
-    value: 'nomi',
+    value: 'UNDER_5000',
     label: '3,000円 ~ 5,000円',
   },
   {
-    value: 'nom',
+    value: 'OVER_5000',
     label: '5,000円 ~',
   },
   {
-    value: 'sightseeing',
+    value: 'UNDECIDED',
     label: '未定',
   },
 ];
@@ -121,6 +141,19 @@ export const GooglemapSubmitForm = (props: Props) => (
         }}
       >
         <div style={{ margin: "15px" }}>
+        <TextField
+            aria-label="todo-input"
+            multiline
+            variant="standard"
+            style={{
+              width: '100%',
+              fontSize: '16px',
+              fontFamily: '-apple-system, BlinkMacSystemFont, Roboto, sans-serif',
+            }}
+            label="タイトル"
+            onChange={(e) => props.onTitleChange(e)}
+            value={props.title}
+          />
           <TextField
             aria-label="todo-input"
             select
@@ -158,6 +191,8 @@ export const GooglemapSubmitForm = (props: Props) => (
               fontFamily: '-apple-system, BlinkMacSystemFont, Roboto, sans-serif',
             }}
             label="人数"
+            onChange={(e) => props.onNumpChange(e)}
+            value={props.nump}
           >
             {currencies2.map((option) => (
               <MenuItem
@@ -208,6 +243,8 @@ export const GooglemapSubmitForm = (props: Props) => (
               fontFamily: '-apple-system, BlinkMacSystemFont, Roboto, sans-serif',
             }}
             label="予算"
+            onChange={(e) => props.onBudgetChange(e)}
+            value={props.budget}
           >
             {currencies3.map((option) => (
               <MenuItem
@@ -226,7 +263,7 @@ export const GooglemapSubmitForm = (props: Props) => (
           <TextField
             aria-label="todo-input"
             multiline
-            rows={3}
+            rows={2}
             variant="standard"
             style={{
               width: '100%',
@@ -234,6 +271,8 @@ export const GooglemapSubmitForm = (props: Props) => (
               fontFamily: '-apple-system, BlinkMacSystemFont, Roboto, sans-serif',
             }}
             label="詳細"
+            onChange={(e) => props.onBodyChange(e)}
+            value={props.body}
           />
           <DialogActions>
             <Button
