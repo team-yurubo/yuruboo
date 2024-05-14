@@ -1,18 +1,50 @@
 [
     {
       "model": "app.Genre",
-      "pk": 1,
+      "pk": "food",
       "fields": {
-        "name": "Movie",
-        "icon": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjeNtjfEhn223o_361Bec-mVAmTJ3iB0d3vQQv6Kl26ttYh4hRy8yxKdYNvAbwuiefkyWLtvDHiSGrm5efpxrI9M13PDroLFjoWEcoJQamjsz_a8xbfPWrGNMfS2iOUddTHecsI7HUMi47q/s1600/movie_liveviewing_ringlight_man.png"
+        "label": "食事",
+        "icon": "https://raw.githubusercontent.com/team-yurubo/image/main/food.png"
+      }
+    },
+    {
+      "model": "app.Genre",
+      "pk": "sweets",
+      "fields": {
+        "label": "甘味",
+        "icon": "https://raw.githubusercontent.com/team-yurubo/image/main/sweets.png"
+      }
+    },
+    {
+      "model": "app.Genre",
+      "pk": "drink",
+      "fields": {
+        "label": "飲み",
+        "icon": "https://raw.githubusercontent.com/team-yurubo/image/main/drink.png"
       }
     }, 
     {
       "model": "app.Genre",
-      "pk": 2,
+      "pk": "sightseeing",
       "fields": {
-        "name": "Food",
-        "icon": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjg2n_lx_JUue8gmooJLdEjd-a-s5MFxzuyp42hzGMyU2Pa9ufjZLWqOqhWIbvdfTxWgOsTZMRjzofF2wtWpNRuE0dtI1mi70_Igu8gkXAEgRsqXUA342cJZOTUNpEchhdkPJKaW3zYmjFo/s755/food_ra-men_pa-ko-men.png"
+        "label": "観光",
+        "icon": "https://raw.githubusercontent.com/team-yurubo/image/main/sightseeing.png"
+      }
+    },
+    {
+      "model": "app.Genre",
+      "pk": "film",
+      "fields": {
+        "label": "映画",
+        "icon": "https://raw.githubusercontent.com/team-yurubo/image/main/film.png"
+      }
+    }, 
+    {
+      "model": "app.Genre",
+      "pk": "random",
+      "fields": {
+        "label": "その他",
+        "icon": "https://raw.githubusercontent.com/team-yurubo/image/main/random.png"
       }
     },
     {
@@ -48,7 +80,7 @@
         "pos_lat": 35.010281215589174,
         "pos_lng": 135.74121218747763,
         "host": 1,
-        "genre": 1,
+        "genre": "film",
         "body": "This is test explanation 1(Moive_taro).",
         "num_participant": 2,
         "created_at": "2020-07-27T02:12:40Z", 
@@ -64,7 +96,7 @@
         "pos_lat": 35.039717840860426, 
         "pos_lng": 135.7920336073815,
         "host": 2,
-        "genre": 2,
+        "genre": "food",
         "body": "This is test explanation 2(Food_ko).",
         "num_participant": 4,
         "created_at": "2020-07-27T05:20:45Z",
