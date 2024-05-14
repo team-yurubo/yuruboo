@@ -19,6 +19,7 @@ import { GooglemapActionButton } from './GooglemapActionButton';
 import { GooglemapPosList } from './GooglemapPosList';
 import { GooglemapSubmitForm } from './GooglemapSubmitForm';
 import { GooglemapFilter } from './GooglemapFilter';
+import { ProfileActionButton } from './ProfileActionButton';
 
 import GlobalStyles from '@mui/material/GlobalStyles';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
@@ -47,7 +48,6 @@ export const App = () => {
 	const [drawerOpen, setDrawerOpen] = useState(false);
 	const [PosListOpen, setPosListOpen] = useState(false);
 	const [SubmitFormOpen, setSubmitFormOpen] = useState(false);
-  const [SubmitFormOpen2, setSubmitFormOpen2] = useState(false);
 	const [pinFilter, setPinFilter] = useState<PinFilter>('all');
 	const handleTogglePosList = () => {
     setPosListOpen((PosListOpen) => !PosListOpen);
@@ -130,6 +130,8 @@ export const App = () => {
         // dialogOpen={dialogOpen}
         // onToggleAlert={handleToggleAlert}
         // onToggleDialog={handleToggleDialog}
+      />
+      <ProfileActionButton
       />
 			<GooglemapFilter
 				pinFilter={pinFilter}
