@@ -88,6 +88,10 @@ export const Googlemap=(props: Props)=>{
             visible={true}
             position={posi}
             onLoad={onLoad}
+            icon={{
+              url: 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiLuW2xcJlrbLdQDiw-wTCsElgoQIvbaXRZ40pCZX9vxYuLh1W3njnzZ_SZddy3nVpXeTDZqdKX6rI-MQBECmDwL80RPHDA4d5_lBe89Z8YTbBw9LSlnkTYFbKFmLvObN6tMyyCx7kPVQiMVILHoqH-ze4DDH1n6tf6PIo06l_6w95xdmZ40m7X7Bzx9g/s664/rennai_kaeruka.png', // GitHub上の画像のURLに置き換える
+              scaledSize: new window.google.maps.Size(60, 60), // アイコンのサイズを調整する
+            }}
             />
                 );
             })}

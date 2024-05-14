@@ -5,6 +5,7 @@ import { GooglemapSubmitForm } from '../components/GooglemapSubmitForm';
 import { GooglemapActionButton } from '../components/GooglemapActionButton';
 import { UserButton } from '../components/UserButton';
 import { FlowerGarden } from "../components/FlowerGarden";
+import { UserProfile } from "../components/UserProfile";
 import { UserInfo } from '../components/UserInfo';
 import { useState } from 'react';
 import { useAuthContext } from "../auth/AuthContext"
@@ -13,6 +14,8 @@ import { useAuthContext } from "../auth/AuthContext"
 const Home: React.FC = () => {
   const [isUserInfoOpen, setIsUserInfoOpen] = useState(false);
   const [isFlowerGardenOpen, setIsFlowerGardenOpen] = useState(false);
+  const [isUserProfileOpen, setIsUserProfileOpen] = useState(false);
+
   const [pins, setPins] = useState<Pin[]>([]);
   const [MapClick, setMapClick] = useState(false);
   const [genre, setGenre] = useState('');
@@ -25,6 +28,10 @@ const Home: React.FC = () => {
 
   const handleFlowerGardenInfo = () => {
     setIsFlowerGardenOpen(!isFlowerGardenOpen);
+  };
+
+  const handleUserProfileInfo = () => {
+    setIsUserProfileOpen(!isUserProfileOpen);
   };
 
   const handleToggleUserInfo = () => {
@@ -133,10 +140,17 @@ const Home: React.FC = () => {
         isOpen={isUserInfoOpen}
         onClose={handleCloseUserInfo}
         onToggleFlowerGarden={handleFlowerGardenInfo}
+        onToggleUserProfile={handleUserProfileInfo}
       />
       <FlowerGarden
         isOpen={isFlowerGardenOpen}
         onToggleFlowerGarden={handleFlowerGardenInfo}
+      />
+      <UserProfile
+        isOpen={isUserProfileOpen}
+        onToggleUserProfile={handleUserProfileInfo}
+        profileImageUrl="https://upload.wikimedia.org/wikipedia/commons/2/29/Jason_Statham_2012.jpg"
+
       />
       <GooglemapToolBar 
         MapClick={MapClick} />
