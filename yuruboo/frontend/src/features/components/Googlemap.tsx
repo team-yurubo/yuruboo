@@ -9,6 +9,9 @@ type Props = {
   createMarker: (
     e: google.maps.MapMouseEvent
   ) => void;
+  isOpen: boolean;
+  isHost: boolean;
+  onClose: () => void;
 };
 
 const budge_dic = [
@@ -43,6 +46,20 @@ const getLabelByValue = (value: string): string | undefined => {
   return budget ? budget.label : undefined;
 };
 
+function formatJapaneseDateTime(dateTimeString: string): string {
+  const date = new Date(dateTimeString);
+
+  const year = date.getFullYear();
+  const month = date.getMonth() + 1; // 月は0から始まるので+1する
+  const day = date.getDate();
+  const hours = date.getHours();
+  const minutes = date.getMinutes();
+  const seconds = date.getSeconds();
+
+  const formattedDate = `${month}月${day}日${hours}時${minutes}分`;
+
+  return formattedDate;
+}
 /*
 地図の全画面表示
 */
@@ -136,14 +153,26 @@ export const Googlemap = (props: Props) => {
                         <p>{selectedPin.genre}</p>
                         <p>定員：{selectedPin.nump}</p>
                         <p>予算：{getLabelByValue(selectedPin.budget)}</p>
-                        <p>集合時間：{selectedPin.time}</p>
+                        <p>集合時間：{formatJapaneseDateTime(selectedPin.time)}</p>
                         <p>{selectedPin.body}</p>
-                        <button>
+                        <button onClick={props.onClose}>
                           参加
                         </button>
                     </div>
                 </InfoWindowF>
             )}
+            <div><img
+        src="https://raw.githubusercontent.com/flatp/yuruimage/main/logo2.png"
+        alt="Sample Image"
+        style={{
+          position: 'fixed',
+          bottom: '0px',
+          right: '20px',
+          width: '150px',
+          height: 'auto',
+          zIndex: 1000
+        }}
+      /></div>
         </GoogleMap>
       </LoadScript>
     </>

@@ -4,20 +4,27 @@ import Toolbar from '@mui/material/Toolbar';
 
 type Props = {
     MapClick: boolean;
+    showWarning: boolean;
   };
 
   export const GooglemapToolBar = (props: Props) => {
-    return (props.MapClick && 
+    const renderContent = () => {
+      if (props.MapClick) {
+        return <p style={{ fontSize: '20px', textAlign: 'center' }}>集合場所を選択してください</p>;
+      }
+      if (props.showWarning) {
+        return <p style={{ fontSize: '20px', textAlign: 'center' }}>全てのフィールドを入力してください</p>;
+      }
+      return null;
+    };
+    return ((props.MapClick || props.showWarning) && 
     <Box sx={{ flexGrow: 1 }}>
       <AppBar
 				position="fixed"
 				sx={{ top: 0 }}
 			>
         <Toolbar>
-          {/* <Typography>Yuruboo</Typography> */}
-          <div>
-            <p style={{fontSize: '20px',textAlign: 'center',}}>集合場所を選択してください</p>
-        </div>
+          <div>{renderContent()}</div>
         </Toolbar>
       </AppBar>
     </Box>

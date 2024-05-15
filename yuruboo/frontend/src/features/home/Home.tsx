@@ -7,6 +7,7 @@ import { UserButton } from '../components/UserButton';
 import { FlowerGarden } from "../components/FlowerGarden";
 import { UserProfile } from "../components/UserProfile";
 import { UserInfo } from '../components/UserInfo';
+import { StandbyForHost } from '../components/StandbyForHost';
 import { useEffect, useState } from 'react';
 import { useAuthContext } from "../auth/AuthContext"
 
@@ -16,6 +17,8 @@ const Home: React.FC = () => {
   const [isFlowerGardenOpen, setIsFlowerGardenOpen] = useState(false);
   const [isUserProfileOpen, setIsUserProfileOpen] = useState(false);
 
+  const [isHost, setIsHost] = useState(false);
+  const [standby, setStandby] = useState(false);
   const [pins, setPins] = useState<Pin[]>([]);
   const [MapClick, setMapClick] = useState(false);
   const [genre, setGenre] = useState('');
@@ -23,6 +26,8 @@ const Home: React.FC = () => {
   const [budget, setBudget] = useState('');
   const [body, setBody] = useState("");
   const [title, setTitle] = useState("");
+  const [hour, setHour] = useState("");
+  const [minute, setMinute] = useState("");
   const [SubmitFormOpen, setSubmitFormOpen] = useState(false);
   const { user } = useAuthContext();
 
@@ -76,9 +81,68 @@ const Home: React.FC = () => {
     setBody(e.target.value);
   };
 
+  const handleHourChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    setHour(e.target.value);
+  };
+
+  const handleMinuteChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    setMinute(e.target.value);
+  };
+
+  function toDateTimeString(hourString: string, minuteString: string): string {
+    const now = new Date();
+    
+    // 時と分を数値に変換
+    const hours = parseInt(hourString, 10);
+    const minutes = parseInt(minuteString, 10);
+    
+    // 現在時刻の時間と分を取得
+    const nowHours = now.getHours();
+    const nowMinutes = now.getMinutes();
+    
+    // 新しい日付を作成
+    let targetDate = new Date(now.getFullYear(), now.getMonth(), now.getDate(), hours, minutes, 0);
+    
+    // 今から24時間以内かどうかを確認
+    if (hours < nowHours || (hours === nowHours && minutes < nowMinutes)) {
+        targetDate.setDate(targetDate.getDate() + 1);
+    }
+    
+    // ISO 8601形式の文字列に変換
+    const year = targetDate.getFullYear();
+    const month = String(targetDate.getMonth() + 1).padStart(2, '0'); // 月は0から始まるので+1する
+    const day = String(targetDate.getDate()).padStart(2, '0');
+    const targetHours = String(targetDate.getHours()).padStart(2, '0');
+    const targetMinutes = String(targetDate.getMinutes()).padStart(2, '0');
+    const seconds = '00';
+    
+    const dateTimeString = `${year}-${month}-${day}T${targetHours}:${targetMinutes}:${seconds}`;
+
+    return dateTimeString;
+  }
+
+  const handleStandbyClose = () => {
+    setStandby(!standby);
+  };
+
+  const handleisHost = () => {
+    setIsHost(false);
+    setStandby(!standby);
+  };
+
+  const [showWarning, setShowWarning] = useState(false);
+
   const nextformat = () => {
-    if(!genre || !title || !nump || !budget){
+    if(!genre || !title || !nump || !budget || !hour || !minute || !body){
       setSubmitFormOpen((SubmitFormOpen) => !SubmitFormOpen);
+      setShowWarning(true);
+      setTimeout(() => {
+        setShowWarning(false);
+      }, 1000);
       return
     }
     setMapClick((MapClick) => (!MapClick))
@@ -145,7 +209,7 @@ const Home: React.FC = () => {
         genre: genre,
         body: body,
         num_participant: numValue,
-        start_time: "2020-07-27T02:12:40Z",
+        start_time: toDateTimeString(hour, minute),
         budget: budget,
         title: title
       })
@@ -168,6 +232,11 @@ const Home: React.FC = () => {
     setNump("");
     setBudget("");
     setBody("");
+    setHour("");
+    setMinute("");
+
+    setStandby(!standby);
+    setIsHost(!isHost);
   };
 
   useEffect(() => {
@@ -176,6 +245,11 @@ const Home: React.FC = () => {
 
   return(
     <>
+      <StandbyForHost
+        isOpen={standby}
+        isHost={isHost}
+        onClose={handleStandbyClose}
+      />
       <UserButton onToggleUserInfo={handleToggleUserInfo} />
       <UserInfo
         isOpen={isUserInfoOpen}
@@ -188,10 +262,15 @@ const Home: React.FC = () => {
         onToggleFlowerGarden={handleFlowerGardenInfo}
       />
       <GooglemapToolBar 
-        MapClick={MapClick} />
+        MapClick={MapClick}
+        showWarning={showWarning} 
+      />
       <Googlemap 
         pins={pins}
         createMarker={createMarker}
+        isOpen={standby}
+        isHost={isHost}
+        onClose={handleisHost}
       />
       <GooglemapSubmitForm
         genre={genre}
@@ -199,12 +278,16 @@ const Home: React.FC = () => {
         nump={nump}
         budget={budget}
         body={body}
+        hour={hour}
+        minute={minute}
         SubmitFormOpen={SubmitFormOpen}
         onGenreChange={handleGenreChange}
         onTitleChange={handleTitleChange}
         onBudgetChange={handleBudgetChange}
         onBodyChange={handleBodyChange}
         onNumpChange={handleNumpChange}
+        onHourChange={handleHourChange}
+        onMinuteChange={handleMinuteChange}
         nextformat={nextformat}
         onToggleSubmitForm={handleToggleSubmitForm}
       />

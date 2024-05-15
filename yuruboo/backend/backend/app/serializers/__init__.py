@@ -1,5 +1,5 @@
 from .genre import GenreSerializer
-from .gathering import GatheringSerializer
+from .gathering import GatheringSerializer, GatheringSerializerV2
 from .message import MessageSerializer, MessageLogsSerializer
 from .ownership import OwnershipSerializer
 from .participation import ParticipationSerializer
@@ -9,6 +9,7 @@ from .getflowercolor import GetFlowerColorSerializer, GetFlowerColorSerializer_v
 __all__ = [
     "GenreSerializer",
     "GatheringSerializer",
+    "GatheringSerializerV2"
     "MessageSerializer",
     "OwnershipSerializer",
     "ParticipationSerializer",

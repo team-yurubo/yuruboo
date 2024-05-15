@@ -1,6 +1,6 @@
 import Fab from '@mui/material/Fab';
 import Icon from '@mui/material/Icon';
-
+import { IoIosAddCircleOutline } from "react-icons/io";
 import { styled } from '@mui/material/styles';
 
 type Props = {
@@ -23,7 +23,7 @@ export const GooglemapActionButton = (props: Props) => {
 		  disabled={props.SubmitFormOpen || props.MapClick}
       style={{verticalAlign: 'middle'}}
     >
-	+
+	<IoIosAddCircleOutline size={55}/>
     </FabButton>
   );
 };

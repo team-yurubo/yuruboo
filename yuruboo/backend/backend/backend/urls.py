@@ -19,12 +19,13 @@ from django.urls import include, path
 from rest_framework import routers
 
 from app.views.genre import GenreViewSet
-from app.views.gathering import GatheringViewSet
+from app.views.gathering import GatheringViewSet, GatheringViewSetV2
 from app.views.ownership import OwnershipViewSet
 from app.views.message import MessageViewSet, MessageLogsViewSet
 from app.views.participation import ParticipationViewSet
 from app.views.user import CustomUserViewSet
 from app.views.getflowercolor import GetFlowerColorViewSet, GetFlowerColorViewSet_v2
+from app.views import delete_my_participation, close_gathering
 
 router = routers.DefaultRouter()
 router.register('genres', GenreViewSet)
@@ -36,6 +37,7 @@ router.register('users',CustomUserViewSet)
 router.register('messagelogs',MessageLogsViewSet, basename='messagelogs')
 router.register('getflowercolordetail',GetFlowerColorViewSet, basename='getflowercolordetail')
 router.register('getflowercolor',GetFlowerColorViewSet_v2, basename='getflowercolor')
+router.register('gatheringsv2',GatheringViewSetV2, basename='gatheringsv2')
 
 
 
@@ -45,4 +47,6 @@ urlpatterns = [
     path('api/auth/', include('djoser.urls')),
     path('api/auth/',include('djoser.urls.jwt')),
     path('', include(router.urls)),
+    path('deletemyparticipation/<int:user_id>', delete_my_participation, name='delete_my_participation'),
+    path('closegathering/<str:gathering_id>', close_gathering, name='close_gathering'),
 ]
