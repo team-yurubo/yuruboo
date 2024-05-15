@@ -9,6 +9,9 @@ type Props = {
   createMarker: (
     e: google.maps.MapMouseEvent
   ) => void;
+  isOpen: boolean;
+  isHost: boolean;
+  onClose: () => void;
 };
 
 const budge_dic = [
@@ -152,7 +155,7 @@ export const Googlemap = (props: Props) => {
                         <p>予算：{getLabelByValue(selectedPin.budget)}</p>
                         <p>集合時間：{formatJapaneseDateTime(selectedPin.time)}</p>
                         <p>{selectedPin.body}</p>
-                        <button>
+                        <button onClick={props.onClose}>
                           参加
                         </button>
                     </div>

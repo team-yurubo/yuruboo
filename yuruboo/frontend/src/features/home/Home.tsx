@@ -7,6 +7,7 @@ import { UserButton } from '../components/UserButton';
 import { FlowerGarden } from "../components/FlowerGarden";
 import { UserProfile } from "../components/UserProfile";
 import { UserInfo } from '../components/UserInfo';
+import { StandbyForHost } from '../components/StandbyForHost';
 import { useEffect, useState } from 'react';
 import { useAuthContext } from "../auth/AuthContext"
 
@@ -16,6 +17,8 @@ const Home: React.FC = () => {
   const [isFlowerGardenOpen, setIsFlowerGardenOpen] = useState(false);
   const [isUserProfileOpen, setIsUserProfileOpen] = useState(false);
 
+  const [isHost, setIsHost] = useState(false);
+  const [standby, setStandby] = useState(false);
   const [pins, setPins] = useState<Pin[]>([]);
   const [MapClick, setMapClick] = useState(false);
   const [genre, setGenre] = useState('');
@@ -122,6 +125,15 @@ const Home: React.FC = () => {
     return dateTimeString;
   }
 
+  const handleStandbyClose = () => {
+    setStandby(!standby);
+  };
+
+  const handleisHost = () => {
+    setIsHost(false);
+    setStandby(!standby);
+  };
+
   const nextformat = () => {
     if(!genre || !title || !nump || !budget){
       setSubmitFormOpen((SubmitFormOpen) => !SubmitFormOpen);
@@ -214,6 +226,9 @@ const Home: React.FC = () => {
     setNump("");
     setBudget("");
     setBody("");
+
+    setStandby(!standby);
+    setIsHost(!isHost);
   };
 
   useEffect(() => {
@@ -222,6 +237,11 @@ const Home: React.FC = () => {
 
   return(
     <>
+      <StandbyForHost
+        isOpen={standby}
+        isHost={isHost}
+        onClose={handleStandbyClose}
+      />
       <UserButton onToggleUserInfo={handleToggleUserInfo} />
       <UserInfo
         isOpen={isUserInfoOpen}
@@ -238,6 +258,9 @@ const Home: React.FC = () => {
       <Googlemap 
         pins={pins}
         createMarker={createMarker}
+        isOpen={standby}
+        isHost={isHost}
+        onClose={handleisHost}
       />
       <GooglemapSubmitForm
         genre={genre}
