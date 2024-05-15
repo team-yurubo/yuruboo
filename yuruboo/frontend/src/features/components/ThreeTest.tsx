@@ -6,9 +6,9 @@ import { OrbitControls, Environment, Sphere, useEnvironment } from '@react-three
 import { useTexture, Cloud, useGLTF } from "@react-three/drei";
 import { Bloom, EffectComposer } from '@react-three/postprocessing';
 import { BlurPass, Resizer, KernelSize, Resolution } from 'postprocessing'
-// type BoxProps = {
-//   position: [x: number, y: number, z: number];
-// };
+type BoxProps = {
+  position: [x: number, y: number, z: number];
+};
 
 const Base: React.FC<BoxProps> = (props) => {
   const mesh = useRef<Mesh>(null!);
@@ -93,37 +93,33 @@ const Cylinder2: React.FC<BoxProps & { color: string }> = (props) => {
 //   );
 // };
 
-type BoxProps = {
-  position: [number, number, number];
-  rotation?: [number, number, number];
-  scale?: [number, number, number];
-  color: string;
-};
-
-const Petal: React.FC<BoxProps> = (props) => {
+const Petal: React.FC<BoxProps & { color: string, rotation: number[]}> = (props) => {
   const mesh = useRef<Mesh>(null!);
-  const texture = useTexture("path/to/flower_petal_texture.jpg");  // 花びらのテクスチャ
+  const texture = useTexture("../../../public/seaside_rock_diff_4k.jpg"); // 花びら用テクスチャ
+  const { color } = props;
+  const DoubleSide = 2;
 
   return (
     <mesh
       {...props}
       ref={mesh}
-      castShadow
-      receiveShadow
+      scale={1}
+			castShadow
+			receiveShadow
     >
-      <boxGeometry args={[0.6, 0.1, 0.2]} />  // 花びらの形状に厚みを加える
-      <meshStandardMaterial map={texture} color={props.color} side={DoubleSide} />
+      <planeGeometry args={[0.6, 0.2]} />
+      <meshStandardMaterial map={texture} color={color} side={DoubleSide} />
     </mesh>
   );
 };
 
-const FlowerCenter: React.FC<Omit<BoxProps, 'color'>> = (props) => {
+const FlowerCenter: React.FC<BoxProps> = (props) => {
   const mesh = useRef<Mesh>(null!);
   return (
     <mesh
       {...props}
       ref={mesh}
-      scale={[0.2, 0.2, 0.2]}  // 中心部分を適切な大きさに調整
+      scale={[0.1, 0.1, 0.1]}
       castShadow
       receiveShadow
     >
@@ -133,21 +129,18 @@ const FlowerCenter: React.FC<Omit<BoxProps, 'color'>> = (props) => {
   );
 };
 
-const Flower: React.FC<BoxProps> = ({ position, color }) => {
-  const numPetals = 8;  // 花びらの数を増やす
+const Flower: React.FC<BoxProps & { color: string }> = (props) => {
+  const { position, color } = props;
+  const numPetals = 5;
   const petals = [];
   for (let i = 0; i < numPetals; i++) {
     const angle = (i / numPetals) * Math.PI * 2;
     petals.push(
       <Petal
         key={i}
-        position={[
-          position[0] + Math.sin(angle) * 0.5,
-          position[1],
-          position[2] + Math.cos(angle) * 0.5
-        ]}
-        rotation={[0, 0, angle]}  // 花びらを少し中心に傾ける
+        position={[position[0] + Math.sin(angle) * 0.3, position[1], position[2] + Math.cos(angle) * 0.3]}
         color={color}
+        rotation={[0, angle, 0]}
       />
     );
   }
@@ -155,10 +148,11 @@ const Flower: React.FC<BoxProps> = ({ position, color }) => {
   return (
     <group>
       {petals}
-      <FlowerCenter position={position} />
+      <FlowerCenter position={[position[0], position[1] + 0.1, position[2]]} />
     </group>
   );
 };
+
 
 const Scene = () => {
   const gltf = useGLTF('../../../public/boulder_01_1k.gltf');
