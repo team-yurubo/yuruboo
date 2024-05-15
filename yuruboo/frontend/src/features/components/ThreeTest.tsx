@@ -107,8 +107,10 @@ const Petal: React.FC<BoxProps & { color: string, rotation: number[]}> = (props)
 			castShadow
 			receiveShadow
     >
-      <planeGeometry args={[0.6, 0.2]} />
-      <meshStandardMaterial map={texture} color={color} side={DoubleSide} />
+      <boxGeometry args={[0.6, 0.01, 0.2]} />
+      {/* <meshStandardMaterial map={texture} color={color} side={DoubleSide} /> */}
+      <meshStandardMaterial color={color} emissive={color} emissiveIntensity={2} toneMapped={false} />
+
     </mesh>
   );
 };
@@ -131,7 +133,7 @@ const FlowerCenter: React.FC<BoxProps> = (props) => {
 
 const Flower: React.FC<BoxProps & { color: string }> = (props) => {
   const { position, color } = props;
-  const numPetals = 5;
+  const numPetals = 10;
   const petals = [];
   for (let i = 0; i < numPetals; i++) {
     const angle = (i / numPetals) * Math.PI * 2;
@@ -140,7 +142,7 @@ const Flower: React.FC<BoxProps & { color: string }> = (props) => {
         key={i}
         position={[position[0] + Math.sin(angle) * 0.3, position[1], position[2] + Math.cos(angle) * 0.3]}
         color={color}
-        rotation={[0, angle, 0]}
+        rotation={[0, angle + 0.5 * Math.PI, 0]}
       />
     );
   }
@@ -149,6 +151,7 @@ const Flower: React.FC<BoxProps & { color: string }> = (props) => {
     <group>
       {petals}
       <FlowerCenter position={[position[0], position[1] + 0.1, position[2]]} />
+      <Cylinder position={[position[0], position[1] - 0.5, position[2]]} />
     </group>
   );
 };
