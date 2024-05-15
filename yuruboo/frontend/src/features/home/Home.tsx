@@ -134,9 +134,15 @@ const Home: React.FC = () => {
     setStandby(!standby);
   };
 
+  const [showWarning, setShowWarning] = useState(false);
+
   const nextformat = () => {
-    if(!genre || !title || !nump || !budget){
+    if(!genre || !title || !nump || !budget || !hour || !minute || !body){
       setSubmitFormOpen((SubmitFormOpen) => !SubmitFormOpen);
+      setShowWarning(true);
+      setTimeout(() => {
+        setShowWarning(false);
+      }, 1000);
       return
     }
     setMapClick((MapClick) => (!MapClick))
@@ -226,6 +232,8 @@ const Home: React.FC = () => {
     setNump("");
     setBudget("");
     setBody("");
+    setHour("");
+    setMinute("");
 
     setStandby(!standby);
     setIsHost(!isHost);
@@ -254,7 +262,9 @@ const Home: React.FC = () => {
         onToggleFlowerGarden={handleFlowerGardenInfo}
       />
       <GooglemapToolBar 
-        MapClick={MapClick} />
+        MapClick={MapClick}
+        showWarning={showWarning} 
+      />
       <Googlemap 
         pins={pins}
         createMarker={createMarker}
