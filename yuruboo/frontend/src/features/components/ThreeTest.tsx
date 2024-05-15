@@ -82,16 +82,77 @@ const Cylinder2: React.FC<BoxProps & { color: string }> = (props) => {
   );
 };
 
+// const Flower: React.FC<BoxProps & { color: string }> = (props) => {
+//   const { position, color } = props;
+
+//   return (
+//     <group>
+//       <Cylinder position={[position[0], position[1] - 0.5, position[2]]} />
+//       <Cylinder2 position={[position[0], position[1], position[2]]} color={color} />
+//     </group>
+//   );
+// };
+
+const Petal: React.FC<BoxProps & { color: string, rotation: number[]}> = (props) => {
+  const mesh = useRef<Mesh>(null!);
+  const texture = useTexture("../../../public/seaside_rock_diff_4k.jpg"); // 花びら用テクスチャ
+  const { color } = props;
+  const DoubleSide = 2;
+
+  return (
+    <mesh
+      {...props}
+      ref={mesh}
+      scale={1}
+			castShadow
+			receiveShadow
+    >
+      <planeGeometry args={[0.6, 0.2]} />
+      <meshStandardMaterial map={texture} color={color} side={DoubleSide} />
+    </mesh>
+  );
+};
+
+const FlowerCenter: React.FC<BoxProps> = (props) => {
+  const mesh = useRef<Mesh>(null!);
+  return (
+    <mesh
+      {...props}
+      ref={mesh}
+      scale={[0.1, 0.1, 0.1]}
+      castShadow
+      receiveShadow
+    >
+      <sphereGeometry args={[0.5, 32, 32]} />
+      <meshStandardMaterial color={'#ffdd00'} />
+    </mesh>
+  );
+};
+
 const Flower: React.FC<BoxProps & { color: string }> = (props) => {
   const { position, color } = props;
+  const numPetals = 5;
+  const petals = [];
+  for (let i = 0; i < numPetals; i++) {
+    const angle = (i / numPetals) * Math.PI * 2;
+    petals.push(
+      <Petal
+        key={i}
+        position={[position[0] + Math.sin(angle) * 0.3, position[1], position[2] + Math.cos(angle) * 0.3]}
+        color={color}
+        rotation={[0, angle, 0]}
+      />
+    );
+  }
 
   return (
     <group>
-      <Cylinder position={[position[0], position[1] - 0.5, position[2]]} />
-      <Cylinder2 position={[position[0], position[1], position[2]]} color={color} />
+      {petals}
+      <FlowerCenter position={[position[0], position[1] + 0.1, position[2]]} />
     </group>
   );
 };
+
 
 const Scene = () => {
   const gltf = useGLTF('../../../public/boulder_01_1k.gltf');
