@@ -75,10 +75,19 @@ const Signin: React.FC = () => {
           m: "20px auto",
         }}
       >
-        <Box sx={{ width: "100%", display: "flex", justifyContent: "center" }}>
-          <Avatar>
-            <LockOutlinedIcon />
-          </Avatar>
+        <Box sx={{ width: "100%", display: "flex", justifyContent: "center", marginBottom: "50px", marginTop: "20px" }}>
+          <img
+      src="https://raw.githubusercontent.com/flatp/yuruimage/main/logo.png"
+      alt="Sample Image"
+      style={{
+        position: 'fixed',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
+        width: '100px',
+        height: 'auto',
+        zIndex: 1000 
+      }}
+    />
         </Box>
         <Typography>Signin</Typography>
         <form noValidate onSubmit={formik.handleSubmit}>
