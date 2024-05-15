@@ -201,7 +201,7 @@ export const GooglemapSubmitForm = (props: Props) => (
               fontSize: '16px',
               fontFamily: '-apple-system, BlinkMacSystemFont, Roboto, sans-serif',
             }}
-            label="人数"
+            label="定員"
             onChange={(e) => props.onNumpChange(e)}
             value={props.nump}
           >
@@ -229,7 +229,7 @@ export const GooglemapSubmitForm = (props: Props) => (
               fontSize: '16px',
               fontFamily: '-apple-system, BlinkMacSystemFont, Roboto, sans-serif',
             }}
-            label="時間"
+            label="時"
             onChange={(e) => props.onHourChange(e)}
             value={props.hour}
           >
