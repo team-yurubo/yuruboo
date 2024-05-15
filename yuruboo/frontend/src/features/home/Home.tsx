@@ -241,7 +241,7 @@ const Home: React.FC = () => {
 
   useEffect(() => {
     getpin();
-  }, []);
+  }, [MapClick]);
 
   return(
     <>
