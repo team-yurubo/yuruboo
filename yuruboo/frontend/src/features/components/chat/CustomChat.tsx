@@ -36,22 +36,38 @@ const CustomChat: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
+  const fetchMessages = async (id: string) => {
+    try {
+      const messageLog: MessageLog = await getMessageLogs(id);
+      setMessages(messageLog.messages);
+    } catch (err) {
+      setError('Failed to fetch messages');
+    }
+  };
+
   useEffect(() => {
-    const fetchMessages = async () => {
+    const initializeChat = async () => {
       try {
         const id = await getGatheringId();
         setGatheringId(id);
-        const messageLog: MessageLog = await getMessageLogs(id);
-        setMessages(messageLog.messages);
+        await fetchMessages(id);
       } catch (err) {
-        setError('Failed to fetch messages');
+        setError('Failed to initialize chat');
       } finally {
         setLoading(false);
       }
     };
 
-    fetchMessages();
-  }, []);
+    initializeChat();
+
+    const interval = setInterval(() => {
+      if (gatheringId) {
+        fetchMessages(gatheringId);
+      }
+    }, 5000); // 5秒間隔でメッセージを同期
+
+    return () => clearInterval(interval);
+  }, [gatheringId]);
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
