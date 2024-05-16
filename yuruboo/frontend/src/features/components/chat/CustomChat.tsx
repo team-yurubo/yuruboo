@@ -52,6 +52,8 @@ const CustomChat: React.FC = () => {
     fetchMessages();
   }, []);
 
+  sendMessage ({gathering: "00000000-0000-0000-0000-000000000001", body: "Hello, World!", sender: 1});
+
   const handleSendMessage = async () => {
     if (!newMessage.trim()) return;
 

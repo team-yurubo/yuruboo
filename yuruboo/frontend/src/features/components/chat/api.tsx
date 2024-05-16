@@ -11,6 +11,10 @@ export const getMessageLogs = async (gatheringId: string) => {
 };
 
 export const sendMessage = async (message: { gathering: string; body: string; sender: number }) => {
-  const response = await axios.post(`http://localhost:8000/messages/`, message);
+  const response = await axios.post(`http://localhost:8000/messages/`, message, {
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  });
   return response.data;
 };
