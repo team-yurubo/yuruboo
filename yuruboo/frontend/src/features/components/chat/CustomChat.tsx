@@ -92,13 +92,14 @@ const CustomChat: React.FC = () => {
   };
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
-    if ((event.key === 'Enter' && (event.metaKey || event.ctrlKey))) {
+    if (event.key === 'Enter' && (event.metaKey || event.ctrlKey)) {
       event.preventDefault();
       handleSendMessage();
-    } else if (event.key === 'Enter') {
-      event.preventDefault();
-      setNewMessage((prevMessage) => prevMessage + '\n');
-    }
+    } 
+    // else if (event.key === 'Enter') {
+    //   event.preventDefault();
+    //   setNewMessage((prevMessage) => prevMessage + '\n');
+    // }
   };
 
   if (loading) {
