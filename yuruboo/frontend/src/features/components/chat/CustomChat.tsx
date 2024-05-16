@@ -95,10 +95,7 @@ const CustomChat: React.FC = () => {
     if (event.key === 'Enter' && (event.metaKey || event.ctrlKey)) {
       event.preventDefault();
       handleSendMessage();
-    } else if (event.key === 'Enter') {
-      event.preventDefault();
-      setNewMessage((prevMessage) => prevMessage + '\n');
-    }
+    } 
   };
 
   if (loading) {
