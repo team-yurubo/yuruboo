@@ -161,6 +161,18 @@ export const Googlemap = (props: Props) => {
                     </div>
                 </InfoWindowF>
             )}
+            <div><img
+        src="https://raw.githubusercontent.com/flatp/yuruimage/main/logo2.png"
+        alt="Sample Image"
+        style={{
+          position: 'fixed',
+          bottom: '0px',
+          right: '20px',
+          width: '150px',
+          height: 'auto',
+          zIndex: 1000
+        }}
+      /></div>
         </GoogleMap>
       </LoadScript>
     </>
