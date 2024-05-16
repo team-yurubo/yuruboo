@@ -91,6 +91,13 @@ const CustomChat: React.FC = () => {
     }
   };
 
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
+    if ((event.key === 'Enter' && (event.metaKey || event.ctrlKey))) {
+      event.preventDefault();
+      handleSendMessage();
+    }
+  };
+
   if (loading) {
     return (
       <Container>
@@ -145,6 +152,7 @@ const CustomChat: React.FC = () => {
             variant="outlined"
             value={newMessage}
             onChange={(e) => setNewMessage(e.target.value)}
+            onKeyDown={handleKeyDown}
             placeholder="Type your message here"
           />
           <Button variant="contained" color="primary" onClick={handleSendMessage} disabled={!newMessage.trim()}>
