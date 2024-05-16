@@ -58,7 +58,7 @@ const CustomChat: React.FC = () => {
   useEffect(() => {
     const initializeChat = async () => {
       try {
-        const id = await getGatheringId();
+        const id = await getGatheringId(user.id);
         setGatheringId(id);
         await fetchMessages(id);
       } catch (err) {
