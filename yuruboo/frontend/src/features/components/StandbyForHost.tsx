@@ -16,6 +16,7 @@ import { useAuthContext } from "../auth/AuthContext";
 import { fetchAsyncLogoutUser } from "../auth/api";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import CustomChat from "./chat/CustomChat";
 
 type Props = {
   isOpen: boolean;
@@ -32,7 +33,7 @@ export const StandbyForHost = (props: Props) => {
       <Box
         position="fixed"
         sx={{
-            backgroundColor:"#cdb4db",
+            backgroundColor:"#FF0000",
             width: "100vw",
             height: "100vh",
             zIndex: 10000,
@@ -40,6 +41,7 @@ export const StandbyForHost = (props: Props) => {
             alignItems: "center"
           }}
       >
+        <CustomChat />
         <Box
           onClick={props.onClose}
           sx={{
@@ -73,6 +75,7 @@ export const StandbyForHost = (props: Props) => {
           alignItems: "center"
         }}
     >
+      <CustomChat />
       <Box
         onClick={props.onClose}
         sx={{
