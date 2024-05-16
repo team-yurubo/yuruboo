@@ -84,7 +84,7 @@ const CustomChat: React.FC = () => {
 
     try {
       const sentMessage = await sendMessage(message);
-      setMessages((prevMessages) => [...prevMessages, {...sentMessage, sender: user}]);
+      setMessages((prevMessages) => [...prevMessages, { ...sentMessage, sender: user }]);
       setNewMessage('');
     } catch (err) {
       setError('Failed to send message');
@@ -95,7 +95,7 @@ const CustomChat: React.FC = () => {
     if (event.key === 'Enter' && (event.metaKey || event.ctrlKey)) {
       event.preventDefault();
       handleSendMessage();
-    } 
+    }
   };
 
   if (loading) {
@@ -120,7 +120,7 @@ const CustomChat: React.FC = () => {
     <Container>
       <Box my={4}>
         <Typography variant="h4" gutterBottom>
-          CustomChat Messages
+          Chat Messages
         </Typography>
         <Paper style={{ height: '60vh', overflowY: 'auto', padding: '16px' }}>
           <List>
