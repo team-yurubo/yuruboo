@@ -50,6 +50,16 @@ const Cone: React.FC<BoxProps> = (props) => {
 const Cylinder: React.FC<BoxProps> = (props) => {
   const mesh = useRef<Mesh>(null!);
 
+
+  // x, zをもとに揺れの初期位相を決定
+  const theta = props.position[0] * grad_x + props.position[2] * grad_z;
+  
+  useFrame(({ clock }) => {
+    const time = clock.getElapsedTime();
+    // 花びらの揺れに合わせて中心を揺らす動きをシミュレート
+    mesh.current.position.y += Math.sin(time * 2 + theta) * 0.0007;
+  });
+
   return (
     <mesh
       {...props}
@@ -95,6 +105,8 @@ const Cylinder2: React.FC<BoxProps & { color: string }> = (props) => {
 //   );
 // };
 
+
+// 風が吹く方向をランダムに決定
 const grad_x = Math.random();
 const grad_z = Math.random();
 
@@ -103,6 +115,8 @@ const Petal: React.FC<BoxProps & { color: string, rotation: number[]}> = (props)
   const texture = useTexture("../../../public/seaside_rock_diff_4k.jpg"); // 花びら用テクスチャ
   const { color } = props;
   const DoubleSide = 2;
+
+  // x, zをもとに揺れの初期位相を決定
   const theta = props.position[0] * grad_x + props.position[2] * grad_z;
 
   useFrame(({ clock }) => {
@@ -110,6 +124,8 @@ const Petal: React.FC<BoxProps & { color: string, rotation: number[]}> = (props)
     // 花びらの揺れをシミュレート
     mesh.current.position.y += Math.sin(time * 2 + theta) * 0.0007;
     mesh.current.rotation.z = props.rotation![2] + Math.sin(time * 2 + theta) * 0.2;
+
+    // mesh.current.position.y += 
     // mesh.current.rotation.x = props.rotation![0] + Math.sin(time + theta) * 0.2;
   });
 
@@ -132,6 +148,16 @@ const Petal: React.FC<BoxProps & { color: string, rotation: number[]}> = (props)
 
 const FlowerCenter: React.FC<BoxProps> = (props) => {
   const mesh = useRef<Mesh>(null!);
+
+  // x, zをもとに揺れの初期位相を決定
+  const theta = props.position[0] * grad_x + props.position[2] * grad_z;
+
+  useFrame(({ clock }) => {
+    const time = clock.getElapsedTime();
+    // 花びらの揺れに合わせて中心を揺らす動きをシミュレート
+    mesh.current.position.y += Math.sin(time * 2 + theta) * 0.0007;
+  });
+
   return (
     <mesh
       {...props}
@@ -140,8 +166,9 @@ const FlowerCenter: React.FC<BoxProps> = (props) => {
       castShadow
       receiveShadow
     >
-      <sphereGeometry args={[0.5, 32, 32]} />
-      <meshStandardMaterial color={'#ffdd00'} />
+      <sphereGeometry args={[1, 32, 32]} />
+      <meshStandardMaterial color={'#ffdd00'} emissive={'#ffdd00'} emissiveIntensity={0.9} toneMapped={false} />
+      {/* <meshStandardMaterial color={'#ffdd00'} /> */}
     </mesh>
   );
 };
@@ -155,7 +182,7 @@ const Flower: React.FC<BoxProps & { color: string }> = (props) => {
     petals.push(
       <Petal
         key={i}
-        position={[position[0] + Math.sin(angle) * 0.3, position[1], position[2] + Math.cos(angle) * 0.3]}
+        position={[position[0] + Math.sin(angle) * 0.4, position[1], position[2] + Math.cos(angle) * 0.4]}
         color={color}
         rotation={[0, angle + 0.5 * Math.PI, 0]}
       />
@@ -165,7 +192,7 @@ const Flower: React.FC<BoxProps & { color: string }> = (props) => {
   return (
     <group>
       {petals}
-      <FlowerCenter position={[position[0], position[1] + 0.1, position[2]]} />
+      <FlowerCenter position={[position[0], position[1] , position[2]]} />
       <Cylinder position={[position[0], position[1] - 0.5, position[2]]} />
     </group>
   );
