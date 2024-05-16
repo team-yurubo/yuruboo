@@ -95,11 +95,10 @@ const CustomChat: React.FC = () => {
     if (event.key === 'Enter' && (event.metaKey || event.ctrlKey)) {
       event.preventDefault();
       handleSendMessage();
-    } 
-    // else if (event.key === 'Enter') {
-    //   event.preventDefault();
-    //   setNewMessage((prevMessage) => prevMessage + '\n');
-    // }
+    } else if (event.key === 'Enter') {
+      event.preventDefault();
+      setNewMessage((prevMessage) => prevMessage + '\n');
+    }
   };
 
   if (loading) {
@@ -136,7 +135,11 @@ const CustomChat: React.FC = () => {
                   </Avatar>
                 )}
                 <ListItemText
-                  primary={message.body}
+                  primary={
+                    <span style={{ whiteSpace: 'pre-wrap' }}>
+                      {message.body}
+                    </span>
+                  }
                   secondary={`${message.sender.user_name} - ${new Date(message.created_at).toLocaleString()}`}
                   style={{ textAlign: message.sender.id === user.id ? 'right' : 'left' }}
                 />
