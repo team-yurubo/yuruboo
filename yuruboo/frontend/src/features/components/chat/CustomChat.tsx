@@ -1,7 +1,7 @@
 // src/components/CustomChat.tsx
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { getGatheringId, getMessageLogs, sendMessage } from './api';
-import { Box, Button, CircularProgress, Container, TextField, Typography, List, ListItem, ListItemText, Avatar } from '@mui/material';
+import { Box, Button, CircularProgress, Container, TextField, Typography, List, ListItem, ListItemText, Avatar, Paper } from '@mui/material';
 import { useAuthContext } from '../../auth/AuthContext';
 
 interface User {
@@ -34,6 +34,7 @@ const CustomChat: React.FC = () => {
   const [newMessage, setNewMessage] = useState('');
   const [gatheringId, setGatheringId] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const messagesEndRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const fetchMessages = async () => {
@@ -51,6 +52,10 @@ const CustomChat: React.FC = () => {
 
     fetchMessages();
   }, []);
+
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [messages]);
 
   const handleSendMessage = async () => {
     if (!newMessage.trim()) return;
@@ -94,27 +99,30 @@ const CustomChat: React.FC = () => {
         <Typography variant="h4" gutterBottom>
           CustomChat Messages
         </Typography>
-        <List>
-          {messages.map((message) => (
-            <ListItem key={message.id} style={{ justifyContent: message.sender.id === user.id ? 'flex-end' : 'flex-start' }}>
-              {message.sender.id !== user.id && (
-                <Avatar style={{ backgroundColor: message.sender.color, marginRight: 8 }}>
-                  {message.sender.user_name[0]}
-                </Avatar>
-              )}
-              <ListItemText
-                primary={message.body}
-                secondary={`${message.sender.user_name} - ${new Date(message.created_at).toLocaleString()}`}
-                style={{ textAlign: message.sender.id === user.id ? 'right' : 'left' }}
-              />
-              {message.sender.id === user.id && (
-                <Avatar style={{ backgroundColor: message.sender.color, marginLeft: 8 }}>
-                  {message.sender.user_name[0]}
-                </Avatar>
-              )}
-            </ListItem>
-          ))}
-        </List>
+        <Paper style={{ height: '60vh', overflowY: 'auto', padding: '16px' }}>
+          <List>
+            {messages.map((message) => (
+              <ListItem key={message.id} style={{ justifyContent: message.sender.id === user.id ? 'flex-end' : 'flex-start' }}>
+                {message.sender.id !== user.id && (
+                  <Avatar style={{ backgroundColor: message.sender.color, marginRight: 8 }}>
+                    {message.sender.user_name[0]}
+                  </Avatar>
+                )}
+                <ListItemText
+                  primary={message.body}
+                  secondary={`${message.sender.user_name} - ${new Date(message.created_at).toLocaleString()}`}
+                  style={{ textAlign: message.sender.id === user.id ? 'right' : 'left' }}
+                />
+                {message.sender.id === user.id && (
+                  <Avatar style={{ backgroundColor: message.sender.color, marginLeft: 8 }}>
+                    {message.sender.user_name[0]}
+                  </Avatar>
+                )}
+              </ListItem>
+            ))}
+            <div ref={messagesEndRef} />
+          </List>
+        </Paper>
         <Box display="flex" mt={2}>
           <TextField
             fullWidth
