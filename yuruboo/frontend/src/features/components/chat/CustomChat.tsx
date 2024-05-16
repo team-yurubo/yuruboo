@@ -52,8 +52,6 @@ const CustomChat: React.FC = () => {
     fetchMessages();
   }, []);
 
-  sendMessage ({gathering: "00000000-0000-0000-0000-000000000001", body: "Hello, World!", sender: 1});
-
   const handleSendMessage = async () => {
     if (!newMessage.trim()) return;
 
@@ -65,7 +63,7 @@ const CustomChat: React.FC = () => {
 
     try {
       const sentMessage = await sendMessage(message);
-      setMessages((prevMessages) => [...prevMessages, sentMessage]);
+      setMessages((prevMessages) => [...prevMessages, {...sentMessage, sender: user}]);
       setNewMessage('');
     } catch (err) {
       setError('Failed to send message');
