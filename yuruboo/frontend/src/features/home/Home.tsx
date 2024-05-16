@@ -17,6 +17,7 @@ const Home: React.FC = () => {
   const [isFlowerGardenOpen, setIsFlowerGardenOpen] = useState(false);
   const [isUserProfileOpen, setIsUserProfileOpen] = useState(false);
 
+  const [gatheringID, setgatheringID] = useState("");
   const [isHost, setIsHost] = useState(false);
   const [standby, setStandby] = useState(false);
   const [pins, setPins] = useState<Pin[]>([]);
@@ -209,7 +210,10 @@ const Home: React.FC = () => {
       })
     })
     .then(response => response.json())
-    .then(data => console.log(data))
+    .then(data => {
+      console.log(data.id);
+      setgatheringID(data.id);
+    })
     .catch(error => console.error('Error:', error));
     setMapClick((MapClick) => (!MapClick))
     // const newPin: Pin = {
@@ -241,6 +245,8 @@ const Home: React.FC = () => {
         isOpen={standby}
         isHost={isHost}
         onClose={handleStandbyClose}
+        gatheringID={gatheringID}
+        userID={user.id}
       />
       <UserButton onToggleUserInfo={handleToggleUserInfo} />
       <UserInfo
