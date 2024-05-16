@@ -59,7 +59,9 @@ const Cylinder: React.FC<BoxProps> = (props) => {
 			receiveShadow
     >
       <cylinderGeometry args={[0.1, 0.1, 1, 32]}/>
-      <meshStandardMaterial color={'#386641'} />
+      <meshStandardMaterial color={'#005133'} />
+      {/* <meshStandardMaterial color={'#005133'} emissive={'#005133'} emissiveIntensity={2} toneMapped={false} /> */}
+
     </mesh>
   );
 };
@@ -93,11 +95,24 @@ const Cylinder2: React.FC<BoxProps & { color: string }> = (props) => {
 //   );
 // };
 
+const grad_x = Math.random();
+const grad_z = Math.random();
+
 const Petal: React.FC<BoxProps & { color: string, rotation: number[]}> = (props) => {
   const mesh = useRef<Mesh>(null!);
   const texture = useTexture("../../../public/seaside_rock_diff_4k.jpg"); // 花びら用テクスチャ
   const { color } = props;
   const DoubleSide = 2;
+  const theta = props.position[0] * grad_x + props.position[2] * grad_z;
+
+  useFrame(({ clock }) => {
+    const time = clock.getElapsedTime();
+    // 花びらの揺れをシミュレート
+    mesh.current.position.y += Math.sin(time * 2 + theta) * 0.0007;
+    mesh.current.rotation.z = props.rotation![2] + Math.sin(time * 2 + theta) * 0.2;
+    // mesh.current.rotation.x = props.rotation![0] + Math.sin(time + theta) * 0.2;
+  });
+
 
   return (
     <mesh
