@@ -70,10 +70,6 @@ const CustomChat: React.FC = () => {
     return () => clearInterval(interval);
   }, [gatheringId]);
 
-  useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-  }, [messages]);
-
   const handleSendMessage = async () => {
     if (newMessage.length > 1023) {
       setSnackbarOpen(true);
@@ -92,6 +88,7 @@ const CustomChat: React.FC = () => {
       const sentMessage = await sendMessage(message);
       setMessages((prevMessages) => [...prevMessages, { ...sentMessage, sender: user }]);
       setNewMessage('');
+      messagesEndRef.current?.scrollIntoView({ behavior: 'smooth', block: 'end' }); // 自分のメッセージ送信時のみ自動スクロール
     } catch (err) {
       setError('Failed to send message');
     }
