@@ -1,7 +1,7 @@
 // src/components/CustomChat.tsx
 import React, { useEffect, useState, useRef } from 'react';
 import { getGatheringId, getMessageLogs, sendMessage } from './api';
-import { Box, Button, CircularProgress, Container, TextField, Typography, List, ListItem, ListItemText, Avatar, Paper } from '@mui/material';
+import { Box, Button, CircularProgress, Container, TextField, Typography, List, ListItem, ListItemText, Avatar, Paper, Snackbar, Alert } from '@mui/material';
 import { useAuthContext } from '../../auth/AuthContext';
 
 interface User {
@@ -34,6 +34,7 @@ const CustomChat: React.FC = () => {
   const [newMessage, setNewMessage] = useState('');
   const [gatheringId, setGatheringId] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   const fetchMessages = async (id: string) => {
@@ -74,6 +75,11 @@ const CustomChat: React.FC = () => {
   }, [messages]);
 
   const handleSendMessage = async () => {
+    if (newMessage.length > 1023) {
+      setSnackbarOpen(true);
+      return;
+    }
+
     if (!newMessage.trim()) return;
 
     const message = {
@@ -96,6 +102,10 @@ const CustomChat: React.FC = () => {
       event.preventDefault();
       handleSendMessage();
     }
+  };
+
+  const handleSnackbarClose = () => {
+    setSnackbarOpen(false);
   };
 
   if (loading) {
@@ -166,6 +176,11 @@ const CustomChat: React.FC = () => {
           </Button>
         </Box>
       </Box>
+      <Snackbar open={snackbarOpen} autoHideDuration={3000} onClose={handleSnackbarClose}>
+        <Alert onClose={handleSnackbarClose} severity="error" sx={{ width: '100%' }}>
+          Message cannot exceed 1023 characters.
+        </Alert>
+      </Snackbar>
     </Container>
   );
 };
