@@ -35,11 +35,20 @@ const CustomChat: React.FC = () => {
   const [gatheringId, setGatheringId] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [snackbarOpen, setSnackbarOpen] = useState(false);
+  const [newMessageAlert, setNewMessageAlert] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const messagesRef = useRef<Message[]>([]); // UseRef to keep track of current messages
 
   const fetchMessages = async (id: string) => {
     try {
       const messageLog: MessageLog = await getMessageLogs(id);
+      const newMessages = messageLog.messages.filter(msg => !messagesRef.current.some(existingMsg => existingMsg.id === msg.id));
+
+      if (newMessages.some(msg => msg.sender.id !== user.id) && messagesRef.current.length > 0 ) {
+        setNewMessageAlert(true);
+      }
+
+      messagesRef.current = messageLog.messages; // Update the messagesRef with the new messages
       setMessages(messageLog.messages);
     } catch (err) {
       setError('Failed to fetch messages');
@@ -86,7 +95,11 @@ const CustomChat: React.FC = () => {
 
     try {
       const sentMessage = await sendMessage(message);
-      setMessages((prevMessages) => [...prevMessages, { ...sentMessage, sender: user }]);
+      setMessages((prevMessages) => {
+        const updatedMessages = [...prevMessages, { ...sentMessage, sender: user }];
+        messagesRef.current = updatedMessages; // Update the messagesRef with the new message
+        return updatedMessages;
+      });
       setNewMessage('');
       setTimeout(() => {
         messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -105,6 +118,10 @@ const CustomChat: React.FC = () => {
 
   const handleSnackbarClose = () => {
     setSnackbarOpen(false);
+  };
+
+  const handleNewMessageAlertClose = () => {
+    setNewMessageAlert(false);
   };
 
   if (loading) {
@@ -178,6 +195,11 @@ const CustomChat: React.FC = () => {
       <Snackbar open={snackbarOpen} autoHideDuration={3000} onClose={handleSnackbarClose}>
         <Alert onClose={handleSnackbarClose} severity="error" sx={{ width: '100%' }}>
           Message cannot exceed 1023 characters.
+        </Alert>
+      </Snackbar>
+      <Snackbar open={newMessageAlert} autoHideDuration={3000} onClose={handleNewMessageAlertClose}>
+        <Alert onClose={handleNewMessageAlertClose} severity="info" sx={{ width: '100%' }}>
+          New message received.
         </Alert>
       </Snackbar>
     </Container>
