@@ -44,7 +44,7 @@ const CustomChat: React.FC = () => {
       const messageLog: MessageLog = await getMessageLogs(id);
       const newMessages = messageLog.messages.filter(msg => !messagesRef.current.some(existingMsg => existingMsg.id === msg.id));
 
-      if (newMessages.some(msg => msg.sender.id !== user.id) && messagesRef.current.length > 0 ) {
+      if (messagesRef.current.length > 0 && newMessages.some(msg => msg.sender.id !== user.id)) {
         setNewMessageAlert(true);
       }
 
