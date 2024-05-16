@@ -124,6 +124,11 @@ const CustomChat: React.FC = () => {
     setNewMessageAlert(false);
   };
 
+  const handleNewMessageAlertClick = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    setNewMessageAlert(false);
+  };
+
   if (loading) {
     return (
       <Container>
@@ -197,7 +202,7 @@ const CustomChat: React.FC = () => {
           Message cannot exceed 1023 characters.
         </Alert>
       </Snackbar>
-      <Snackbar open={newMessageAlert} autoHideDuration={3000} onClose={handleNewMessageAlertClose}>
+      <Snackbar open={newMessageAlert} autoHideDuration={3000} onClose={handleNewMessageAlertClose} onClick={handleNewMessageAlertClick}>
         <Alert onClose={handleNewMessageAlertClose} severity="info" sx={{ width: '100%' }}>
           New message received.
         </Alert>
