@@ -27,7 +27,19 @@ interface MessageLog {
   messages: Message[];
 }
 
-const CustomChat: React.FC = () => {
+interface CustomChatProps {
+  backgroundColor?: string;
+  messageLogBackgroundColor?: string;
+  ownMessageColor?: string;
+  otherMessageColor?: string;
+}
+
+const CustomChat: React.FC<CustomChatProps> = ({
+  backgroundColor = '#f5f5f5',
+  messageLogBackgroundColor = '#ffffff',
+  ownMessageColor = '#DCF8C6',
+  otherMessageColor = '#FFFFFF',
+}) => {
   const { user } = useAuthContext();
   const [loading, setLoading] = useState(true);
   const [messages, setMessages] = useState<Message[]>([]);
@@ -58,7 +70,7 @@ const CustomChat: React.FC = () => {
   useEffect(() => {
     const initializeChat = async () => {
       try {
-        const id = await getGatheringId(user.id);
+        const id = await getGatheringId();
         setGatheringId(id);
         await fetchMessages(id);
       } catch (err) {
@@ -148,29 +160,44 @@ const CustomChat: React.FC = () => {
   }
 
   return (
-    <Container>
+    <Container style={{ backgroundColor }}>
       <Box my={4}>
         <Typography variant="h4" gutterBottom>
           Chat Messages
         </Typography>
-        <Paper style={{ height: '60vh', overflowY: 'auto', padding: '16px' }}>
+        <Paper style={{ height: '60vh', overflowY: 'auto', padding: '16px', backgroundColor: messageLogBackgroundColor }}>
           <List>
             {messages.map((message) => (
-              <ListItem key={message.id} style={{ justifyContent: message.sender.id === user.id ? 'flex-end' : 'flex-start' }}>
+              <ListItem
+                key={message.id}
+                style={{
+                  justifyContent: message.sender.id === user.id ? 'flex-end' : 'flex-start',
+                  display: 'flex',
+                }}
+              >
                 {message.sender.id !== user.id && (
                   <Avatar style={{ backgroundColor: message.sender.color, marginRight: 8 }}>
                     {message.sender.user_name[0]}
                   </Avatar>
                 )}
-                <ListItemText
-                  primary={
-                    <span style={{ whiteSpace: 'pre-wrap' }}>
-                      {message.body}
-                    </span>
-                  }
-                  secondary={`${message.sender.user_name} - ${new Date(message.created_at).toLocaleString()}`}
-                  style={{ textAlign: message.sender.id === user.id ? 'right' : 'left' }}
-                />
+                <Paper
+                  elevation={3}
+                  style={{
+                    padding: '10px',
+                    backgroundColor: message.sender.id === user.id ? ownMessageColor : otherMessageColor,
+                    maxWidth: '60%',
+                  }}
+                >
+                  <ListItemText
+                    primary={
+                      <span style={{ whiteSpace: 'pre-wrap' }}>
+                        {message.body}
+                      </span>
+                    }
+                    secondary={`${message.sender.user_name} - ${new Date(message.created_at).toLocaleString()}`}
+                    style={{ textAlign: message.sender.id === user.id ? 'right' : 'left' }}
+                  />
+                </Paper>
                 {message.sender.id === user.id && (
                   <Avatar style={{ backgroundColor: message.sender.color, marginLeft: 8 }}>
                     {message.sender.user_name[0]}
