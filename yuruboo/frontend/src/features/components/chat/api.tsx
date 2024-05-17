@@ -2,10 +2,11 @@
 import axios from 'axios';
 
 export const getGatheringId = async (userId: string): Promise<string> => {
-  const response = await axios.get(`http://http://localhost:8000/getcurrentgathering/${userId}/`);
-  const gatherings = response.data.gathering;
-  //gatheringsの最後の要素を返却
-  return gatherings[gatherings.length - 1];
+  // const response = await axios.get(`http://http://localhost:8000/getcurrentgathering/${userId}/`);
+  // const gatherings = response.data.gathering;
+  // //gatheringsの最後の要素を返却
+  // return gatherings[gatherings.length - 1];
+  return "00000000-0000-0000-0000-000000000001";
 
 };
 

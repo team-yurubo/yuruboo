@@ -30,15 +30,15 @@ interface MessageLog {
 interface CustomChatProps {
   backgroundColor?: string;
   messageLogBackgroundColor?: string;
-  ownMessageColor?: string;
+  myMessageColor?: string;
   otherMessageColor?: string;
 }
 
 const CustomChat: React.FC<CustomChatProps> = ({
-  backgroundColor = '#f5f5f5',
-  messageLogBackgroundColor = '#ffffff',
-  ownMessageColor = '#DCF8C6',
-  otherMessageColor = '#FFFFFF',
+  backgroundColor = '#F0F0F0',
+  messageLogBackgroundColor = '#FFFFFF',
+  myMessageColor = '#DCF8C6',
+  otherMessageColor = '#FFF',
 }) => {
   const { user } = useAuthContext();
   const [loading, setLoading] = useState(true);
@@ -143,7 +143,7 @@ const CustomChat: React.FC<CustomChatProps> = ({
 
   if (loading) {
     return (
-      <Container>
+      <Container style={{ backgroundColor }}>
         <CircularProgress />
       </Container>
     );
@@ -151,7 +151,7 @@ const CustomChat: React.FC<CustomChatProps> = ({
 
   if (error) {
     return (
-      <Container>
+      <Container style={{ backgroundColor }}>
         <Typography variant="h6" color="error">
           {error}
         </Typography>
@@ -184,7 +184,7 @@ const CustomChat: React.FC<CustomChatProps> = ({
                   elevation={3}
                   style={{
                     padding: '10px',
-                    backgroundColor: message.sender.id === user.id ? ownMessageColor : otherMessageColor,
+                    backgroundColor: message.sender.id === user.id ? myMessageColor : otherMessageColor,
                     maxWidth: '60%',
                   }}
                 >
