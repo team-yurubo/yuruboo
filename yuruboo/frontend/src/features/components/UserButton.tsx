@@ -13,19 +13,19 @@ const FabButton = styled(Fab)({
 	right: 15,
 	top: 15,
 	disableRipple: true,
-	zIndex: 10000,
+	zIndex: 15000,
 });
 
 export const UserButton: React.FC<Props> = ({ onToggleUserInfo }) => {
 	return (
 	<FabButton
 		sx={{
-			backgroundColor: "#ffffff",
+			backgroundColor: "transparent",
 			'&:hover': {
-				backgroundColor: "ffffff",
+				backgroundColor: "transparent",
 			},
 			'&:active': {
-				backgroundColor: "#ffffff",
+				backgroundColor: "transparent",
 			},
 		}}
 		onClick={onToggleUserInfo}>
