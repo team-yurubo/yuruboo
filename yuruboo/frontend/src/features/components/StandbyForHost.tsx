@@ -26,6 +26,8 @@ type Props = {
 };
 
 export const StandbyForHost = (props: Props) => {
+  const [gatheringData, setGatheringData] = useState(null);
+
   useEffect(() => {
     if (props.isOpen) {
       fetch("http://localhost:8000/participations/", {
@@ -44,7 +46,7 @@ export const StandbyForHost = (props: Props) => {
           console.log(data);
         })
         .catch(error => console.error('Error:', error));
-    }
+    };
   }, [props.isOpen, props.gatheringID, props.userID]);
 
   if (!props.isOpen) {
@@ -93,24 +95,27 @@ export const StandbyForHost = (props: Props) => {
         height: "100vh",
         zIndex: 10000,
         display: "flex",
-        alignItems: "center"
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "space-between"
       }}
     >
+      {/* {gatheringData} */}
       {/* {props.gatheringID} */}
       {/* {props.userID} */}
       <Box
         onClick={props.isHost ? handleDelete : handleClose}
         sx={{
-          width: "20vw",
-          height: "20vw",
+          width: "30vw",
+          height: "10vw",
           backgroundColor: "#bde0fe",
           margin: "auto",
-          borderRadius: "50%",
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
           fontSize: "20px",
           fontWeight: "bold",
+          marginBottom: "10vh"
         }}
       >
         {buttonText}
