@@ -169,6 +169,7 @@ const Home: React.FC = () => {
       return response.json();
     })
     .then(data => {
+      setPins([]);
       for (let i = 0; i < data.length; i++) {
         const newPin: Pin = {
           title: data[i].title,
@@ -227,15 +228,6 @@ const Home: React.FC = () => {
     })
     .catch(error => console.error('Error:', error));
     setMapClick((MapClick) => (!MapClick))
-    // const newPin: Pin = {
-    //   genre: genre,
-    //   latitude: String(lat),
-		// 	longitude: String(lng),
-    //   id: new Date().getTime(),
-		// 	tag: [],
-    // };
-
-    // setPins((pins) => [newPin, ...pins]);
     setGenre('');
     setTitle("");
     setNump("");
@@ -250,7 +242,7 @@ const Home: React.FC = () => {
 
   useEffect(() => {
     getpin();
-  }, [MapClick]);
+  },[MapClick]);
 
   return(
     <>

@@ -5,13 +5,16 @@ import {
   ListItemButton,
   ListItemIcon,
   ListItemText,
+  Typography
 } from "@mui/material";
 import { styled } from '@mui/material/styles';
 import LogoutIcon from "@mui/icons-material/Logout";
 import Fab from '@mui/material/Fab';
 import ContentPasteIcon from '@mui/icons-material/ContentPaste';
 import LocalFloristIcon from '@mui/icons-material/LocalFlorist';
+import IosShare from '@mui/icons-material/IosShare';
 import Signout from "../../features/auth/Signout";
+import Yard from '@mui/icons-material/Yard';
 import { useAuthContext } from "../auth/AuthContext";
 import { fetchAsyncLogoutUser } from "../auth/api";
 import { useNavigate } from "react-router-dom";
@@ -22,6 +25,15 @@ type Props = {
   onToggleFlowerGarden: () => void;
   onToggleUserProfile: () => void;
 };
+
+const ProfileContainer = styled('div')({
+  position: 'relative', // 子要素の絶対位置指定の基準に
+  height: '100%',
+  display: 'flex',
+  flexDirection: 'column', // 垂直方向に並べる
+  justifyContent: 'center', // 中央に配置
+  alignItems: 'center', // 中央に配置
+});
 
 export const UserInfo = (props: Props) => {
   const { user } = useAuthContext();
@@ -41,24 +53,21 @@ export const UserInfo = (props: Props) => {
 
   return (
     <Box
-      position="fixed"
       sx={{
-          backgroundColor:"#dbe9f4",
-          width: "60vw",
-          right:15,
-          top:85,
-          zIndex: 10000,
-          boxShadow:2,
-          borderRadius: 1,
-          textAlign:"center",
-          padding:2,
-          color:"#444"
-        }}
+        width: "100vw",
+        height: "100vh",
+        backgroundColor: "#FF7F7F",
+        position: "fixed",
+        zIndex: 10000,
+        fontFamily: 'Helvetica', 
+      }}
     >
-      <div>
-      {user.email}
-      </div>
+      <ProfileContainer>
       <Fab sx={{ 
+　　　 　　　　　width: '50px',
+              height: '50px',
+              minWidth: 120,
+              minHeight: 120,
         			backgroundColor: user.color,
               '&:hover': {
                 backgroundColor: user.color,
@@ -66,60 +75,62 @@ export const UserInfo = (props: Props) => {
               '&:active': {
                 backgroundColor: user.color,
               },
-        margin:2,
+              margin:2,
      }}>
+      　<LocalFloristIcon
+            sx={{
+              fontSize: '100px', // アイコンのサイズを調整
+              color: "#ffffff",
+              position: 'absolute', // 絶対位置を指定
+              top: '50%', // 上端から50%の位置
+              left: '50%', // 左端から50%の位置
+              transform: 'translate(-50%, -50%)', // 中央に配置するために移動
+            }}
+          />
       </Fab>
-      <Box
-        sx={{
-          width: "50vw",
-          backgroundColor:"#f8f8ff",
-          margin:"auto",
-          borderRadius: 1,
-        }}
-      >
         <List>
-          <ListItem
-            disablePadding
-            sx={{ 
-              borderBottom:2,
-              borderColor:"#dbe9f4",
-            }}>
-            <ListItemButton onClick={props.onToggleUserProfile}>
-                <ListItemIcon>
-                  <ContentPasteIcon />
-                </ListItemIcon>
-                <ListItemText primary="プロフィール" />
-              </ListItemButton>
-          </ListItem>
-          <ListItem >
-            <ListItemText primary={<>{user.user_name}</>} />
+          <ListItem>
+          <ListItemText 
+              primary={
+                <Typography sx={{ fontSize: '28px', fontWeight: 'bold', textAlign: 'center' }}>
+                  {user.user_name}
+                </Typography>
+              } 
+            />
           </ListItem>
           <ListItem>
-            <ListItemText primary={<>{user.id}</>} />
+            <ListItemText 
+               primary={<Typography sx={{ fontSize: '20px', fontWeight: 'bold', textAlign: 'center' }}>
+              My color : {user.color}
+              </Typography>
+            } 
+            />
           </ListItem>
           <ListItem
             disablePadding
             sx={{ 
               borderBottom:2,
               borderColor:"#dbe9f4",
+              textAlign: 'center',
             }}>
             <ListItemButton onClick={props.onToggleFlowerGarden}>
                 <ListItemIcon>
-                  <LocalFloristIcon />
+                  <Yard/>
                 </ListItemIcon>
-                <ListItemText primary="Go To お花畑" />
-              </ListItemButton>
+                <ListItemText primary="Go To お花畑" sx={{ textAlign: 'center' }} />
+            </ListItemButton>
           </ListItem>
           <ListItem key="signout" disablePadding>
-            <ListItemButton onClick={handleLogout}>
+            <ListItemButton onClick={handleLogout}
+            sx={{ justifyContent: 'center' }}
+            >
               <ListItemIcon>
-                <LogoutIcon />
+                <Signout/>
               </ListItemIcon>
-              <ListItemText primary="Signout" />
             </ListItemButton>
           </ListItem>
         </List>
-      </Box>
+       </ProfileContainer>
     </Box>
   );
 };
