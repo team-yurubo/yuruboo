@@ -44,6 +44,19 @@ export const StandbyForHost = (props: Props) => {
         .then(response => response.json())
         .then(data => {
           console.log(data);
+          console.log(`おしり:${data}`);
+        })
+        .catch(error => console.error('Error:', error));
+
+        fetch(`http://localhost:8000/gatheringsv2/${props.gatheringID}/`, {
+        credentials: "include",
+        method: "GET",
+        headers: { "Content-Type": "application/json" }
+      })
+        .then(response => response.json())
+        .then(data => {
+          console.log(data);
+          setGatheringData(data);
         })
         .catch(error => console.error('Error:', error));
     };
@@ -52,7 +65,8 @@ export const StandbyForHost = (props: Props) => {
   if (!props.isOpen) {
     return null;
   }
-  const buttonText = props.isHost ? "削除" : "閉じる";
+  const buttonText = props.isHost ? "イベントを終了する" : "イベントから退出する";
+  const typeOfUser = props.isHost ? "主催者" : "参加者";
 
   const handleDelete = () => {
     fetch(`http://localhost:8000/closegathering/${props.gatheringID}`, {
@@ -86,6 +100,20 @@ export const StandbyForHost = (props: Props) => {
       .catch(error => console.error('Error:', error));
   };
 
+  const reloadData = () => {
+    fetch(`http://localhost:8000/gatheringsv2/${props.gatheringID}/`, {
+        credentials: "include",
+        method: "GET",
+        headers: { "Content-Type": "application/json" }
+      })
+        .then(response => response.json())
+        .then(data => {
+          console.log(data);
+          setGatheringData(data);
+        })
+        .catch(error => console.error('Error:', error));
+  };
+
   return (
     <Box
       position="fixed"
@@ -100,14 +128,45 @@ export const StandbyForHost = (props: Props) => {
         justifyContent: "space-between"
       }}
     >
-      {/* {gatheringData} */}
-      {/* {props.gatheringID} */}
-      {/* {props.userID} */}
+      {gatheringData && (
+        <Box
+        sx={{
+          marginTop: "25vh",
+          textAlign: "center",
+          fontSize: "20px"
+        }}
+        >
+          <div style={{ fontSize: "35px", fontWeight: "bold" }}>{gatheringData["title"]}</div>
+          <div style={{ marginTop: "10px", marginBottom: "10px" }}>あなたは<span style={{ fontWeight: "bold"}}>{typeOfUser}</span>です</div>
+          <div style={{ marginTop: "10px", marginBottom: "10px" }}>ジャンル:<span style={{ fontWeight: "bold"}}>{gatheringData["genre"]}</span></div>
+          <div style={{ marginTop: "10px", marginBottom: "10px" }}>現在の参加者:<span style={{ fontWeight: "bold"}}>{Object.keys(gatheringData["participants"]).length}</span></div>
+          <div style={{ marginTop: "10px", marginBottom: "10px" }}>詳細</div>
+          <div style={{ fontSize: "17.5px" }}>{gatheringData["body"]}</div>
+        </Box>
+      )}
+      <Box
+      onClick={reloadData}
+      sx={{
+        width: "15vw",
+        height: "7.5vw",
+        backgroundColor: "#E07A5F",
+        margin: "auto",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        fontSize: "15px",
+        fontWeight: "bold",
+        marginBottom: "15vh",
+        marginRight: "20vw"
+      }}
+      >
+        更新
+      </Box>
       <Box
         onClick={props.isHost ? handleDelete : handleClose}
         sx={{
-          width: "30vw",
-          height: "10vw",
+          width: "60vw",
+          height: "12.5vw",
           backgroundColor: "#bde0fe",
           margin: "auto",
           display: "flex",

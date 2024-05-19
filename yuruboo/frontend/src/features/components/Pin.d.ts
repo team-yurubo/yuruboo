@@ -1,5 +1,5 @@
 declare type Pin = {
-    readonly id: number;
+    readonly id: string;
     title: string;
     genre: string;
     budget: string;

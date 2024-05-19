@@ -12,6 +12,7 @@ type Props = {
   isOpen: boolean;
   isHost: boolean;
   onClose: () => void;
+  setGatheringID: (id: string) => void;
 };
 
 const budge_dic = [
@@ -155,7 +156,10 @@ export const Googlemap = (props: Props) => {
                         <p>予算：{getLabelByValue(selectedPin.budget)}</p>
                         <p>集合時間：{formatJapaneseDateTime(selectedPin.time)}</p>
                         <p>{selectedPin.body}</p>
-                        <button onClick={props.onClose}>
+                        <button onClick={()=>{
+                          props.setGatheringID(selectedPin.id);
+                          props.onClose();
+                          }}>
                           参加
                         </button>
                     </div>

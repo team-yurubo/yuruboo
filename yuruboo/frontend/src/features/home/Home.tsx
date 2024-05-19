@@ -94,6 +94,10 @@ const Home: React.FC = () => {
     setMinute(e.target.value);
   };
 
+  const handleSetGatheringID = (id: string) => {
+    setgatheringID(id);
+  };
+
   function toDateTimeString(hourString: string, minuteString: string): string {
     const now = new Date();
     
@@ -217,7 +221,8 @@ const Home: React.FC = () => {
     })
     .then(response => response.json())
     .then(data => {
-      console.log(data.id);
+      console.log(`おしりりりり:${data.id}`);
+      console.log(`おしりりりり:${user.id}`);
       setgatheringID(data.id);
     })
     .catch(error => console.error('Error:', error));
@@ -277,6 +282,7 @@ const Home: React.FC = () => {
         isOpen={standby}
         isHost={isHost}
         onClose={handleisHost}
+        setGatheringID={handleSetGatheringID}
       />
       <GooglemapSubmitForm
         genre={genre}
