@@ -118,7 +118,7 @@ export const StandbyForHost = (props: Props) => {
     <Box
       position="fixed"
       sx={{
-        backgroundColor: "#cdb4db",
+        backgroundColor: "#FFADAD",
         width: "100vw",
         height: "100vh",
         zIndex: 10000,
@@ -131,7 +131,7 @@ export const StandbyForHost = (props: Props) => {
       {gatheringData && (
         <Box
         sx={{
-          marginTop: "25vh",
+          marginTop: "30vh",
           textAlign: "center",
           fontSize: "20px"
         }}
@@ -140,7 +140,7 @@ export const StandbyForHost = (props: Props) => {
           <div style={{ marginTop: "10px", marginBottom: "10px" }}>あなたは<span style={{ fontWeight: "bold"}}>{typeOfUser}</span>です</div>
           <div style={{ marginTop: "10px", marginBottom: "10px" }}>ジャンル:<span style={{ fontWeight: "bold"}}>{gatheringData["genre"]}</span></div>
           <div style={{ marginTop: "10px", marginBottom: "10px" }}>現在の参加者:<span style={{ fontWeight: "bold"}}>{Object.keys(gatheringData["participants"]).length}</span></div>
-          <div style={{ marginTop: "10px", marginBottom: "10px" }}>詳細</div>
+          <div style={{ marginTop: "10px", marginBottom: "10px", fontWeight: "bold" }}>詳細</div>
           <div style={{ fontSize: "17.5px" }}>{gatheringData["body"]}</div>
         </Box>
       )}
@@ -149,15 +149,16 @@ export const StandbyForHost = (props: Props) => {
       sx={{
         width: "15vw",
         height: "7.5vw",
-        backgroundColor: "#E07A5F",
+        backgroundColor: "#F2CC8F",
         margin: "auto",
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
         fontSize: "15px",
         fontWeight: "bold",
-        marginBottom: "15vh",
-        marginRight: "20vw"
+        marginBottom: "10vh",
+        marginRight: "20vw",
+        borderRadius: "10px"
       }}
       >
         更新
@@ -167,14 +168,15 @@ export const StandbyForHost = (props: Props) => {
         sx={{
           width: "60vw",
           height: "12.5vw",
-          backgroundColor: "#bde0fe",
+          backgroundColor: "#F4F1DE",
           margin: "auto",
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
           fontSize: "20px",
           fontWeight: "bold",
-          marginBottom: "10vh"
+          marginBottom: "10vh",
+          borderRadius: "10px"
         }}
       >
         {buttonText}
