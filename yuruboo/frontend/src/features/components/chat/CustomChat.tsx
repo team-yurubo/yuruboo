@@ -184,7 +184,7 @@ const CustomChat: React.FC<CustomChatProps> = ({
         height: "100vh",
         backgroundColor: backgroundColor,
         position: "fixed",
-        zIndex: 10001,
+        zIndex: 10000,
         fontFamily: 'Helvetica', 
       }}
     >
