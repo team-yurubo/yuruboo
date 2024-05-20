@@ -16,6 +16,8 @@ import { useAuthContext } from "../auth/AuthContext";
 import { fetchAsyncLogoutUser } from "../auth/api";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
+import CustomChat from "./chat/CustomChat";
+import ChatOpenner from "./chat/ChatOpenner";
 
 type Props = {
   isOpen: boolean;
@@ -27,6 +29,15 @@ type Props = {
 
 export const StandbyForHost = (props: Props) => {
   const [gatheringData, setGatheringData] = useState(null);
+  const [chat, setChat] = useState(false);
+
+  const handleCloseChat = () => {
+    setChat(false);
+  };
+
+  const handleToggleChat = () => {
+    setChat(!chat);
+  };
 
   useEffect(() => {
     if (props.isOpen) {
@@ -115,6 +126,15 @@ export const StandbyForHost = (props: Props) => {
   };
 
   return (
+    <>
+    {gatheringData && <CustomChat 
+      isOpen={chat}
+      handleCloseChat={handleCloseChat}
+      title={gatheringData["title"]}
+      gatheringID={props.gatheringID}
+      backgroundColor="#FFADAD"
+      messageLogBackgroundColor="#F4F1DE"
+    />}
     <Box
       position="fixed"
       sx={{
@@ -144,6 +164,8 @@ export const StandbyForHost = (props: Props) => {
           <div style={{ fontSize: "17.5px" }}>{gatheringData["body"]}</div>
         </Box>
       )}
+      <Box display="flex" justifyContent="space-between" alignItems="center" p={2}>
+      <ChatOpenner onClick={handleToggleChat} />
       <Box
       onClick={reloadData}
       sx={{
@@ -162,6 +184,7 @@ export const StandbyForHost = (props: Props) => {
       }}
       >
         更新
+      </Box>
       </Box>
       <Box
         onClick={props.isHost ? handleDelete : handleClose}
@@ -182,5 +205,6 @@ export const StandbyForHost = (props: Props) => {
         {buttonText}
       </Box>
     </Box>
+    </>
   );
 };
