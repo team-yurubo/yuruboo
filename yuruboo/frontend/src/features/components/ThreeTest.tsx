@@ -6,6 +6,7 @@ import { OrbitControls, Environment, Sphere, useEnvironment } from '@react-three
 import { useTexture, Cloud, useGLTF } from "@react-three/drei";
 import { Bloom, EffectComposer } from '@react-three/postprocessing';
 import { BlurPass, Resizer, KernelSize, Resolution } from 'postprocessing'
+import MovingCosmos from './three/MovingCosmos'
 type BoxProps = {
   position: [x: number, y: number, z: number];
 };
@@ -281,7 +282,8 @@ export const ThreeTest = () => {
 				<Base position={[0, -1, 0]} />
 				{/* <Flower position={[2.5, 0, 0.5]} /> */}
 				{flowers.map((flower, index) => (
-          <Flower key={index} position={flower.position} color={flower.color} />
+          // <Flower key={index} position={flower.position} color={flower.color} />
+          <MovingCosmos key={index} position={flower.position} color={flower.color} grad={{ grad_x, grad_z }} />
         ))}
 				<Cloud
 					position={[5, 10, -10]} // 雲のポジショニング
