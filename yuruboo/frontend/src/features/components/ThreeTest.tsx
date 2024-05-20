@@ -6,6 +6,7 @@ import { OrbitControls, Environment, Sphere, useEnvironment } from '@react-three
 import { useTexture, Cloud, useGLTF } from "@react-three/drei";
 import { Bloom, EffectComposer } from '@react-three/postprocessing';
 import { BlurPass, Resizer, KernelSize, Resolution } from 'postprocessing'
+import { useAuthContext } from '../auth/AuthContext'
 type BoxProps = {
   position: [x: number, y: number, z: number];
 };
@@ -117,6 +118,7 @@ const Model: React.FC<BoxProps & { gltf: any; rotation: [number, number, number]
 export const ThreeTest = () => {
 	const [flowers, setFlowers] = useState<{ position: [number, number, number]; color: string }[]>([]);
   const [flowerColors, setFlowerColors] = useState<string[]>([]);
+  const { user } = useAuthContext();
 
   const handleAddFlower = () => {
     const x = Math.random() * 15 - 7.5;
@@ -132,21 +134,19 @@ export const ThreeTest = () => {
   useEffect(() => {
     const fetchFlowerColors = async () => {
       try {
-        const response = await fetch('http://127.0.0.1:8000/getflowercolor/');
+        const response = await fetch(`http://127.0.0.1:8000/getflowercolor/${user.id}/`);
         if (response.ok) {
           const data = await response.json();
           const colors: string[] = [];
 
-          data.forEach((item: any) => {
-            item.colors.forEach((colorItem: any) => {
-              const { color, count } = colorItem;
-              for (let i = 0; i < count; i++) {
-                colors.push(color);
-                const x = Math.random() * 15 - 7.5;
-                const z = Math.random() * 15 - 7.5;
-                setFlowers((prevFlowers) => [...prevFlowers, { position: [x, 0, z], color }]);
-              }
-            });
+          data.colors.forEach((colorItem: any) => {
+            const { color, count } = colorItem;
+            for (let i = 0; i < count; i++) {
+              colors.push(color);
+              const x = Math.random() * 15 - 7.5;
+              const z = Math.random() * 15 - 7.5;
+              setFlowers((prevFlowers) => [...prevFlowers, { position: [x, 0, z], color }]);
+            }
           });
 
           setFlowerColors(colors);
