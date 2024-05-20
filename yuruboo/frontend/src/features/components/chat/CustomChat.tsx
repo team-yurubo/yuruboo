@@ -1,8 +1,9 @@
 // src/components/CustomChat.tsx
 import React, { useEffect, useState, useRef } from 'react';
-import { getGatheringId, getMessageLogs, sendMessage } from './api';
+import { getMessageLogs, sendMessage } from './api';
 import { Box, Button, CircularProgress, Container, TextField, Typography, List, ListItem, ListItemText, Avatar, Paper, Snackbar, Alert } from '@mui/material';
 import { useAuthContext } from '../../auth/AuthContext';
+import ChatExitButton from './ChatExitButton';
 
 interface User {
   id: number;
@@ -32,6 +33,10 @@ interface CustomChatProps {
   messageLogBackgroundColor?: string;
   myMessageColor?: string;
   otherMessageColor?: string;
+  title?: string;
+  handleCloseChat?: () => void;
+  isOpen?: boolean;
+  gatheringID?: string;
 }
 
 const CustomChat: React.FC<CustomChatProps> = ({
@@ -39,6 +44,10 @@ const CustomChat: React.FC<CustomChatProps> = ({
   messageLogBackgroundColor = '#FFFFFF',
   myMessageColor = '#DCF8C6',
   otherMessageColor = '#FFF',
+  title = 'Chat',
+  gatheringID = "00000000-0000-0000-0000-000000000001",
+  handleCloseChat,
+  isOpen,
 }) => {
   const { user } = useAuthContext();
   const [loading, setLoading] = useState(true);
@@ -66,6 +75,10 @@ const CustomChat: React.FC<CustomChatProps> = ({
       setError('Failed to fetch messages');
     }
   };
+
+  const getGatheringId = async () => {
+    return gatheringID;
+  }
 
   useEffect(() => {
     const initializeChat = async () => {
@@ -159,13 +172,31 @@ const CustomChat: React.FC<CustomChatProps> = ({
     );
   }
 
+  if (!isOpen) {
+    return null;
+  }
+
   return (
+    <Box
+      sx={{
+        width: "100vw",
+        height: "100vh",
+        backgroundColor: backgroundColor,
+        position: "fixed",
+        zIndex: 10001,
+        fontFamily: 'Helvetica', 
+      }}
+    >
     <Container style={{ backgroundColor }}>
       <Box my={4}>
+        <Box display="flex" justifyContent="center">
         <Typography variant="h4" gutterBottom>
-          Chat Messages
+        <div style={{ fontSize: "35px", fontWeight: "bold" }}>{title}</div>
         </Typography>
-        <Paper style={{ height: '60vh', overflowY: 'auto', padding: '16px', backgroundColor: messageLogBackgroundColor }}>
+        <ChatExitButton onClick={handleCloseChat} />
+        </Box>
+
+        <Paper style={{ height: '70vh', overflowY: 'auto', padding: '16px', backgroundColor: messageLogBackgroundColor }}>
           <List>
             {messages.map((message) => (
               <ListItem
@@ -235,6 +266,7 @@ const CustomChat: React.FC<CustomChatProps> = ({
         </Alert>
       </Snackbar>
     </Container>
+    </Box>
   );
 };
 
