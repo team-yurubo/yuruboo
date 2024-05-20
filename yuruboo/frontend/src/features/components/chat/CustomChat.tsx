@@ -49,6 +49,11 @@ const CustomChat: React.FC<CustomChatProps> = ({
   handleCloseChat,
   isOpen,
 }) => {
+  
+  if (!isOpen) {
+    return null;
+  }
+
   const { user } = useAuthContext();
   const [loading, setLoading] = useState(true);
   const [messages, setMessages] = useState<Message[]>([]);
@@ -170,10 +175,6 @@ const CustomChat: React.FC<CustomChatProps> = ({
         </Typography>
       </Container>
     );
-  }
-
-  if (!isOpen) {
-    return null;
   }
 
   return (
