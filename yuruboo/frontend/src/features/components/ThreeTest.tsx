@@ -51,16 +51,6 @@ const Cone: React.FC<BoxProps> = (props) => {
 const Cylinder: React.FC<BoxProps> = (props) => {
   const mesh = useRef<Mesh>(null!);
 
-
-  // x, zをもとに揺れの初期位相を決定
-  const theta = props.position[0] * grad_x + props.position[2] * grad_z;
-  
-  useFrame(({ clock }) => {
-    const time = clock.getElapsedTime();
-    // 花びらの揺れに合わせて中心を揺らす動きをシミュレート
-    mesh.current.position.y += Math.sin(time * 2 + theta) * 0.0007;
-  });
-
   return (
     <mesh
       {...props}
@@ -70,9 +60,7 @@ const Cylinder: React.FC<BoxProps> = (props) => {
 			receiveShadow
     >
       <cylinderGeometry args={[0.1, 0.1, 1, 32]}/>
-      <meshStandardMaterial color={'#005133'} />
-      {/* <meshStandardMaterial color={'#005133'} emissive={'#005133'} emissiveIntensity={2} toneMapped={false} /> */}
-
+      <meshStandardMaterial color={'#386641'} />
     </mesh>
   );
 };
@@ -95,110 +83,16 @@ const Cylinder2: React.FC<BoxProps & { color: string }> = (props) => {
   );
 };
 
-// const Flower: React.FC<BoxProps & { color: string }> = (props) => {
-//   const { position, color } = props;
-
-//   return (
-//     <group>
-//       <Cylinder position={[position[0], position[1] - 0.5, position[2]]} />
-//       <Cylinder2 position={[position[0], position[1], position[2]]} color={color} />
-//     </group>
-//   );
-// };
-
-
-// 風が吹く方向をランダムに決定
-const grad_x = Math.random();
-const grad_z = Math.random();
-
-const Petal: React.FC<BoxProps & { color: string, rotation: number[]}> = (props) => {
-  const mesh = useRef<Mesh>(null!);
-  const texture = useTexture("../../../public/seaside_rock_diff_4k.jpg"); // 花びら用テクスチャ
-  const { color } = props;
-  const DoubleSide = 2;
-
-  // x, zをもとに揺れの初期位相を決定
-  const theta = props.position[0] * grad_x + props.position[2] * grad_z;
-
-  useFrame(({ clock }) => {
-    const time = clock.getElapsedTime();
-    // 花びらの揺れをシミュレート
-    mesh.current.position.y += Math.sin(time * 2 + theta) * 0.0007;
-    mesh.current.rotation.z = props.rotation![2] + Math.sin(time * 2 + theta) * 0.2;
-
-    // mesh.current.position.y += 
-    // mesh.current.rotation.x = props.rotation![0] + Math.sin(time + theta) * 0.2;
-  });
-
-
-  return (
-    <mesh
-      {...props}
-      ref={mesh}
-      scale={1}
-			castShadow
-			receiveShadow
-    >
-      <boxGeometry args={[0.6, 0.01, 0.2]} />
-      {/* <meshStandardMaterial map={texture} color={color} side={DoubleSide} /> */}
-      <meshStandardMaterial color={color} emissive={color} emissiveIntensity={2} toneMapped={false} />
-
-    </mesh>
-  );
-};
-
-const FlowerCenter: React.FC<BoxProps> = (props) => {
-  const mesh = useRef<Mesh>(null!);
-
-  // x, zをもとに揺れの初期位相を決定
-  const theta = props.position[0] * grad_x + props.position[2] * grad_z;
-
-  useFrame(({ clock }) => {
-    const time = clock.getElapsedTime();
-    // 花びらの揺れに合わせて中心を揺らす動きをシミュレート
-    mesh.current.position.y += Math.sin(time * 2 + theta) * 0.0007;
-  });
-
-  return (
-    <mesh
-      {...props}
-      ref={mesh}
-      scale={[0.1, 0.1, 0.1]}
-      castShadow
-      receiveShadow
-    >
-      <sphereGeometry args={[1, 32, 32]} />
-      <meshStandardMaterial color={'#ffdd00'} emissive={'#ffdd00'} emissiveIntensity={0.9} toneMapped={false} />
-      {/* <meshStandardMaterial color={'#ffdd00'} /> */}
-    </mesh>
-  );
-};
-
 const Flower: React.FC<BoxProps & { color: string }> = (props) => {
   const { position, color } = props;
-  const numPetals = 10;
-  const petals = [];
-  for (let i = 0; i < numPetals; i++) {
-    const angle = (i / numPetals) * Math.PI * 2;
-    petals.push(
-      <Petal
-        key={i}
-        position={[position[0] + Math.sin(angle) * 0.4, position[1], position[2] + Math.cos(angle) * 0.4]}
-        color={color}
-        rotation={[0, angle + 0.5 * Math.PI, 0]}
-      />
-    );
-  }
 
   return (
     <group>
-      {petals}
-      <FlowerCenter position={[position[0], position[1] , position[2]]} />
       <Cylinder position={[position[0], position[1] - 0.5, position[2]]} />
+      <Cylinder2 position={[position[0], position[1], position[2]]} color={color} />
     </group>
   );
 };
-
 
 const Scene = () => {
   const gltf = useGLTF('../../../public/boulder_01_1k.gltf');
@@ -268,6 +162,10 @@ export const ThreeTest = () => {
 
     fetchFlowerColors();
   }, []);
+
+  // MovingCosmosのための風の方向
+  const grad_x = Math.random()
+  const grad_z = Math.random()
 
 	return(
 		<div>
