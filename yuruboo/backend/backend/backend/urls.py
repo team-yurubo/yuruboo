@@ -26,6 +26,7 @@ from app.views.participation import ParticipationViewSet
 from app.views.user import CustomUserViewSet
 from app.views.getflowercolor import GetFlowerColorViewSet, GetFlowerColorViewSet_v2
 from app.views import delete_my_participation, close_gathering
+from app.views.getcurrentgathering import GetCurrentGatheringViewSet
 
 router = routers.DefaultRouter()
 router.register('genres', GenreViewSet)
@@ -38,6 +39,7 @@ router.register('messagelogs',MessageLogsViewSet, basename='messagelogs')
 router.register('getflowercolordetail',GetFlowerColorViewSet, basename='getflowercolordetail')
 router.register('getflowercolor',GetFlowerColorViewSet_v2, basename='getflowercolor')
 router.register('gatheringsv2',GatheringViewSetV2, basename='gatheringsv2')
+router.register('getcurrentgathering',GetCurrentGatheringViewSet, basename='getcurrentgathering')
 
 
 
