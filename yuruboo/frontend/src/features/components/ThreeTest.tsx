@@ -161,7 +161,7 @@ export const ThreeTest = () => {
     };
 
     fetchFlowerColors();
-  }, []);
+  }, [user]);
 
   // MovingCosmosのための風の方向
   const grad_x = Math.random()
