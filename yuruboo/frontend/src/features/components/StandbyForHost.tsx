@@ -127,14 +127,6 @@ export const StandbyForHost = (props: Props) => {
 
   return (
     <>
-    {gatheringData && <CustomChat 
-      isOpen={chat}
-      handleCloseChat={handleCloseChat}
-      title={gatheringData["title"]}
-      gatheringID={props.gatheringID}
-      backgroundColor="#FFADAD"
-      messageLogBackgroundColor="#F4F1DE"
-    />}
     <Box
       position="fixed"
       sx={{
@@ -205,6 +197,14 @@ export const StandbyForHost = (props: Props) => {
         {buttonText}
       </Box>
     </Box>
+    {gatheringData && <CustomChat 
+      isOpen={chat}
+      handleCloseChat={handleCloseChat}
+      title={gatheringData["title"]}
+      gatheringID={props.gatheringID}
+      backgroundColor="#FFADAD"
+      messageLogBackgroundColor="#F4F1DE"
+    />}
     </>
   );
 };

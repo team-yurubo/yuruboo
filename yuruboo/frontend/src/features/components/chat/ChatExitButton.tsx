@@ -12,7 +12,7 @@ const ChatExitButton = (props: Props) => {
       onClick={props.onClick}
       sx={{
         width: "15vw",
-        height: "7.5vw",
+        height: "5vh",
         backgroundColor: "#F2CC8F",
         margin: "auto",
         display: "flex",
